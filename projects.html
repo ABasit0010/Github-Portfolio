@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects | Abdul Basit Fiaz</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .project-grid {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .project-card {
+      background: rgba(0,0,0,0.6);
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      cursor: pointer;
+      text-align: center;
+      transition: 0.3s;
+    }
+    .project-card:hover {
+      background: rgba(0,0,0,0.8);
+      transform: scale(1.05);
+    }
+    .project-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+    .project-card a {
+      color: white;
+      text-decoration: none;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="logo">ABEE</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="projects.html" class="active">Projects</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- PROJECTS SECTION -->
+  <section class="projects">
+    <h1>My Projects</h1>
+    <div class="project-grid">
+
+      <div class="project-card">
+        <a href="projects/project1.html">
+          <img src="images/image1.png" alt="Project 1">
+          <h3>Atmega32 Development Board + Project</h3>
+          <p>Designed an atmega32 based development board PCB and implemented toll barrier system.</p>
+        </a>
+      </div>
+
+      <div class="project-card">
+        <a href="projects/project2.html">
+          <h3>Embedded Class AB Audio Amplifier</h3>
+          <p>Custom-designed PCB and embedded control system for high-quality audio.</p>
+        </a>
+      </div>
+
+      <div class="project-card">
+        <a href="projects/project3.html">
+          <img src="images/image2.jpg" alt="Project 3">
+          <h3>Power Divider Microstrip Line Tee</h3>
+          <p>Designed a Microstrip Tee Power divider in Ansys HFSS and fabricated PCB for 5GHz.</p>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Abdul Basit. All rights reserved.</p>
+  </footer>
+</body>
+</html>

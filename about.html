@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Me - Abdul Basit Fiaz</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      background: url('images/BG.png') center/cover no-repeat fixed;
+      color: white;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .story-container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 50px;
+    }
+    .story-block {
+      background: rgba(0,0,0,0.6);
+      border-radius: 10px;
+      padding: 20px;
+      width: 300px;
+      cursor: pointer;
+      text-align: center;
+      transition: 0.3s;
+    }
+    .story-block:hover {
+      background: rgba(0,0,0,0.8);
+      transform: scale(1.05);
+    }
+    .story-block h2 {
+      margin-bottom: 10px;
+      color: #ffcc00;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">ABEE</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <h1>About Me</h1>
+  <p>Click a block below to read more about me.</p>
+
+  <div class="story-container">
+    <div class="story-block" onclick="window.location.href='about/story_about.html'">
+      <h2>My Story</h2>
+      <p>How I started my journey in Electronics & Embedded Systems...</p>
+    </div>
+    <div class="story-block" onclick="window.location.href='about/location.html'">
+      <h2>My Location</h2>
+      <p>Where I live and work...</p>
+    </div>
+    <div class="story-block" onclick="window.location.href='about/education.html'">
+      <h2>My Education</h2>
+      <p>My academic background and achievements...</p>
+    </div>
+  </div>
+   <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Abdul Basit. All rights reserved.</p>
+  </footer>
+</body>
+</html>
