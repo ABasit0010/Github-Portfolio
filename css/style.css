@@ -4,13 +4,21 @@
 body {
   font-family: 'Poppins', sans-serif;
   margin: 0;
-  background: linear-gradient(to right, #e0f7fa, #f1f8e9);
+  background: url('../images/pcb-bg.png') repeat; /* PCB background */
+  background-size: cover;
   color: #333;
+}
+
+/* General Section Styling (applies to all pages) */
+section {
+  padding: 30px 20px;
+  max-width: 1100px;
+  margin: auto;
 }
 
 /* Header */
 header {
-  background: #222;
+  background: rgba(0,0,0,0.85);
   color: white;
   display: flex;
   justify-content: space-between;
@@ -35,30 +43,47 @@ header nav a.active {
   color: #00bcd4;
 }
 
-/* Hero Section */
+/* ===== HOMEPAGE HERO ===== */
 .hero {
-  text-align: center;
-  padding: 60px 20px;
-  background: url('') center/cover no-repeat;
-  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 50px;
+  flex-wrap: wrap;
 }
 
-.hero h1 {
+.hero-text {
+  flex: 1;
+  min-width: 300px;
+  max-width: 500px;
+}
+
+.hero-text h1 {
   font-size: 2.5em;
-  margin-bottom: 10px;
 }
 
-.hero p {
-  font-size: 1.2em;
+.wave {
+  animation: waveAnim 2s infinite;
 }
 
-.profile-pic {
-  width: 150px;
-  border-radius: 50%;
-  border: 3px solid white;
-  margin-bottom: 15px;
+@keyframes waveAnim {
+  0%, 60%, 100% { transform: rotate(0deg); }
+  30% { transform: rotate(20deg); }
 }
 
+.hero-text p {
+  font-size: 1.1em;
+  margin: 15px 0;
+  line-height: 1.5;
+}
+
+/* Social Icons */
+.social-icons img {
+  width: 28px;
+  margin-right: 10px;
+}
+
+/* Buttons */
 .btn {
   display: inline-block;
   padding: 10px 20px;
@@ -66,22 +91,29 @@ header nav a.active {
   color: white;
   text-decoration: none;
   border-radius: 6px;
-  margin: 10px;
   font-weight: 500;
+  margin: 5px;
+}
+
+.btn-alt {
+  background: #ff4081;
 }
 
 .btn:hover {
-  background: #0097a7;
+  opacity: 0.85;
 }
 
-/* Sections */
-section {
-  padding: 30px 20px;
-  max-width: 1100px;
-  margin: auto;
+.hero-buttons {
+  margin-top: 20px;
 }
 
-/* Projects Page */
+/* Hero Image */
+.hero-image img {
+  width: 350px;
+  max-width: 100%;
+}
+
+/* ===== PROJECTS PAGE ===== */
 .project-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -117,11 +149,11 @@ section {
   max-width: 400px;
   height: auto;
   display: block;
-  margin: 20px auto; /* centers image */
-  border-radius: 10px; /* optional rounded corners */
+  margin: 20px auto;
+  border-radius: 10px;
 }
 
-/* Blog Page */
+/* ===== BLOG PAGE ===== */
 .blog-card {
   background: white;
   padding: 20px;
@@ -136,6 +168,11 @@ section {
   color: #00bcd4;
 }
 
+.blog-card h2 a {
+  color: #00bcd4;
+  text-decoration: none;
+}
+
 .blog-card .date {
   font-size: 14px;
   color: gray;
@@ -147,7 +184,7 @@ section {
   line-height: 1.6;
 }
 
-/* Contact Page */
+/* ===== CONTACT PAGE ===== */
 form {
   background: white;
   padding: 20px;
@@ -177,9 +214,9 @@ form button:hover {
   background: #0097a7;
 }
 
-/* Footer */
+/* ===== FOOTER ===== */
 footer {
-  background: #222;
+  background: rgba(0,0,0,0.85);
   color: white;
   text-align: center;
   padding: 15px;
