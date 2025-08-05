@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audio Amplifier Using Discrete Components | Abdul Basit Fiaz</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .project-details {
+      max-width: 900px;
+      margin: 40px auto;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .project-details img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+
+    .project-details h1 {
+      color: #00bcd4;
+      margin-bottom: 10px;
+    }
+
+    .project-details h2 {
+      margin-top: 20px;
+      color: #333;
+    }
+
+    .project-details ul {
+      text-align: left;
+      margin: 0 auto;
+      max-width: 500px;
+      padding-left: 20px;
+    }
+
+    .project-details table {
+      margin: 15px auto;
+      border-collapse: collapse;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .project-details table td {
+      padding: 6px;
+      border-bottom: 1px solid #ccc;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">ElectroMania</div>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../projects.html" class="active">Projects</a>
+      <a href="../skills.html">Skills</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- PROJECT DETAILS -->
+  <section class="project-details">
+    <h1>Audio Amplifier Using Discrete Components</h1>
+    <img src="../images/ecd.jpeg" alt="Audio Amplifier Project">
+    <p>
+      Designed and implemented a high-fidelity <strong>discrete-component audio amplifier</strong> capable of driving an <strong>8 Ω, 5 W speaker</strong> from a low-level microphone input, delivering clean and powerful sound output.
+    </p>
+
+    <h2>Architecture</h2>
+    <ul>
+      <li><strong>Preamplifier (3 Stages):</strong>
+        <ol>
+          <li>Common Collector (Buffer) – high input impedance for microphone matching.</li>
+          <li>Common Emitter – Voltage gain A_v1 = 23.</li>
+          <li>Common Emitter – Voltage gain  A_v2 = 22.</li>
+        </ol>
+        Overall gain:
+        <pre>A_v ≈ A_v1 × A_v2 ≈ 506</pre>
+      </li>
+      <li><strong>Output Stage – Class AB Amplifier:</strong>
+        <ul>
+          <li>Push–pull configuration (NPN TIP41, PNP TIP42).</li>
+          <li>Quiescent current set for minimal crossover distortion.</li>
+          <li>Large aluminum heat sinks for thermal stability.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h2>Key Specifications</h2>
+    <table>
+      <tr><td>Input Signal:</td><td>8 mV peak (mic)</td></tr>
+      <tr><td>Output Signal:</td><td>±4 Vrms</td></tr>
+      <tr><td>Load:</td><td>8 Ω, 5 W speaker</td></tr>
+      <tr><td>Supply Voltage:</td><td>±12 V</td></tr>
+      <tr><td>Total Harmonic Distortion (THD):</td><td>&lt; 5%</td></tr>
+      <tr><td>Input Impedance:</td><td>~100 kΩ</td></tr>
+      <tr><td>Power Output:</td><td>~3 W</td></tr>
+    </table>
+
+    <h2>Features</h2>
+    <ul>
+      <li>High input impedance for optimal microphone performance.</li>
+      <li>High voltage and power gain to efficiently drive speakers.</li>
+      <li>Low noise and distortion for clear audio reproduction.</li>
+      <li>Thermal stability with robust heat dissipation.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <p>
+      Ideal for small-scale PA systems, educational electronics projects, and embedded audio solutions.
+    </p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Abdul Basit. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

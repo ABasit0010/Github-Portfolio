@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FM Receiver – MATLAB & Hardware | Abdul Basit Fiaz</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .project-details {
+      max-width: 900px;
+      margin: 40px auto;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .project-details img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+
+    .project-details h1 {
+      color: #00bcd4;
+      margin-bottom: 10px;
+    }
+
+    .project-details h2 {
+      margin-top: 20px;
+      color: #333;
+    }
+
+    .project-details ul {
+      text-align: left;
+      margin: 0 auto;
+      max-width: 500px;
+      padding-left: 20px;
+    }
+
+    .project-details table {
+      margin: 15px auto;
+      border-collapse: collapse;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .project-details table td {
+      padding: 6px;
+      border-bottom: 1px solid #ccc;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">ElectroMania</div>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../projects.html" class="active">Projects</a>
+      <a href="../skills.html">Skills</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- PROJECT DETAILS -->
+  <section class="project-details">
+    <h1>FM Receiver – MATLAB Simulation & Hardware Implementation</h1>
+    <img src="../images/fm-receiver.jpg" alt="FM Receiver Project">
+    <p>
+      This project implements an <strong>FM receiver system</strong> using both <strong>MATLAB/Simulink simulation</strong> and <strong>hardware circuitry</strong>. The system demodulates an FM signal transmitted by a paired transmitter, allowing recovery of the original message signal in both simulated and real environments.
+    </p>
+
+    <h2>Objectives</h2>
+    <ul>
+      <li>Simulate FM signal reception and demodulation in MATLAB and Simulink.</li>
+      <li>Analyze signals in time and frequency domains.</li>
+      <li>Build a hardware FM receiver using discrete components.</li>
+      <li>Ensure receiver operates at the same frequency as transmitter.</li>
+    </ul>
+
+    <h2>Theoretical Background</h2>
+    <p>
+      In Frequency Modulation (FM), the carrier frequency varies according to the message signal. The FM receiver reverses this modulation to recover the original audio signal. FM demodulation techniques extract the baseband message while minimizing noise and distortion.
+    </p>
+
+    <h2>MATLAB Parameters</h2>
+    <table>
+      <tr><td>Sampling Frequency</td><td>100 kHz</td></tr>
+      <tr><td>Carrier Frequency</td><td>20 kHz</td></tr>
+      <tr><td>Message Frequency</td><td>1 kHz</td></tr>
+      <tr><td>Modulation Index</td><td>5</td></tr>
+      <tr><td>Signal Duration</td><td>0.1 s</td></tr>
+    </table>
+
+    <h2>Simulation Implementation</h2>
+    <ul>
+      <li>Generate message and FM modulated signals.</li>
+      <li>Analyze FM signal spectrum using FFT.</li>
+      <li>Demodulate using MATLAB’s <code>fmdemod</code> function.</li>
+      <li>Plot and compare message, FM, and demodulated signals.</li>
+      <li>Simulink model includes FM modulator, demodulator, low-pass filter, and measurement blocks.</li>
+    </ul>
+
+    <h2>Hardware Implementation</h2>
+    <ul>
+      <li><strong>Active Components:</strong> 2N304 transistors, voltage regulator.</li>
+      <li><strong>Passive Components:</strong> 40 nH inductor, variable capacitor, capacitors (10 μF, 220 μF), resistors.</li>
+      <li><strong>RF Front-End:</strong> LC tank circuit for tuning.</li>
+      <li>Speaker output driven by demodulated signal.</li>
+      <li>Powered by a regulated 5 V supply.</li>
+    </ul>
+
+    <h2>Results</h2>
+    <ul>
+      <li><strong>Simulation:</strong> Clean demodulated signal with proper spectral characteristics.</li>
+      <li><strong>Hardware:</strong> Stable FM reception and clear audio output.</li>
+      <li>No significant distortion; proper frequency matching achieved with transmitter.</li>
+    </ul>
+
+    <h2>Conclusion</h2>
+    <p>
+      The FM receiver was successfully implemented in both MATLAB simulation and hardware form. The project provided practical insights into analog communication systems, FM demodulation, and real-world RF circuit challenges.
+    </p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Abdul Basit. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

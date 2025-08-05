@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Single-Phase Transformer with Multi-Tap Output | Abdul Basit Fiaz</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .project-details {
+      max-width: 900px;
+      margin: 40px auto;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .project-details img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+    .project-details h1 {
+      color: #00bcd4;
+      text-align: center;
+    }
+    .project-details h2 {
+      margin-top: 20px;
+      color: #333;
+    }
+    .project-details ul {
+      margin-left: 20px;
+    }
+    code {
+      background: #f5f5f5;
+      padding: 2px 4px;
+      border-radius: 4px;
+      color: #c7254e;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">ElectroMania</div>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../projects.html" class="active">Projects</a>
+      <a href="../skills.html">Skills</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- PROJECT DETAILS -->
+  <section class="project-details">
+    <h1>Single-Phase Transformer with Multi-Tap Output</h1>
+    <img src="../images/single-phase-transformer.jpg" alt="Single Phase Transformer Design">
+    <p>
+      This project involved the design and fabrication of a <strong>single-phase transformer</strong> with a 12 V primary and a 24 V secondary rated at 2 A (48 VA). An added feature was the inclusion of <strong>multiple voltage taps</strong> at 8 V, 16 V, and 24 V to increase versatility.
+    </p>
+
+    <h2>Objectives</h2>
+    <ul>
+      <li>Primary Voltage: 12 V AC</li>
+      <li>Secondary Voltage: 24 V AC</li>
+      <li>Secondary Current: 2 A</li>
+      <li>Apparent Power: 48 VA</li>
+      <li>Multi-tap outputs at 8 V, 16 V, and 24 V</li>
+    </ul>
+
+    <h2>Equipment Used</h2>
+    <ul>
+      <li>Former</li>
+      <li>Iron Laminated Core</li>
+      <li>Copper Wire</li>
+      <li>Insulation Paper</li>
+    </ul>
+
+    <h2>Design Methodology</h2>
+    <p>The design process followed these major steps:</p>
+    <ol>
+      <li>Calculation of turns ratio:  
+        <code>Turns Ratio = N<sub>P</sub> / N<sub>S</sub> = V<sub>P</sub> / V<sub>S</sub></code>
+      </li>
+      <li>Determination of primary and secondary turns per volt: ~3 turns/volt</li>
+      <li>Wire diameter sizing based on current density (≈ 4 A/mm² for copper)</li>
+      <li>Copper loss calculation:  
+        <code>P<sub>cu</sub> = I² × R</code>
+      </li>
+      <li>Core area calculation from flux and material saturation flux density</li>
+      <li>Incorporation of taps for 8 V (24 turns), 16 V (48 turns), and 24 V (72 turns)</li>
+    </ol>
+
+    <h2>Core & Conductor Design</h2>
+    <ul>
+      <li><strong>Core:</strong> Laminated silicon steel E‑core to reduce eddy current losses</li>
+      <li><strong>Conductor:</strong> Copper wire sized according to current capacity; thicker gauge for secondary</li>
+      <li><strong>Insulation:</strong> Mylar/pressboard between primary & secondary, insulation tape between coil layers</li>
+    </ul>
+
+    <h2>Testing</h2>
+    <p>Two standard transformer tests were performed:</p>
+    <ul>
+      <li><strong>Open-Circuit Test:</strong> Determined core losses and magnetizing current</li>
+      <li><strong>Short-Circuit Test:</strong> Measured copper losses and determined equivalent impedance</li>
+    </ul>
+
+    <h2>Results</h2>
+    <ul>
+      <li>Primary: 36 turns (12 V × 3 turns/volt)</li>
+      <li>Secondary: 72 turns (24 V × 3 turns/volt)</li>
+      <li>Taps: 8 V (24 turns), 16 V (48 turns)</li>
+      <li>Output voltages matched design values within expected tolerances</li>
+      <li>Transformer operated efficiently with minimal heating</li>
+    </ul>
+
+    <h2>Conclusion</h2>
+    <p>
+      The project successfully achieved the design of a single-phase transformer meeting the 48 VA target with multi‑tap capability. Detailed calculation of turns, wire sizing, core selection, and insulation ensured safe and efficient operation. The additional taps provided greater flexibility for applications requiring multiple voltage levels from one transformer.
+    </p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Abdul Basit. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

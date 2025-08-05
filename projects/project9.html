@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heart Rate Calculation from ECG Signals | Abdul Basit Fiaz</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .project-details {
+      max-width: 900px;
+      margin: 40px auto;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .project-details img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+    .project-details h1 {
+      color: #00bcd4;
+      text-align: center;
+    }
+    .project-details h2 {
+      margin-top: 20px;
+      color: #333;
+    }
+    .project-details ul {
+      margin-left: 20px;
+    }
+    code {
+      background: #f5f5f5;
+      padding: 2px 4px;
+      border-radius: 4px;
+      color: #c7254e;
+      font-size: 0.9em;
+    }
+    table {
+      width: 100%;
+      max-width: 650px;
+      margin: 15px auto;
+      border-collapse: collapse;
+    }
+    table td, table th {
+      border: 1px solid #ccc;
+      padding: 6px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">ElectroMania</div>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../projects.html" class="active">Projects</a>
+      <a href="../skills.html">Skills</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- PROJECT DETAILS -->
+  <section class="project-details">
+    <h1>Heart Rate Calculation from ECG Signals using DSP</h1>
+    <img src="../images/ecg.jpg" alt="ECG Signal Processing">
+    <p>
+      This project focuses on extracting heart rate from ECG signals using <strong>digital signal processing techniques</strong>. It implements the Pan‑Tompkins algorithm for R‑peak detection, allowing accurate heart rate calculation and visualization from pre-recorded ECG data.
+    </p>
+
+    <h2>Objective</h2>
+    <p>
+      To develop a system for accurately calculating heart rate from ECG signals by detecting R‑peaks and computing R‑R intervals, while providing graphical visualization of the processed signals.
+    </p>
+
+    <h2>Scope</h2>
+    <p>
+      The system processes ECG data from the MIT‑BIH Arrhythmia Database. It applies filtering, R‑peak detection, and heart rate computation. Limitations include sensitivity to noise and dependency on ECG acquisition hardware quality.
+    </p>
+
+    <h2>Key Concepts</h2>
+    <ul>
+      <li><strong>ECG Components:</strong> P wave, QRS complex, T wave</li>
+      <li><strong>QRS Complex:</strong> Represents ventricular depolarization, most prominent feature</li>
+      <li><strong>R‑Peak:</strong> Tallest point in QRS, used for heart rate calculation</li>
+    </ul>
+
+    <h2>Algorithm Overview</h2>
+    <p>
+      The <strong>Pan‑Tompkins Algorithm</strong> was implemented with the following steps:
+    </p>
+    <ol>
+      <li>Band-pass filtering (0.5–45 Hz) to remove baseline wander, high‑frequency noise, and power line interference</li>
+      <li>Differentiation to highlight steep slopes of QRS complexes</li>
+      <li>Squaring to emphasize large differences and suppress noise</li>
+      <li>Moving window integration (~150 ms) to smooth and highlight QRS complexes</li>
+      <li>Adaptive thresholding for peak classification</li>
+    </ol>
+    <p>
+      Heart Rate formula:  
+      <code>Heart Rate (BPM) = 60 / Average R-R Interval (seconds)</code>
+    </p>
+
+    <h2>Implementation</h2>
+    <ul>
+      <li><strong>Tools:</strong> Python (NumPy, SciPy, Matplotlib, Pandas, Tkinter), MATLAB (prototyping)</li>
+      <li>Graphical User Interface for loading ECG files, visualizing raw/filtered signals, and displaying heart rate</li>
+      <li>Real‑time zooming and signal navigation</li>
+    </ul>
+
+    <h2>Data Source</h2>
+    <p>
+      <strong>MIT‑BIH Arrhythmia Database</strong> — 360 Hz sampling rate, containing both normal and abnormal heart rhythms.
+    </p>
+
+    <h2>Results</h2>
+    <ul>
+      <li>Raw ECG, filtered ECG, differentiated, squared, and integrated signals plotted</li>
+      <li>Accurate R‑peak detection on test signals</li>
+      <li>Calculated average heart rate displayed in BPM</li>
+    </ul>
+
+    <h2>Strengths & Limitations</h2>
+    <ul>
+      <li>High accuracy in clean signals</li>
+      <li>Real‑time capable algorithm</li>
+      <li>Sensitive to extreme noise without additional filtering</li>
+    </ul>
+
+    <h2>Conclusion</h2>
+    <p>
+      The system successfully calculates heart rate from ECG signals using DSP methods. Future work includes advanced noise filtering, testing with real‑time ECG hardware, and integrating more robust detection algorithms.
+    </p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Abdul Basit. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

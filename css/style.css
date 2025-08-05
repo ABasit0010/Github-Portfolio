@@ -18,17 +18,17 @@ section {
 
 /* Header */
 header {
-  background: rgba(0,0,0,0.85);
+  background: #000; /* Solid black to match skills.html */
   color: white;
   display: flex;
   justify-content: space-between;
-  padding: 15px 30px;
+  padding: 15px 30px; /* Same padding as skills.html */
   align-items: center;
 }
 
 header .logo {
-  font-size: 22px;
-  font-weight: 600;
+  font-size: 1.5em; /* Matches skills.html */
+  font-weight: bold; /* Matches skills.html */
 }
 
 header nav a {
@@ -36,13 +36,13 @@ header nav a {
   margin-left: 20px;
   text-decoration: none;
   font-size: 16px;
+  font-weight: bold; /* Matches skills.html */
 }
 
 header nav a:hover,
 header nav a.active {
   color: #00bcd4;
 }
-
 /* ===== HOMEPAGE HERO ===== */
 .hero {
   display: flex;
@@ -214,12 +214,12 @@ form button:hover {
   background: #0097a7;
 }
 
-/* ===== FOOTER ===== */
+/* Footer */
 footer {
-  background: rgba(0,0,0,0.85);
+  background: #000; /* Solid black to match skills.html */
   color: white;
   text-align: center;
-  padding: 15px;
+  padding: 15px; /* Same padding as skills.html */
   font-size: 14px;
   margin-top: 20px;
 }

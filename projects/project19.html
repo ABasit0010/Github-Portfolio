@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tweenbot Custom PCB Layout | Abdul Basit Fiaz</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .project-details {
+      max-width: 900px;
+      margin: 40px auto;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .project-details img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+    .project-details h1 {
+      color: #00bcd4;
+      text-align: center;
+    }
+    .project-details h2 {
+      margin-top: 20px;
+      color: #333;
+    }
+    .project-details ul {
+      margin-left: 20px;
+    }
+    pre {
+      background: #f5f5f5;
+      padding: 10px;
+      overflow-x: auto;
+      border-radius: 6px;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">ElectroMania</div>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../projects.html" class="active">Projects</a>
+      <a href="../skills.html">Skills</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- PROJECT DETAILS -->
+  <section class="project-details">
+    <h1>Custom PCB Layout for Tweenbot</h1>
+    <img src="../images/tweenbot.png" alt="Tweenbot PCB Layout">
+
+    <h2>Abstract</h2>
+    <p>
+      The Tweenbot PCB was designed to provide a compact, efficient, and reliable control board 
+      for a small autonomous robot platform. It integrates the microcontroller, motor driver, 
+      and power management circuits into a single board, reducing wiring complexity and improving 
+      mechanical stability.
+    </p>
+
+    <h2>Objectives</h2>
+    <ul>
+      <li>Design a custom PCB to house all control and power components of the Tweenbot.</li>
+      <li>Provide direct connection points for motors, sensors, and battery.</li>
+      <li>Optimize size for integration into small robotic chassis.</li>
+    </ul>
+
+    <h2>Hardware Components</h2>
+    <ul>
+      <li>ATmega328P Microcontroller</li>
+      <li>L298N Motor Driver IC</li>
+      <li>Voltage Regulators (5 V and 3.3 V)</li>
+      <li>Pin Headers for Ultrasonic Sensor, IR Sensors</li>
+      <li>Battery Connector (Li-ion 7.4 V)</li>
+      <li>Decoupling Capacitors & Flyback Diodes</li>
+      <li>FR4 PCB (Double Layer, 1.6 mm)</li>
+    </ul>
+
+    <h2>System Design & Functionality</h2>
+    <p>
+      The ATmega328P handles robot navigation and control logic, interfacing with ultrasonic and IR sensors 
+      for obstacle detection. The L298N driver controls two DC motors, enabling forward, reverse, and turning motions. 
+      The board includes power regulation to ensure stable operation for logic (5 V) and motor power (up to 12 V).
+    </p>
+
+    <h2>Technical Specifications</h2>
+    <ul>
+      <li>Operating Voltage: 7–12 V DC</li>
+      <li>Logic Voltage: 5 V, Motor Voltage: up to 12 V</li>
+      <li>Motor Channels: 2 (bidirectional)</li>
+      <li>Sensor Inputs: 3 digital, 2 analog</li>
+      <li>PCB Size: 70 mm × 60 mm</li>
+    </ul>
+
+    <h2>PCB Design Process</h2>
+    <p>
+      The PCB was designed in KiCad with attention to proper motor current trace widths and separation 
+      of high-current and logic grounds. Flyback diodes were placed near the L298N outputs to protect 
+      against voltage spikes. Mounting holes were added for chassis integration.
+    </p>
+
+    <h2>Key Circuit Snippet</h2>
+    <pre>
+// Motor control example
+digitalWrite(MOTOR_LEFT_FORWARD, HIGH);
+digitalWrite(MOTOR_LEFT_BACKWARD, LOW);
+digitalWrite(MOTOR_RIGHT_FORWARD, HIGH);
+digitalWrite(MOTOR_RIGHT_BACKWARD, LOW);
+    </pre>
+
+    <h2>Testing & Results</h2>
+    <p>
+      The PCB was assembled and tested with the Tweenbot chassis. All motors responded correctly to control signals, 
+      and sensor readings were stable. The board demonstrated reliable operation with minimal noise interference.
+    </p>
+
+    <h2>Conclusion</h2>
+    <p>
+      The custom PCB for Tweenbot significantly reduced wiring complexity and improved performance stability. 
+      Its modular design allows for future expansions, such as wireless control modules or additional sensors.
+    </p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Abdul Basit. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

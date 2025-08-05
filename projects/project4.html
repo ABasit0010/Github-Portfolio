@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EEG Real-Time Visualization and Analysis | Abdul Basit Fiaz</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .project-details {
+      max-width: 900px;
+      margin: 40px auto;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .project-details img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+
+    .project-details h1 {
+      color: #00bcd4;
+      margin-bottom: 10px;
+    }
+
+    .project-details h2 {
+      margin-top: 20px;
+      color: #333;
+    }
+
+    .project-details ul {
+      text-align: left;
+      margin: 0 auto;
+      max-width: 500px;
+      padding-left: 20px;
+    }
+
+    .project-details table {
+      margin: 15px auto;
+      border-collapse: collapse;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .project-details table td {
+      padding: 6px;
+      border-bottom: 1px solid #ccc;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">ElectroMania</div>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../projects.html" class="active">Projects</a>
+      <a href="../skills.html">Skills</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- PROJECT DETAILS -->
+  <section class="project-details">
+    <h1>Real-Time Visualization and Analysis of EEG Signals</h1>
+    <img src="../images/eeg.jpg" alt="EEG Real-Time Visualization Project">
+    <p>
+      This project implements a <strong>real-time EEG signal visualization and analysis system</strong> using MATLAB. It processes multichannel EEG data, removes power-line interference, extracts standard brainwave frequency bands, and simulates live signal streaming for neurophysiological analysis.
+    </p>
+
+    <h2>Objectives</h2>
+    <ul>
+      <li>Load and visualize multichannel EEG data.</li>
+      <li>Remove 50 Hz noise using a notch filter.</li>
+      <li>Extract Delta, Theta, Alpha, Sigma, and Beta bands using bandpass filters.</li>
+      <li>Simulate real-time streaming for the alpha band.</li>
+    </ul>
+
+    <h2>Background</h2>
+    <ul>
+      <li><strong>EEG Signals:</strong> Brain activity measured via scalp electrodes, recorded in microvolts.</li>
+      <li><strong>Noise Sources:</strong> Power-line interference, muscle artifacts (EMG), eye blinks (EOG), electrode movement.</li>
+      <li><strong>Brainwave Bands:</strong>
+        <ul>
+          <li>Delta: 0.5–4 Hz (deep sleep)</li>
+          <li>Theta: 4–7 Hz (meditation)</li>
+          <li>Alpha: 8–12 Hz (relaxation)</li>
+          <li>Sigma: 12–16 Hz (sleep spindles)</li>
+          <li>Beta: 13–30 Hz (active thinking)</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h2>Filter Design</h2>
+    <ul>
+      <li><strong>Notch Filter:</strong> 
+        <pre>designfilt('bandstopiir', ...)</pre>
+        Removes 50 Hz power-line interference.
+      </li>
+      <li><strong>Bandpass Filters:</strong> 
+        <pre>bandpass(signal, [f_low f_high], fs)</pre>
+        Isolate specific EEG frequency bands.
+      </li>
+    </ul>
+
+    <h2>Implementation</h2>
+    <ul>
+      <li>Load and plot raw EEG signals from .mat dataset (5 channels, 500 Hz).</li>
+      <li>Apply IIR notch filter to remove 50 Hz interference.</li>
+      <li>Design FIR/IIR bandpass filters for each EEG band.</li>
+      <li>Simulate real-time streaming using a sliding 1–2 second window for alpha band extraction.</li>
+      <li>Develop MATLAB App Designer GUI for live EEG channel & band selection with PSD plotting.</li>
+    </ul>
+
+    <h2>Results</h2>
+    <ul>
+      <li>Significant reduction of 50 Hz interference confirmed in filtered data.</li>
+      <li>Distinct waveform morphology observed in each EEG band.</li>
+      <li>Real-time alpha band streaming prototype successfully demonstrated.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li>Sleep analysis and monitoring.</li>
+      <li>Brain-computer interfaces (BCI).</li>
+      <li>Clinical neurofeedback systems.</li>
+    </ul>
+
+    <h2>Conclusion</h2>
+    <p>
+      This project demonstrates an effective approach for <strong>EEG preprocessing, band extraction, and real-time visualization</strong> using MATLAB. The developed framework serves as a foundation for advanced EEG-based monitoring and BCI systems.
+    </p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Abdul Basit. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

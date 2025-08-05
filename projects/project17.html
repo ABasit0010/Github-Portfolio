@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Torch Light Custom PCB Layout Design | Abdul Basit Fiaz</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .project-details {
+      max-width: 900px;
+      margin: 40px auto;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .project-details img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+    .project-details h1 {
+      color: #00bcd4;
+      text-align: center;
+    }
+    .project-details h2 {
+      margin-top: 20px;
+      color: #333;
+    }
+    .project-details ul {
+      margin-left: 20px;
+    }
+    pre {
+      background: #f5f5f5;
+      padding: 10px;
+      overflow-x: auto;
+      border-radius: 6px;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">ElectroMania</div>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../projects.html" class="active">Projects</a>
+      <a href="../skills.html">Skills</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- PROJECT DETAILS -->
+  <section class="project-details">
+    <h1>Torch Light Custom PCB Layout Design</h1>
+    <img src="../images/torch.png" alt="Torch Light Custom PCB Layout Design">
+
+    <h2>Abstract</h2>
+    <p>
+      This project involves designing a custom PCB for a compact, portable torch light powered by rechargeable batteries. The PCB integrates LED lighting, current limiting, charging circuitry, and an on/off control switch in a minimal footprint suitable for handheld devices.
+    </p>
+
+    <h2>Objectives</h2>
+    <ul>
+      <li>Design a PCB for efficient LED torch operation.</li>
+      <li>Integrate battery charging circuit on the PCB.</li>
+      <li>Ensure compact and ergonomic design for handheld use.</li>
+    </ul>
+
+    <h2>Hardware Components</h2>
+    <ul>
+      <li>High-Brightness White LEDs (SMD type)</li>
+      <li>Rechargeable Li-ion Battery (18650 cell)</li>
+      <li>TP4056 Li-ion Charging Module IC</li>
+      <li>Current Limiting Resistors</li>
+      <li>Slide Switch / Push Button Switch</li>
+      <li>PCB substrate: FR4, 1.6 mm thickness</li>
+    </ul>
+
+    <h2>System Design & Functionality</h2>
+    <p>
+      The torch PCB is designed with LED drivers positioned to maximize light output. The TP4056 chip handles battery charging via micro-USB. The LEDs are connected through current-limiting resistors to ensure safe operation. The PCB layout was optimized to reduce track resistance and heat build-up.
+    </p>
+
+    <h2>Technical Specifications</h2>
+    <ul>
+      <li>LED Forward Voltage: 3.0–3.2 V</li>
+      <li>LED Current: 20 mA each</li>
+      <li>Battery Capacity: 2200 mAh</li>
+      <li>Charging Current: 1 A</li>
+      <li>Board Dimensions: 45 mm × 20 mm</li>
+    </ul>
+
+    <h2>PCB Design Process</h2>
+    <p>
+      The design was completed in EasyEDA with precise placement of LEDs in series-parallel configuration. Ground and VCC planes were used to improve current flow. The charging circuit was isolated from the LED path with proper trace separation to avoid noise coupling.
+    </p>
+
+    <h2>Key Circuit Snippet</h2>
+    <pre>
+LED+  ----[Rlimit]----|>|---- GND
+Battery+ --- TP4056 --- USB 5V
+    </pre>
+
+    <h2>Testing & Results</h2>
+    <p>
+      The torch provided continuous illumination for over 4 hours on a single charge. The charging circuit worked as expected, with LED brightness remaining constant until low battery cutoff.
+    </p>
+
+    <h2>Conclusion</h2>
+    <p>
+      The Torch Light Custom PCB design successfully integrates LED lighting and charging functionality in a small form factor. Future upgrades may include adjustable brightness levels and waterproof casing.
+    </p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Abdul Basit. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

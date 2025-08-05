@@ -3,35 +3,116 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Atmega32 Development Board | Abdul Basit Fiaz</title>
+  <title>ATmega32 Development Board | Abdul Basit Fiaz</title>
   <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .project-details {
+      max-width: 900px;
+      margin: 40px auto;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .project-details img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+    .project-details h1 {
+      color: #00bcd4;
+      text-align: center;
+    }
+    .project-details h2 {
+      margin-top: 20px;
+      color: #333;
+    }
+    .project-details ul {
+      margin-left: 20px;
+    }
+  </style>
 </head>
 <body>
+
+  <!-- HEADER -->
   <header>
-    <div class="logo">ABEE</div>
+    <div class="logo">ElectroMania</div>
     <nav>
       <a href="../index.html">Home</a>
       <a href="../projects.html" class="active">Projects</a>
+      <a href="../skills.html">Skills</a>
       <a href="../blog.html">Blog</a>
       <a href="../contact.html">Contact</a>
     </nav>
   </header>
 
+  <!-- PROJECT DETAILS -->
   <section class="project-details">
-    <h1>Atmega32 Development Board + Project</h1>
-    <img src="../images/image1.png" alt="Atmega32 Development Board">
-    <p>This project involved designing a custom Atmega32-based development board PCB and implementing a toll barrier system with sensors, motor control, and embedded software.</p>
-    <h2>Features:</h2>
+    <h1>ATmega32 Development Board</h1>
+    <img src="../images/atmega.png" alt="ATmega32 Development Board">
+
+    <h2>Abstract</h2>
+    <p>
+      This project involved the complete design, fabrication, and testing of a custom ATmega32 development board.
+      The board was built to serve as a versatile microcontroller platform for embedded system projects, allowing for quick prototyping and experimentation.
+      It integrates essential hardware components, power regulation, and I/O accessibility, making it suitable for both educational and practical applications.
+    </p>
+
+    <h2>Objectives</h2>
     <ul>
-      <li>Custom PCB design for Atmega32</li>
-      <li>Relay control for toll barrier motor</li>
-      <li>Sensor integration for vehicle detection</li>
-      <li>Embedded C firmware</li>
+      <li>Design a custom PCB layout for the ATmega32 microcontroller.</li>
+      <li>Fabricate the PCB using FR4 substrate and ferric chloride (FeCl₃) etching.</li>
+      <li>Assemble and solder all components, ensuring reliable connectivity.</li>
+      <li>Test, debug, and verify the functionality of the board.</li>
     </ul>
+
+    <h2>Key Features</h2>
+    <ul>
+      <li>Custom PCB layout optimized for ATmega32 DIP package.</li>
+      <li>On-board power supply with regulated 5V output.</li>
+      <li>ISP (In-System Programming) header for easy firmware uploading.</li>
+      <li>Multiple GPIO headers for peripheral interfacing.</li>
+      <li>Crystal oscillator circuit for precise clocking.</li>
+      <li>Reset circuitry with push-button control.</li>
+      <li>Indicator LEDs for power and status monitoring.</li>
+    </ul>
+
+    <h2>Design & Fabrication Process</h2>
+    <p>
+      The PCB layout was created using PCB design software, with careful routing to minimize noise and ensure clean power delivery.
+      The design was then printed on glossy paper and transferred to the copper-clad FR4 board.
+      Ferric chloride solution was used for the etching process, followed by drilling component holes and cleaning the board surface.
+      Components including the ATmega32 microcontroller, voltage regulator, headers, and passive components were soldered.
+      The assembled board underwent continuity testing before applying power.
+    </p>
+
+    <h2>Testing & Verification</h2>
+    <p>
+      A simple LED blinking program was uploaded via ISP to confirm microcontroller functionality.
+      All GPIO pins were tested for proper digital I/O operation.
+      The power regulation circuitry provided a stable 5V output under different loads.
+    </p>
+
+    <h2>Applications</h2>
+    <ul>
+      <li>Educational tool for learning embedded systems.</li>
+      <li>Base platform for robotics projects.</li>
+      <li>IoT device prototyping with external modules (Wi-Fi, Bluetooth, etc.).</li>
+      <li>Custom automation control systems.</li>
+    </ul>
+
+    <h2>Conclusion</h2>
+    <p>
+      The ATmega32 development board was successfully designed, fabricated, and tested.
+      It provides a stable, modular, and expandable platform for microcontroller-based applications.
+      The project strengthened PCB design, fabrication, and embedded system integration skills.
+    </p>
   </section>
 
+  <!-- FOOTER -->
   <footer>
     <p>© 2025 Abdul Basit. All rights reserved.</p>
   </footer>
+
 </body>
 </html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Breadboard Power Supply PCB Layout | Abdul Basit Fiaz</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .project-details {
+      max-width: 900px;
+      margin: 40px auto;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .project-details img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+    .project-details h1 {
+      color: #00bcd4;
+      text-align: center;
+    }
+    .project-details h2 {
+      margin-top: 20px;
+      color: #333;
+    }
+    .project-details ul {
+      margin-left: 20px;
+    }
+    pre {
+      background: #f5f5f5;
+      padding: 10px;
+      overflow-x: auto;
+      border-radius: 6px;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">ElectroMania</div>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../projects.html" class="active">Projects</a>
+      <a href="../skills.html">Skills</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- PROJECT DETAILS -->
+  <section class="project-details">
+    <h1>Custom PCB Layout for Breadboard Power Supply</h1>
+    <img src="../images/supply.png" alt="Breadboard Power Supply PCB">
+
+    <h2>Abstract</h2>
+    <p>
+      This project features the design of a compact, dual-voltage breadboard power supply PCB
+      that directly plugs into a standard breadboard. It provides regulated 5 V and 3.3 V outputs
+      from a common DC input, making it highly suitable for prototyping microcontroller and
+      sensor-based circuits.
+    </p>
+
+    <h2>Objectives</h2>
+    <ul>
+      <li>Design a compact PCB that fits directly onto a breadboard.</li>
+      <li>Provide selectable regulated voltages (5 V and 3.3 V).</li>
+      <li>Include overcurrent protection and an onboard power indicator.</li>
+    </ul>
+
+    <h2>Hardware Components</h2>
+    <ul>
+      <li>AMS1117-5.0 Voltage Regulator</li>
+      <li>AMS1117-3.3 Voltage Regulator</li>
+      <li>Electrolytic Capacitors for input/output smoothing</li>
+      <li>Ceramic Capacitors for high-frequency noise filtering</li>
+      <li>DC Barrel Jack (5.5 mm)</li>
+      <li>2× Male Pin Headers (for breadboard power rails)</li>
+      <li>LED Power Indicator with current-limiting resistor</li>
+      <li>FR4 PCB, 1.6 mm thickness</li>
+    </ul>
+
+    <h2>System Design & Functionality</h2>
+    <p>
+      The PCB takes in a DC input voltage (7 V–12 V) through the barrel jack or optional USB input.
+      It uses two AMS1117 linear regulators to supply 5 V and 3.3 V rails, selectable via jumper pins
+      for each breadboard rail. Capacitors at the regulator input and output ensure stable voltage
+      delivery with minimal ripple. An onboard LED indicates power status.
+    </p>
+
+    <h2>Technical Specifications</h2>
+    <ul>
+      <li>Input Voltage: 7 V – 12 V DC</li>
+      <li>Output Voltage: Selectable 5 V or 3.3 V for each rail</li>
+      <li>Max Output Current: 800 mA (per regulator)</li>
+      <li>PCB Size: 50 mm × 25 mm</li>
+      <li>Mounting: Direct breadboard insertion</li>
+    </ul>
+
+    <h2>PCB Design Process</h2>
+    <p>
+      Designed in EasyEDA, the layout minimizes track length between the regulator, capacitors,
+      and output pins to reduce noise and improve stability. Thick copper pours were used for
+      ground and Vcc to handle higher currents. The design includes silkscreen labels for easy
+      jumper configuration and connection identification.
+    </p>
+
+    <h2>Key Circuit Snippet</h2>
+    <pre>
+// Voltage Regulation using AMS1117:
+Vout = 1.25 * (1 + R2 / R1) + Iadj * R2
+// For fixed versions, internal resistors set the output to 3.3V or 5V.
+    </pre>
+
+    <h2>Testing & Results</h2>
+    <p>
+      The breadboard power supply delivered stable 5 V and 3.3 V outputs under load, with less
+      than 30 mV ripple. It fit securely on the breadboard and powered ESP32, Arduino, and
+      sensor modules without voltage drops. The onboard LED provided clear power indication.
+    </p>
+
+    <h2>Conclusion</h2>
+    <p>
+      This custom PCB provides a reliable, easy-to-use power source for breadboard prototyping.
+      Its compact design, dual voltage outputs, and ease of use make it a must-have tool for
+      electronics hobbyists and engineers.
+    </p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Abdul Basit. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

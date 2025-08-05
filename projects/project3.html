@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Microstrip Tee Power Divider | Abdul Basit Fiaz</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .project-details {
+      max-width: 900px;
+      margin: 40px auto;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .project-details img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+
+    .project-details h1 {
+      color: #00bcd4;
+      margin-bottom: 10px;
+    }
+
+    .project-details h2 {
+      margin-top: 20px;
+      color: #333;
+    }
+
+    .project-details ul {
+      text-align: left;
+      margin: 0 auto;
+      max-width: 500px;
+      padding-left: 20px;
+    }
+
+    .project-details table {
+      margin: 15px auto;
+      border-collapse: collapse;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .project-details table td {
+      padding: 6px;
+      border-bottom: 1px solid #ccc;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">ElectroMania</div>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../projects.html" class="active">Projects</a>
+      <a href="../skills.html">Skills</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- PROJECT DETAILS -->
+  <section class="project-details">
+    <h1>Microstrip Tee Power Divider with Quarter-Wave Transformer</h1>
+    <img src="../images/image2.jpg" alt="Microstrip Tee Power Divider">
+    <p>
+      This project involved the design, simulation, fabrication, and testing of a <strong>microstrip Tee power divider</strong> optimized for <strong>5 GHz applications</strong>, using <strong>quarter-wave transformers</strong> for impedance matching. The design was created and simulated in <strong>Ansys HFSS</strong> and then fabricated on an FR4 substrate.
+    </p>
+
+    <h2>Theoretical Background</h2>
+    <ul>
+      <li><strong>Microstrip Lines:</strong> Planar transmission lines supporting quasi-TEM wave propagation.</li>
+      <li><strong>Effective Dielectric Constant:</strong> 
+        <pre>ε_eff = (ε_r + 1) / 2</pre>
+      </li>
+      <li><strong>Characteristic Impedance:</strong>
+        <pre>Z_λ/4 = √(Z_in × Z_out)</pre>
+      </li>
+      <li><strong>Quarter-Wave Transformer:</strong> Used to match the 50 Ω main line to the desired output impedance (35.35 Ω) at 5 GHz.</li>
+    </ul>
+
+    <h2>Design & Simulation</h2>
+    <ul>
+      <li>Substrate: FR4 (εr = 4.4, h = 1.6 mm, tanδ = 0.02)</li>
+      <li>Operating frequency: 5 GHz</li>
+      <li>Main line: 50 Ω microstrip</li>
+      <li>Tee junction splitting into two quarter-wave transformers</li>
+      <li>Simulation results: S11 = −22 dB, S21 ≈ S31 = −3.96 dB (equal split)</li>
+    </ul>
+
+    <h2>Fabrication</h2>
+    <ul>
+      <li>Layout exported from HFSS and fabricated as a PCB.</li>
+      <li>High-frequency integrity maintained during etching.</li>
+      <li>SMA connectors soldered to all ports with proper grounding.</li>
+    </ul>
+
+    <h2>Testing & Measurements</h2>
+    <p>
+      After replacing faulty apparatus during initial trials, correct measurements showed nearly equal power division: ~1.5 V and ~1.4 V at respective output arms from a ~3.16 V input, confirming balanced operation.
+    </p>
+
+    <h2>Applications</h2>
+    <ul>
+      <li>Beamforming networks</li>
+      <li>Antenna array feeding</li>
+      <li>Radar systems</li>
+      <li>RF front ends in communication systems</li>
+      <li>Signal routing in test equipment</li>
+    </ul>
+
+    <h2>Challenges</h2>
+    <ul>
+      <li>Achieving precise impedance matching</li>
+      <li>Maintaining symmetry in layout</li>
+      <li>Preventing RF leakage through proper ground stitching</li>
+    </ul>
+
+    <h2>Conclusion</h2>
+    <p>
+      The integration of quarter-wave transformers effectively minimized return losses and achieved balanced power division. Future improvements could explore Wilkinson dividers for enhanced isolation or unequal split ratios for advanced RF applications.
+    </p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Abdul Basit. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DC-to-DC Buck Converter PCB Layout | Abdul Basit Fiaz</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .project-details {
+      max-width: 900px;
+      margin: 40px auto;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .project-details img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+    .project-details h1 {
+      color: #00bcd4;
+      text-align: center;
+    }
+    .project-details h2 {
+      margin-top: 20px;
+      color: #333;
+    }
+    .project-details ul {
+      margin-left: 20px;
+    }
+    pre {
+      background: #f5f5f5;
+      padding: 10px;
+      overflow-x: auto;
+      border-radius: 6px;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">ElectroMania</div>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../projects.html" class="active">Projects</a>
+      <a href="../skills.html">Skills</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- PROJECT DETAILS -->
+  <section class="project-details">
+    <h1>DC-to-DC Buck Converter PCB Layout Design</h1>
+    <img src="../images/buck.png" alt="DC-to-DC Buck Converter PCB Layout">
+
+    <h2>Abstract</h2>
+    <p>
+      This project involves designing a compact and efficient PCB for a DC-to-DC buck converter.
+      The converter steps down a higher DC voltage (e.g., 24 V) to a lower regulated voltage
+      (e.g., 5 V or 12 V) with high efficiency. The design prioritizes low heat generation,
+      stable output under varying loads, and minimal ripple.
+    </p>
+
+    <h2>Objectives</h2>
+    <ul>
+      <li>Design a PCB for a high-efficiency DC buck converter.</li>
+      <li>Ensure stable output with minimal voltage ripple.</li>
+      <li>Support a wide input voltage range and variable load conditions.</li>
+    </ul>
+
+    <h2>Hardware Components</h2>
+    <ul>
+      <li>LM2596S DC-DC Buck Converter IC</li>
+      <li>Schottky Diode (fast recovery)</li>
+      <li>Inductor: 33 µH, high-current type</li>
+      <li>Electrolytic Capacitors (input/output filtering)</li>
+      <li>Ceramic Capacitors for high-frequency noise suppression</li>
+      <li>Multi-turn Potentiometer for voltage adjustment</li>
+      <li>FR4 PCB, 1.6 mm thickness</li>
+    </ul>
+
+    <h2>System Design & Functionality</h2>
+    <p>
+      The LM2596 buck converter IC uses a switching topology to reduce input voltage to the
+      desired output. The Schottky diode ensures efficient freewheeling, while the inductor
+      stores energy during the on-time of the switch and releases it during off-time, smoothing
+      the output. Output capacitors reduce ripple, and the potentiometer allows output voltage
+      fine-tuning.
+    </p>
+
+    <h2>Technical Specifications</h2>
+    <ul>
+      <li>Input Voltage: 4.5 V – 40 V DC</li>
+      <li>Output Voltage: Adjustable, 1.23 V – 37 V</li>
+      <li>Maximum Output Current: 3 A</li>
+      <li>Efficiency: Up to 92%</li>
+      <li>Switching Frequency: 150 kHz</li>
+    </ul>
+
+    <h2>PCB Design Process</h2>
+    <p>
+      The PCB was designed in EasyEDA with attention to keeping the high-current loop area small,
+      minimizing EMI. Wide copper traces were used for the power path, and separate ground planes
+      were created for signal and power grounds to reduce noise. The inductor and diode were placed
+      close to the IC to minimize switching losses.
+    </p>
+
+    <h2>Key Circuit Snippet</h2>
+    <pre>
+// Voltage setting equation for LM2596:
+Vout = 1.23 * (1 + R2 / R1)
+    </pre>
+
+    <h2>Testing & Results</h2>
+    <p>
+      The PCB was assembled and tested with a 24 V input. It successfully delivered stable
+      5 V and 12 V outputs under 2 A load with ripple under 50 mV. Efficiency measured at 91%
+      for 12 V output at 1.5 A load.
+    </p>
+
+    <h2>Conclusion</h2>
+    <p>
+      The DC-to-DC buck converter PCB achieved high efficiency and stability, making it suitable
+      for embedded systems, battery-powered devices, and industrial electronics. The modular
+      design allows easy integration into various projects.
+    </p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Abdul Basit. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

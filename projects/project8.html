@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Ammeter Design | Abdul Basit Fiaz</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .project-details {
+      max-width: 900px;
+      margin: 40px auto;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .project-details img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+    .project-details h1 {
+      color: #00bcd4;
+      margin-bottom: 10px;
+    }
+    .project-details h2 {
+      margin-top: 20px;
+      color: #333;
+    }
+    .project-details ul {
+      text-align: left;
+      margin: 0 auto;
+      max-width: 650px;
+      padding-left: 20px;
+    }
+    .project-details table {
+      margin: 15px auto;
+      border-collapse: collapse;
+      width: 100%;
+      max-width: 600px;
+    }
+    .project-details table td, 
+    .project-details table th {
+      padding: 6px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+    code {
+      background: #f5f5f5;
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      color: #c7254e;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">ElectroMania</div>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../projects.html" class="active">Projects</a>
+      <a href="../skills.html">Skills</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- PROJECT DETAILS -->
+  <section class="project-details">
+    <h1>Digital Ammeter using ESP32 & ACS712</h1>
+    <img src="../images/digital-ammeter.jpg" alt="Digital Ammeter Design">
+    <p>
+      This project demonstrates the design and implementation of a <strong>Digital Ammeter</strong> using an ESP32 microcontroller and an ACS712 Hall-effect current sensor. The system measures current in real time and displays it on an OLED screen, with optional IoT capabilities for wireless monitoring.
+    </p>
+
+    <h2>Objective</h2>
+    <p>
+      To build a compact and accurate current measurement device that can display readings locally on an OLED display and optionally transmit them over Wi-Fi/Bluetooth for remote monitoring.
+    </p>
+
+    <h2>Hardware Components</h2>
+    <ul>
+      <li>ESP32 microcontroller</li>
+      <li>ACS712 Current Sensor (5A/20A/30A versions)</li>
+      <li>OLED Display (128×64 SSD1306)</li>
+      <li>5V power supply</li>
+      <li>Jumper wires and breadboard/PCB</li>
+      <li>Optional shunt resistor for extended range</li>
+    </ul>
+
+    <h2>Circuit Connections</h2>
+    <table>
+      <tr><th>Component</th><th>ESP32 Pin</th><th>Details</th></tr>
+      <tr><td>ACS712 OUT</td><td>GPIO34 (ADC)</td><td>Analog output of ACS712</td></tr>
+      <tr><td>ACS712 VCC</td><td>5V</td><td>Sensor power</td></tr>
+      <tr><td>ACS712 GND</td><td>GND</td><td>Common ground</td></tr>
+      <tr><td>OLED SCL</td><td>GPIO22</td><td>I²C clock</td></tr>
+      <tr><td>OLED SDA</td><td>GPIO21</td><td>I²C data</td></tr>
+      <tr><td>OLED VCC</td><td>3.3V</td><td>OLED power</td></tr>
+      <tr><td>OLED GND</td><td>GND</td><td>Common ground</td></tr>
+    </table>
+
+    <h2>Calculation Formula</h2>
+    <p>
+      The ACS712 outputs 2.5V at 0A. The current is calculated as:
+      <br><br>
+      <code>Current (A) = (Vout − Voffset) / Sensitivity</code>
+      <br><br>
+      For ACS712-5A: Sensitivity = 0.185 V/A
+    </p>
+
+    <h2>Software Design</h2>
+    <p>
+      The ESP32 reads analog voltage from the ACS712, converts it to current, and updates the OLED display. Optionally, readings can be sent over Wi-Fi/Bluetooth.
+    </p>
+
+    <h2>Testing & Calibration</h2>
+    <ul>
+      <li>Connect a known load and measure using a commercial ammeter for reference.</li>
+      <li>Adjust <code>offsetVoltage</code> and <code>sensitivity</code> in the code for calibration.</li>
+      <li>Validate readings at different load levels to ensure accuracy.</li>
+    </ul>
+
+    <h2>Sample Results</h2>
+    <table>
+      <tr><th>Test Load</th><th>Expected Current (A)</th><th>Measured (A)</th><th>Error (%)</th></tr>
+      <tr><td>10 Ω</td><td>0.50</td><td>0.49</td><td>2%</td></tr>
+      <tr><td>20 Ω</td><td>0.25</td><td>0.248</td><td>0.8%</td></tr>
+    </table>
+
+    <h2>Future Enhancements</h2>
+    <ul>
+      <li>Wi-Fi integration for cloud data logging (ThingSpeak, Blynk, etc.)</li>
+      <li>Mobile app monitoring</li>
+      <li>Extended current range using shunt resistor</li>
+    </ul>
+
+    <h2>Conclusion</h2>
+    <p>
+      The digital ammeter successfully measures and displays current in real time with high accuracy. With IoT integration, it can be transformed into a remote monitoring tool for industrial and hobbyist applications.
+    </p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Abdul Basit. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ESP32 Curtain Mover with Rain Sensor & L298N Motor Driver | Abdul Basit Fiaz</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .project-details {
+      max-width: 900px;
+      margin: 40px auto;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .project-details img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+    .project-details h1 {
+      color: #00bcd4;
+      text-align: center;
+    }
+    .project-details h2 {
+      margin-top: 20px;
+      color: #333;
+    }
+    .project-details ul {
+      margin-left: 20px;
+    }
+    pre {
+      background: #f5f5f5;
+      padding: 10px;
+      overflow-x: auto;
+      border-radius: 6px;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">ElectroMania</div>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../projects.html" class="active">Projects</a>
+      <a href="../skills.html">Skills</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- PROJECT DETAILS -->
+  <section class="project-details">
+    <h1>ESP32 Curtain Mover with Rain Sensor & L298N Motor Driver</h1>
+    <img src="../images/rain.jpg" alt="ESP32 Curtain Mover with Rain Sensor & L298N Motor Driver">
+
+    <h2>Abstract</h2>
+    <p>
+      This project automates curtain movement using an ESP32, rain sensor, and L298N motor driver. Curtains close automatically when rain is detected and can also be controlled manually via push buttons. The system is designed for smart home integration to improve comfort and protect interiors from weather damage.
+    </p>
+
+    <h2>Objectives</h2>
+    <ul>
+      <li>Automate curtain closing upon rain detection.</li>
+      <li>Allow manual curtain opening/closing.</li>
+      <li>Drive a DC motor for curtain movement using L298N motor driver.</li>
+    </ul>
+
+    <h2>Hardware Components</h2>
+    <ul>
+      <li>ESP32 Development Board</li>
+      <li>Rain Sensor Module (YL-83 or equivalent)</li>
+      <li>L298N Motor Driver</li>
+      <li>DC Motor with pulley/gear for curtain movement</li>
+      <li>Manual control push buttons</li>
+      <li>12V Power Supply</li>
+    </ul>
+
+    <h2>System Design & Functionality</h2>
+    <p>
+      The rain sensor outputs a digital HIGH signal when wet, triggering the ESP32 to close the curtain by rotating the DC motor in one direction. Manual buttons can override the automation to open or close the curtain as desired.
+    </p>
+
+    <h2>Pin Configuration</h2>
+    <ul>
+      <li>Rain Sensor OUT → GPIO32</li>
+      <li>Motor IN1 → GPIO26</li>
+      <li>Motor IN2 → GPIO27</li>
+      <li>Manual Open Button → GPIO33</li>
+      <li>Manual Close Button → GPIO25</li>
+    </ul>
+
+    <h2>Key Code Snippet</h2>
+    <pre>
+if (digitalRead(RAIN_SENSOR_PIN) == HIGH) {
+    // Rain detected - close curtain
+    digitalWrite(MOTOR_IN1, HIGH);
+    digitalWrite(MOTOR_IN2, LOW);
+} else if (digitalRead(OPEN_BUTTON) == LOW) {
+    // Manual open
+    digitalWrite(MOTOR_IN1, LOW);
+    digitalWrite(MOTOR_IN2, HIGH);
+} else if (digitalRead(CLOSE_BUTTON) == LOW) {
+    // Manual close
+    digitalWrite(MOTOR_IN1, HIGH);
+    digitalWrite(MOTOR_IN2, LOW);
+} else {
+    // Stop motor
+    digitalWrite(MOTOR_IN1, LOW);
+    digitalWrite(MOTOR_IN2, LOW);
+}
+    </pre>
+
+    <h2>Testing & Results</h2>
+    <p>
+      The system detected rainfall instantly, triggering curtain closure in under 2 seconds. Manual control buttons worked reliably, overriding the automated action when needed. Motor movement was smooth with adequate torque for standard curtains.
+    </p>
+
+    <h2>Conclusion</h2>
+    <p>
+      The ESP32 Curtain Mover with Rain Sensor provides a practical home automation feature, ensuring protection from sudden rain while giving users full manual control. Future improvements include IoT connectivity for remote operation.
+    </p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Abdul Basit. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ESP32 Toxic Gas Detection | Abdul Basit Fiaz</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .project-details {
+      max-width: 900px;
+      margin: 40px auto;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .project-details img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+    .project-details h1 {
+      color: #00bcd4;
+      text-align: center;
+    }
+    .project-details h2 {
+      margin-top: 20px;
+      color: #333;
+    }
+    .project-details ul {
+      margin-left: 20px;
+    }
+    pre {
+      background: #f5f5f5;
+      padding: 10px;
+      overflow-x: auto;
+      border-radius: 6px;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">ElectroMania</div>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../projects.html" class="active">Projects</a>
+      <a href="../skills.html">Skills</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- PROJECT DETAILS -->
+  <section class="project-details">
+    <h1>ESP32 Toxic Gas Detection (MQ7 & MQ135 + Relay Fan Control)</h1>
+    <img src="../images/gas.jpg" alt="ESP32 Toxic Gas Detection System">
+
+    <h2>Abstract</h2>
+    <p>
+      This project implements an ESP32-based toxic gas detection system using the MQ7 (Carbon Monoxide) and MQ135 (Air Quality) sensors. The system continuously monitors harmful gases and, when concentrations exceed safe thresholds, automatically activates a fan via a relay module for ventilation. Real-time gas concentration data can also be sent over Wi-Fi for IoT monitoring.
+    </p>
+
+    <h2>Objectives</h2>
+    <ul>
+      <li>Detect Carbon Monoxide (CO) and general air pollutants in real time.</li>
+      <li>Activate ventilation fan automatically when gas exceeds set thresholds.</li>
+      <li>Provide both local (serial/OLED) and remote (Wi-Fi) data monitoring.</li>
+    </ul>
+
+    <h2>Hardware Components</h2>
+    <ul>
+      <li>ESP32 Development Board</li>
+      <li>MQ7 Gas Sensor (CO detection)</li>
+      <li>MQ135 Gas Sensor (NH3, NOx, Benzene, Smoke, CO2)</li>
+      <li>Relay Module (5V/3.3V compatible)</li>
+      <li>12V DC Fan</li>
+      <li>OLED Display (SSD1306) for local readings</li>
+      <li>Power Supply (5V/12V)</li>
+    </ul>
+
+    <h2>System Design & Functionality</h2>
+    <p>
+      The ESP32 reads analog values from MQ7 and MQ135 sensors through ADC channels. Sensor values are mapped to ppm concentrations after calibration. If any reading exceeds the predefined safety threshold, the ESP32 activates the relay, powering on the exhaust fan.
+    </p>
+    <ul>
+      <li><strong>MQ7 Threshold:</strong> ~50 ppm CO</li>
+      <li><strong>MQ135 Threshold:</strong> ~150 ppm pollutants</li>
+      <li>Data displayed on OLED in ppm.</li>
+      <li>Optional: Send data to cloud (ThingSpeak / MQTT broker) for logging.</li>
+    </ul>
+
+    <h2>Pin Configuration</h2>
+    <ul>
+      <li>MQ7 Analog Output → GPIO34</li>
+      <li>MQ135 Analog Output → GPIO35</li>
+      <li>Relay IN Pin → GPIO25</li>
+      <li>OLED SDA → GPIO21</li>
+      <li>OLED SCL → GPIO22</li>
+    </ul>
+
+    <h2>Key Code Snippet</h2>
+    <pre>
+if (mq7_ppm > 50 || mq135_ppm > 150) {
+    digitalWrite(RELAY_PIN, HIGH); // Fan ON
+} else {
+    digitalWrite(RELAY_PIN, LOW); // Fan OFF
+}
+    </pre>
+
+    <h2>Testing & Results</h2>
+    <p>
+      During testing, the system accurately detected increased CO levels by exposing the MQ7 sensor to lighter gas and measured poor air quality via MQ135 by introducing smoke. The fan activated immediately upon exceeding thresholds and turned off after air cleared.
+    </p>
+
+    <h2>Conclusion</h2>
+    <p>
+      The ESP32 toxic gas detection system is effective for home, lab, and industrial safety. With simple calibration, it can integrate into IoT monitoring platforms for remote safety alerts, enhancing air quality management.
+    </p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Abdul Basit. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

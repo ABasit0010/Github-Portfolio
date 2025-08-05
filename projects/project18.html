@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ATmega328P-based Data Logger PCB Design | Abdul Basit Fiaz</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .project-details {
+      max-width: 900px;
+      margin: 40px auto;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .project-details img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+    .project-details h1 {
+      color: #00bcd4;
+      text-align: center;
+    }
+    .project-details h2 {
+      margin-top: 20px;
+      color: #333;
+    }
+    .project-details ul {
+      margin-left: 20px;
+    }
+    pre {
+      background: #f5f5f5;
+      padding: 10px;
+      overflow-x: auto;
+      border-radius: 6px;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">ElectroMania</div>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../projects.html" class="active">Projects</a>
+      <a href="../skills.html">Skills</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- PROJECT DETAILS -->
+  <section class="project-details">
+    <h1>ATmega328P-based Data Logger Custom PCB Layout</h1>
+    <img src="../images/logger.png" alt="ATmega328P Data Logger PCB">
+
+    <h2>Abstract</h2>
+    <p>
+      This project focuses on the design and fabrication of a custom PCB for a standalone ATmega328P-based data logger. 
+      It logs sensor data onto a microSD card using the SPI protocol, with real-time timestamping provided by an RTC (Real-Time Clock) module. 
+      The PCB integrates power regulation, data storage, and I/O connectivity for multiple sensors.
+    </p>
+
+    <h2>Objectives</h2>
+    <ul>
+      <li>Design a compact PCB for a microcontroller-based data logging system.</li>
+      <li>Support for microSD card storage and RTC module.</li>
+      <li>Enable multiple sensor connections (analog and digital).</li>
+    </ul>
+
+    <h2>Hardware Components</h2>
+    <ul>
+      <li>ATmega328P Microcontroller (TQFP package)</li>
+      <li>MicroSD Card Slot (SPI interface)</li>
+      <li>DS3231 RTC Module</li>
+      <li>LM1117 Voltage Regulator (3.3 V output)</li>
+      <li>Decoupling Capacitors (0.1 µF, 10 µF)</li>
+      <li>Programming Header (ISP interface)</li>
+      <li>Sensor Header Pins (Analog/Digital)</li>
+      <li>FR4 PCB, 1.6 mm, double-layer</li>
+    </ul>
+
+    <h2>System Design & Functionality</h2>
+    <p>
+      The ATmega328P handles data acquisition from sensors and communicates with the microSD card over SPI for storage. 
+      The DS3231 RTC provides accurate timestamps via I2C. Power regulation is done through an LM1117, supplying 3.3 V to the microSD card while the MCU operates at 5 V. 
+      The PCB includes separate ground planes for digital and analog signals to reduce noise.
+    </p>
+
+    <h2>Technical Specifications</h2>
+    <ul>
+      <li>Operating Voltage: 5 V (MCU), 3.3 V (SD Card)</li>
+      <li>Data Storage: FAT32 on microSD</li>
+      <li>Logging Frequency: Configurable in firmware (1 Hz–10 Hz)</li>
+      <li>Dimensions: 60 mm × 45 mm</li>
+    </ul>
+
+    <h2>PCB Design Process</h2>
+    <p>
+      The design was completed in KiCad with attention to trace width for SPI lines, minimal via usage, and separation of power lines from signal lines. 
+      Pull-up resistors were added to I2C lines for stable communication with the RTC.
+    </p>
+
+    <h2>Key Circuit Snippet</h2>
+    <pre>
+// Pseudo firmware snippet
+void loop() {
+    String data = readSensors();
+    String timeStamp = rtc.getTime();
+    logToSD(timeStamp + "," + data);
+    delay(1000); // 1 Hz logging
+}
+    </pre>
+
+    <h2>Testing & Results</h2>
+    <p>
+      The system successfully logged temperature, humidity, and light sensor data to the SD card in CSV format. 
+      Timestamps were accurate within ±2 seconds over a 24-hour period. PCB power stability was confirmed under continuous operation.
+    </p>
+
+    <h2>Conclusion</h2>
+    <p>
+      The ATmega328P-based Data Logger PCB is a reliable, low-power solution for field data acquisition. 
+      Future improvements could include adding wireless data transmission and on-board display for real-time monitoring.
+    </p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Abdul Basit. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

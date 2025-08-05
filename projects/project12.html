@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ultrasonic Distance Measurement & Barrier Control | Abdul Basit Fiaz</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .project-details {
+      max-width: 900px;
+      margin: 40px auto;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .project-details img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+    .project-details h1 {
+      color: #00bcd4;
+      text-align: center;
+    }
+    .project-details h2 {
+      margin-top: 20px;
+      color: #333;
+    }
+    .project-details ul {
+      margin-left: 20px;
+    }
+    pre {
+      background: #f5f5f5;
+      padding: 10px;
+      overflow-x: auto;
+      border-radius: 6px;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">ElectroMania</div>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../projects.html" class="active">Projects</a>
+      <a href="../skills.html">Skills</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- PROJECT DETAILS -->
+  <section class="project-details">
+    <h1>Ultrasonic Distance Measurement & Barrier Control System</h1>
+    <img src="../images/micro.jpg" alt="Ultrasonic Distance Measurement & Barrier Control">
+    
+    <h2>Abstract</h2>
+    <p>
+      This system measures the distance to nearby objects using an ultrasonic sensor (HC‑SR04) and controls a barrier mechanism via a servo motor. An ATmega32A microcontroller processes the sensor data and displays the distance on a 16×2 LCD. When an object is detected within 10 cm, the barrier is raised, simulating automated gate control. Designed for parking assistance and access control, the system demonstrates real-time sensing, processing, and actuation.
+    </p>
+
+    <h2>Objectives</h2>
+    <ul>
+      <li>Measure distance using an ultrasonic sensor.</li>
+      <li>Display measured distance on an LCD.</li>
+      <li>Raise the barrier when distance ≤ 10 cm.</li>
+    </ul>
+
+    <h2>Hardware Components</h2>
+    <ul>
+      <li>ATmega32A Microcontroller</li>
+      <li>HC‑SR04 Ultrasonic Sensor</li>
+      <li>16×2 Character LCD</li>
+      <li>Servo Motor for barrier mechanism</li>
+      <li>Breadboard, wires, development board</li>
+    </ul>
+
+    <h2>Software Components</h2>
+    <ul>
+      <li>MPLAB X IDE with XC8 Compiler</li>
+      <li>C Language</li>
+      <li>AVR Libraries: avr/io.h, avr/interrupt.h, util/delay.h</li>
+    </ul>
+
+    <h2>System Design & Functionality</h2>
+    <p>
+      The ATmega32A sends a trigger pulse to the HC‑SR04, which emits an ultrasonic wave. The echo pulse width is measured using an external interrupt and Timer1, converted to distance, and displayed on the LCD. If the distance ≤ 10 cm, the servo raises the barrier; otherwise, it lowers it.
+    </p>
+
+    <h2>Pin Configuration</h2>
+    <ul>
+      <li>LCD Enable → PD5</li>
+      <li>LCD RS → PD6</li>
+      <li>LCD Data → PA0–PA7</li>
+      <li>Ultrasonic Trigger → PD0</li>
+      <li>Ultrasonic Echo → PD2</li>
+      <li>Servo PWM → PB0</li>
+    </ul>
+
+    <h2>Key Code Snippet</h2>
+    <pre>
+ISR(INT0_vect) {
+    if (i == 1) {
+        TCCR1B = 0;
+        pulse = TCNT1;
+        TCNT1 = 0;
+        i = 0;
+    } else {
+        TCCR1B |= (1 << CS10);
+        i = 1;
+    }
+}
+
+if (COUNTA <= 10) {
+    barrier_up();
+} else {
+    barrier_down();
+}
+    </pre>
+
+    <h2>Testing & Results</h2>
+    <p>
+      The system was tested with various distances. Measurements displayed accurately on the LCD. When an object was ≤ 10 cm, the barrier activated promptly. Response time was suitable for real-time use.
+    </p>
+
+    <h2>Conclusion</h2>
+    <p>
+      The project achieved its objectives, demonstrating reliable distance measurement and automated barrier control. It can be applied to parking systems, security gates, and other automated access systems. Potential improvements include adding more sensors and integrating wireless monitoring.
+    </p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Abdul Basit. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

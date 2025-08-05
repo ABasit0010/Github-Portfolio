@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ESP32 PIR Motion Sensor with LED Array & Relay | Abdul Basit Fiaz</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .project-details {
+      max-width: 900px;
+      margin: 40px auto;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .project-details img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+    .project-details h1 {
+      color: #00bcd4;
+      text-align: center;
+    }
+    .project-details h2 {
+      margin-top: 20px;
+      color: #333;
+    }
+    .project-details ul {
+      margin-left: 20px;
+    }
+    pre {
+      background: #f5f5f5;
+      padding: 10px;
+      overflow-x: auto;
+      border-radius: 6px;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">ElectroMania</div>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../projects.html" class="active">Projects</a>
+      <a href="../skills.html">Skills</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- PROJECT DETAILS -->
+  <section class="project-details">
+    <h1>ESP32 PIR Motion Sensor with LED Array & Relay (Manual Off Button)</h1>
+    <img src="../images/pir.jpg" alt="ESP32 PIR Motion Sensor with LED Array & Relay">
+
+    <h2>Abstract</h2>
+    <p>
+      This project implements an ESP32-based motion-activated lighting system using a PIR sensor, LED array, and relay control. When motion is detected, LEDs are turned on, and an external relay can be triggered to power a higher load. A manual off button is included to override the system for energy savings.
+    </p>
+
+    <h2>Objectives</h2>
+    <ul>
+      <li>Detect human motion using a PIR sensor.</li>
+      <li>Activate LED array and/or relay load on motion detection.</li>
+      <li>Allow manual override to turn lights off.</li>
+    </ul>
+
+    <h2>Hardware Components</h2>
+    <ul>
+      <li>ESP32 Development Board</li>
+      <li>PIR Motion Sensor (HC-SR501)</li>
+      <li>LED Array (12V or WS2812B type)</li>
+      <li>Relay Module for high-power load control</li>
+      <li>Push Button for manual off control</li>
+      <li>12V Power Supply</li>
+    </ul>
+
+    <h2>System Design & Functionality</h2>
+    <p>
+      The PIR sensor outputs a HIGH signal when motion is detected. The ESP32 reads this signal and switches on the LED array and relay. If the manual off button is pressed, the system disables outputs regardless of PIR state until reset.
+    </p>
+
+    <h2>Pin Configuration</h2>
+    <ul>
+      <li>PIR Sensor Output → GPIO33</li>
+      <li>LED Array Control → GPIO26</li>
+      <li>Relay IN → GPIO25</li>
+      <li>Manual Off Button → GPIO27</li>
+    </ul>
+
+    <h2>Key Code Snippet</h2>
+    <pre>
+if (digitalRead(PIR_PIN) == HIGH && !manualOff) {
+    digitalWrite(LED_PIN, HIGH);
+    digitalWrite(RELAY_PIN, HIGH);
+} else {
+    digitalWrite(LED_PIN, LOW);
+    digitalWrite(RELAY_PIN, LOW);
+}
+
+if (digitalRead(BUTTON_PIN) == LOW) {
+    manualOff = true;
+}
+    </pre>
+
+    <h2>Testing & Results</h2>
+    <p>
+      The system responded within 0.2 seconds to motion, activating LEDs and relay. The manual off button worked instantly, preventing any accidental reactivation until system restart.
+    </p>
+
+    <h2>Conclusion</h2>
+    <p>
+      This ESP32 PIR lighting system is ideal for energy-efficient lighting control. The addition of a manual override increases user control and flexibility, making it suitable for home automation and security lighting.
+    </p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Abdul Basit. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

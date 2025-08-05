@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4-Bit ALU | Abdul Basit Fiaz</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .project-details {
+      max-width: 900px;
+      margin: 40px auto;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .project-details img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+
+    .project-details h1 {
+      color: #00bcd4;
+      margin-bottom: 10px;
+    }
+
+    .project-details h2 {
+      margin-top: 20px;
+      color: #333;
+    }
+
+    .project-details ul {
+      text-align: left;
+      margin: 0 auto;
+      max-width: 600px;
+      padding-left: 20px;
+    }
+
+    .project-details table {
+      margin: 15px auto;
+      border-collapse: collapse;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .project-details table td, .project-details table th {
+      padding: 6px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">ElectroMania</div>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../projects.html" class="active">Projects</a>
+      <a href="../skills.html">Skills</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- PROJECT DETAILS -->
+  <section class="project-details">
+    <h1>4-Bit Arithmetic Logic Unit (ALU)</h1>
+    <img src="../images/alu.png" alt="4-Bit ALU">
+    <p>
+      This project involves the design and implementation of a <strong>4-bit Arithmetic Logic Unit (ALU)</strong> capable of performing multiple arithmetic, logic, and control operations. The ALU integrates several ICs to achieve functionality including addition, subtraction, bitwise operations, increment/decrement, complementing, overflow detection, and Loader/Counter operations.
+    </p>
+
+    <h2>Features & Operations</h2>
+    <ul>
+      <li>Bitwise operations: AND, OR, XOR</li>
+      <li>Arithmetic operations: Addition, Subtraction</li>
+      <li>Increment & Decrement (for A and B)</li>
+      <li>1’s and 2’s Complement (for A and B)</li>
+      <li>Loader and Counter functions</li>
+      <li>Overflow detection</li>
+      <li>Comparator (A > B, A < B, A = B)</li>
+      <li>Sequence control using 16×1 multiplexers</li>
+    </ul>
+
+    <h2>Key ICs Used</h2>
+    <ul>
+      <li>74157 – Quad 2×1 Multiplexer</li>
+      <li>7404 – NOT Gate (1’s Complement)</li>
+      <li>74283 – 4-bit Adder (Addition, Subtraction, 2’s Complement)</li>
+      <li>7408 – AND Gate</li>
+      <li>7486 – XOR Gate</li>
+      <li>7474 – D Flip-Flop (Loader/Counter)</li>
+      <li>7485 – Comparator</li>
+      <li>555 Timer – Clock generator</li>
+      <li>4067 – 16×1 Multiplexer (Operation selector)</li>
+    </ul>
+
+    <h2>Implementation Details</h2>
+    <ul>
+      <li><strong>Input Selection:</strong> 74157 MUX selects between A and B as inputs.</li>
+      <li><strong>Complement Circuits:</strong> 1’s complement via 7404; 2’s complement via 74283 with binary 1 addition.</li>
+      <li><strong>Adder/Subtractor:</strong> Single 74283 handles both operations via select line.</li>
+      <li><strong>Increment/Decrement:</strong> Implemented by adding or subtracting binary 1.</li>
+      <li><strong>Overflow Detection:</strong> Using (A3·B3) XOR (Sum3) with 7408 and 7486.</li>
+      <li><strong>Loader/Counter:</strong> 7474 D flip-flops store values and count using clock pulses.</li>
+      <li><strong>Clock:</strong> 555 timer with passive components for stable pulse generation.</li>
+      <li><strong>Comparator:</strong> 7485 compares A and B, LEDs indicate relation.</li>
+    </ul>
+
+    <h2>Operation Codes</h2>
+    <table>
+      <tr><th>Binary Code</th><th>Operation</th></tr>
+      <tr><td>0000</td><td>A: 1’s Complement</td></tr>
+      <tr><td>0001</td><td>A: 2’s Complement</td></tr>
+      <tr><td>0010</td><td>A: Increment</td></tr>
+      <tr><td>0011</td><td>A: Decrement</td></tr>
+      <tr><td>0100</td><td>B: 1’s Complement</td></tr>
+      <tr><td>0101</td><td>B: 2’s Complement</td></tr>
+      <tr><td>0110</td><td>B: Increment</td></tr>
+      <tr><td>0111</td><td>B: Decrement</td></tr>
+      <tr><td>1000</td><td>Loader A</td></tr>
+      <tr><td>1001</td><td>Bitwise AND</td></tr>
+      <tr><td>1010</td><td>Bitwise XOR</td></tr>
+      <tr><td>1011</td><td>Counter A</td></tr>
+      <tr><td>1100</td><td>Bitwise OR</td></tr>
+      <tr><td>1101</td><td>Subtraction</td></tr>
+      <tr><td>1110</td><td>Addition</td></tr>
+      <tr><td>1111</td><td>Don’t Care</td></tr>
+    </table>
+
+    <h2>Conclusion</h2>
+    <p>
+      The implemented 4-bit ALU integrates arithmetic, logical, and control functions into a single modular circuit. Through the use of multiplexers, adders, logic gates, and flip-flops, the design achieves versatility, accuracy, and expandability for digital computing applications.
+    </p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Abdul Basit. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

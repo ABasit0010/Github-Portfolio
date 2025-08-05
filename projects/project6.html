@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Low-Pass Active Filter Design | Abdul Basit Fiaz</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .project-details {
+      max-width: 900px;
+      margin: 40px auto;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .project-details img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+
+    .project-details h1 {
+      color: #00bcd4;
+      margin-bottom: 10px;
+    }
+
+    .project-details h2 {
+      margin-top: 20px;
+      color: #333;
+    }
+
+    .project-details ul {
+      text-align: left;
+      margin: 0 auto;
+      max-width: 500px;
+      padding-left: 20px;
+    }
+
+    .project-details table {
+      margin: 15px auto;
+      border-collapse: collapse;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .project-details table td {
+      padding: 6px;
+      border-bottom: 1px solid #ccc;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">ElectroMania</div>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../projects.html" class="active">Projects</a>
+      <a href="../skills.html">Skills</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- PROJECT DETAILS -->
+  <section class="project-details">
+    <h1>Low-Pass Active Filter Design</h1>
+    <img src="../images/lowpass-filter.jpg" alt="Low-Pass Active Filter Design">
+    <p>
+      This project focuses on designing a <strong>second-order Butterworth low-pass active filter</strong> using the <strong>Sallen-Key topology</strong> to meet specific attenuation and gain requirements. The filter was simulated in <strong>Proteus</strong> and <strong>MATLAB</strong>, and a physical PCB was fabricated using EasyEDA.
+    </p>
+
+    <h2>Project Requirements</h2>
+    <ul>
+      <li>Cut-off frequency: 700 Hz</li>
+      <li>Passband gain: 20 dB (±3 dB variation allowed)</li>
+      <li>Attenuation at ≥8.75 kHz: >10 dB</li>
+      <li>Passband frequency range: ≤700 Hz</li>
+      <li>Roll-off: ≥40 dB/decade (second-order filter)</li>
+    </ul>
+
+    <h2>Filter Overview</h2>
+    <p>
+      A low-pass active filter allows low-frequency signals to pass while attenuating higher frequencies. In this design, a <strong>second-order Butterworth filter</strong> was chosen for its flat frequency response in the passband and sharp roll-off characteristics. The Sallen-Key configuration was used for stability and simplicity.
+    </p>
+
+    <h2>Component Selection</h2>
+    <ul>
+      <li>Operational Amplifier: LM741</li>
+      <li>R1 = 6.8 kΩ</li>
+      <li>R2 = 36.3 kΩ (33 kΩ + 3.3 kΩ in series)</li>
+      <li>C1 = 0.01 µF</li>
+      <li>C2 = 0.022 µF</li>
+      <li>Feedback Resistor (Rf) = 90 kΩ</li>
+      <li>Input Resistor (Ri) = 10 kΩ</li>
+    </ul>
+
+    <h2>Design Calculations</h2>
+    <p>
+      The cut-off frequency was calculated using:
+      <pre>f_c = 1 / (2π√(R1 × R2 × C1 × C2))</pre>
+      Gain requirement:
+      <pre>Gain = 1 + (Rf / Ri)</pre>
+      The calculated values met the desired 700 Hz cut-off and 20 dB gain.
+    </p>
+
+    <h2>Transfer Function</h2>
+    <pre>
+H(s) =                      K / (R1R2C1C2) 
+       ---------------------------------------------------------------
+       s² + s[(R1C1 + R2C2 + R1C1(1–K)) / (R1R2C1C2)] + 1 / (R1R2C1C2)
+    </pre>
+
+    <h2>Simulation</h2>
+    <ul>
+      <li><strong>Proteus:</strong> Verified cut-off frequency and roll-off performance.</li>
+      <li><strong>MATLAB:</strong> Generated Bode plot confirming gain stability in passband and desired attenuation at high frequencies.</li>
+    </ul>
+
+    <h2>Performance Evaluation</h2>
+    <ul>
+      <li>Passband gain: ~20 dB</li>
+      <li>Cut-off frequency: 700 Hz</li>
+      <li>Roll-off rate: >15 dB at 8.75 kHz (meets attenuation requirement)</li>
+      <li>Stable, noise-free output within passband</li>
+    </ul>
+
+    <h2>PCB Fabrication</h2>
+    <p>
+      Designed using EasyEDA with dimensions 80 mm × 70 mm. The PCB was etched using ferric chloride, drilled, and soldered to complete the hardware build.
+    </p>
+
+    <h2>Conclusion</h2>
+    <p>
+      The designed low-pass active filter successfully achieved the target specifications. With a 700 Hz cut-off and 20 dB gain, the filter is suitable for applications requiring suppression of high-frequency noise while preserving low-frequency signals.
+    </p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Abdul Basit. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
