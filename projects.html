@@ -1,226 +1,254 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Projects | Abdul Basit Fiaz</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects | ElectroMania</title>
+  <meta name="description" content="22 electronics engineering projects by Abdul Basit Fiaz — PCB design, embedded systems, RF, biomedical signal processing and power electronics." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23020609'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%2300bcd4'/%3E%3Cpath d='M16 4v6M16 22v6M4 16h6M22 16h6' stroke='%2300bcd4' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .legend { display:flex; flex-wrap:wrap; gap:10px 18px; margin: 22px 0 36px; }
+    .legend-item { display:flex; align-items:center; gap:7px; font-family:var(--font-mono); font-size:11.5px; color:var(--text-dim); }
+    .legend-dot { width:9px; height:9px; border-radius:50%; background:var(--c); box-shadow:0 0 8px 1px var(--c); }
+  </style>
 </head>
 <body>
 
+  <!-- Hidden icon sprite sheet, reused across all 22 project cards -->
+  <svg style="display:none" aria-hidden="true">
+    <symbol id="ic-chip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="6" y="6" width="12" height="12" rx="1.4"/><path d="M9 6V3M15 6V3M9 21v-3M15 21v-3M6 9H3M6 15H3M21 9h-3M21 15h-3"/>
+    </symbol>
+    <symbol id="ic-wave" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M2 12h3l2-7 4 14 3-10 2 6h6"/>
+    </symbol>
+    <symbol id="ic-antenna" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 21V10"/><circle cx="12" cy="7" r="2"/><path d="M7.5 9.5a7 7 0 0 1 9 0M4.5 6.5a11 11 0 0 1 15 0"/>
+    </symbol>
+    <symbol id="ic-pulse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M2 12h4l1.5-4L11 18l2.5-11L15 12h7"/>
+    </symbol>
+    <symbol id="ic-bolt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/>
+    </symbol>
+    <symbol id="ic-radar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="6" cy="18" r="1.6" fill="currentColor" stroke="none"/><path d="M6 18a9 9 0 0 1 9-9M6 18a13.5 13.5 0 0 1 13.5-13.5"/>
+    </symbol>
+    <symbol id="ic-pcb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.3" fill="currentColor" stroke="none"/><path d="M9.3 8h5.4M8 9.3v5.4M16 9.3V13a1 1 0 0 1-1 1h-2.7"/>
+    </symbol>
+    <symbol id="ic-logic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M6 5h4a6 6 0 0 1 0 12H6z"/><path d="M2 8h4M2 14h4M16 11h6"/>
+    </symbol>
+    <symbol id="ic-robot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="5" y="8" width="14" height="11" rx="2"/><path d="M12 8V4M9 4h6"/><circle cx="9.5" cy="13.5" r="1.2" fill="currentColor" stroke="none"/><circle cx="14.5" cy="13.5" r="1.2" fill="currentColor" stroke="none"/><path d="M2 12v3M22 12v3"/>
+    </symbol>
+  </svg>
+
   <!-- HEADER -->
-  <header>
-    <div class="logo">ElectroMania</div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="projects.html" class="active">Projects</a>
-      <a href="skills.html">Skills</a>
-      <a href="blog.html">Blog</a>
-      <a href="contact.html">Contact</a>
-    </nav>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-left">
+        <a href="about/education.html" class="nav-arrow" title="Previous: Education" aria-label="Previous page">‹</a>
+        <div class="logo"><a href="index.html"><span class="logo-mark"></span>Electro<span>Mania</span></a></div>
+      </div>
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="projects.html" class="active">Projects</a>
+        <a href="skills.html">Skills</a>
+        <a href="materials.html">Material</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="header-right">
+        <a href="skills.html" class="nav-arrow" title="Next: Skills" aria-label="Next page">›</a>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
   </header>
+  <div class="crumb-bar">
+    <div class="crumb"><a href="index.html">Home</a><span class="sep">›</span><span class="here">Projects</span></div>
+  </div>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="page-hero-in">
+      <h1>My <span class="hi">Projects</span></h1>
+      <p class="sub">Twenty-two builds spanning PCB design, embedded systems, RF, biomedical signal processing and power electronics.</p>
+      <div class="stat-strip">
+        <div class="stat-box"><span class="num">22</span><span class="lbl">Projects</span></div>
+        <div class="stat-box"><span class="num">8</span><span class="lbl">Categories</span></div>
+        <div class="stat-box"><span class="num">5GHz</span><span class="lbl">Top Frequency</span></div>
+      </div>
+    </div>
+  </div>
 
   <!-- PROJECTS SECTION -->
-  <section>
-    <h1>My Projects</h1>
+  <section class="reveal">
+    <div class="legend">
+      <div class="legend-item"><span class="legend-dot" style="--c:#ff4081"></span>Embedded Systems</div>
+      <div class="legend-item"><span class="legend-dot" style="--c:#00bcd4"></span>Analog Circuit</div>
+      <div class="legend-item"><span class="legend-dot" style="--c:#e040fb"></span>RF &amp; Communication</div>
+      <div class="legend-item"><span class="legend-dot" style="--c:#69f0ae"></span>Biomedical Signal</div>
+      <div class="legend-item"><span class="legend-dot" style="--c:#ffd740"></span>Power Electronics</div>
+      <div class="legend-item"><span class="legend-dot" style="--c:#ff6d00"></span>IoT &amp; Automation</div>
+      <div class="legend-item"><span class="legend-dot" style="--c:#00e5ff"></span>PCB Design</div>
+      <div class="legend-item"><span class="legend-dot" style="--c:#f48fb1"></span>Digital Logic</div>
+    </div>
+
     <div class="project-grid">
 
-      <!-- Project 1 -->
-      <div class="project-card">
-        <a href="projects/project1.html">
-          <img src="images/image2.jpg" alt="Project 1">
-          <h3>Atmega32 Development Board</h3>
-          <p>Designed an Atmega32 based development board PCB and implemented a toll barrier system.</p>
-        </a>
-      </div>
+      <a class="card project-card" href="projects/project1.html">
+        <div class="proj-art" style="--c:#ff4081;"><svg><use href="#ic-chip"/></svg><span class="cat-tag">Embedded</span></div>
+        <div class="proj-body"><h3>Atmega32 Development Board</h3><p>Designed an Atmega32 based development board PCB and implemented a toll barrier system.</p></div>
+      </a>
 
-      <!-- Project 2 -->
-      <div class="project-card">
-        <a href="projects/project2.html">
-          <img src="images/image2.jpg" alt="Project 2">
-          <h3>Audio Amplifier Using Discrete Components</h3>
-          <p>Designed a pre-amplifier and power amplifier using discrete transistors for high-quality sound output.</p>
-        </a>
-      </div>
+      <a class="card project-card" href="projects/project2.html">
+        <div class="proj-art" style="--c:#00bcd4;"><svg><use href="#ic-wave"/></svg><span class="cat-tag">Analog</span></div>
+        <div class="proj-body"><h3>Audio Amplifier Using Discrete Components</h3><p>Designed a pre-amplifier and power amplifier using discrete transistors for high-quality sound output.</p></div>
+      </a>
 
-      <!-- Project 3 -->
-      <div class="project-card">
-        <a href="projects/project3.html">
-          <img src="images/image2.jpg" alt="Project 3">
-          <h3>Power Divider Microstrip Line Tee</h3>
-          <p>Designed a 5GHz microstrip tee power divider using Ansys HFSS and fabricated PCB.</p>
-        </a>
-      </div>
+      <a class="card project-card" href="projects/project3.html">
+        <div class="proj-art" style="--c:#e040fb;"><svg><use href="#ic-antenna"/></svg><span class="cat-tag">RF</span></div>
+        <div class="proj-body"><h3>Power Divider Microstrip Line Tee</h3><p>Designed a 5GHz microstrip tee power divider using Ansys HFSS and fabricated PCB.</p></div>
+      </a>
 
-      <!-- Project 4 -->
-      <div class="project-card">
-        <a href="projects/project4.html">
-          <img src="images/image2.jpg" alt="Project 4">
-          <h3>EEG Real-Time Visualization and Analysis</h3>
-          <p>Developed a MATLAB-based system for real-time EEG signal analysis and visualization.</p>
-        </a>
-      </div>
+      <a class="card project-card" href="projects/project4.html">
+        <div class="proj-art" style="--c:#69f0ae;"><svg><use href="#ic-pulse"/></svg><span class="cat-tag">Biomedical</span></div>
+        <div class="proj-body"><h3>EEG Real-Time Visualization and Analysis</h3><p>Developed a MATLAB-based system for real-time EEG signal analysis and visualization.</p></div>
+      </a>
 
-      <!-- Project 5 -->
-      <div class="project-card">
-        <a href="projects/project5.html">
-          <img src="images/image2.jpg" alt="Project 5">
-          <h3>FM Receiver – MATLAB & Hardware</h3>
-          <p>Simulated and implemented an FM receiver both in MATLAB and hardware prototype.</p>
-        </a>
-      </div>
+      <a class="card project-card" href="projects/project5.html">
+        <div class="proj-art" style="--c:#e040fb;"><svg><use href="#ic-antenna"/></svg><span class="cat-tag">RF</span></div>
+        <div class="proj-body"><h3>FM Receiver – MATLAB &amp; Hardware</h3><p>Simulated and implemented an FM receiver both in MATLAB and hardware prototype.</p></div>
+      </a>
 
-      <!-- Project 6 -->
-      <div class="project-card">
-        <a href="projects/project6.html">
-          <img src="images/image2.jpg" alt="Low-Pass Active Filter">
-          <h3>Low-Pass Active Filter Design</h3>
-          <p>Designed a second-order Sallen-Key low-pass active filter with 700Hz cutoff frequency.</p>
-        </a>
-      </div>
+      <a class="card project-card" href="projects/project6.html">
+        <div class="proj-art" style="--c:#00bcd4;"><svg><use href="#ic-wave"/></svg><span class="cat-tag">Analog</span></div>
+        <div class="proj-body"><h3>Low-Pass Active Filter Design</h3><p>Designed a second-order Sallen-Key low-pass active filter with 700Hz cutoff frequency.</p></div>
+      </a>
 
-      <!-- Project 7 -->
-      <div class="project-card">
-        <a href="projects/project7.html">
-          <img src="images/image2.jpg" alt="4-Bit ALU">
-          <h3>4-Bit ALU</h3>
-          <p>Implemented a 4-bit arithmetic logic unit capable of multiple operations using discrete ICs.</p>
-        </a>
-      </div>
+      <a class="card project-card" href="projects/project7.html">
+        <div class="proj-art" style="--c:#f48fb1;"><svg><use href="#ic-logic"/></svg><span class="cat-tag">Digital Logic</span></div>
+        <div class="proj-body"><h3>4-Bit ALU</h3><p>Implemented a 4-bit arithmetic logic unit capable of multiple operations using discrete ICs.</p></div>
+      </a>
 
-      <!-- Project 8 -->
-      <div class="project-card">
-        <a href="projects/project8.html">
-          <img src="images/image2.jpg" alt="Digital Ammeter">
-          <h3>Digital Ammeter Design</h3>
-          <p>Built a digital ammeter using ESP32 and ACS712 current sensor with OLED display.</p>
-        </a>
-      </div>
+      <a class="card project-card" href="projects/project8.html">
+        <div class="proj-art" style="--c:#ff4081;"><svg><use href="#ic-chip"/></svg><span class="cat-tag">Embedded</span></div>
+        <div class="proj-body"><h3>Digital Ammeter Design</h3><p>Built a digital ammeter using ESP32 and ACS712 current sensor with OLED display.</p></div>
+      </a>
 
-      <!-- Project 9 -->
-      <div class="project-card">
-        <a href="projects/project9.html">
-          <img src="images/image2.jpg" alt="Heart Rate from ECG">
-          <h3>Heart Rate Calculation from ECG Signals</h3>
-          <p>Processed ECG data to detect R-peaks and calculate heart rate using Python.</p>
-        </a>
-      </div>
+      <a class="card project-card" href="projects/project9.html">
+        <div class="proj-art" style="--c:#69f0ae;"><svg><use href="#ic-pulse"/></svg><span class="cat-tag">Biomedical</span></div>
+        <div class="proj-body"><h3>Heart Rate Calculation from ECG Signals</h3><p>Processed ECG data to detect R-peaks and calculate heart rate using Python.</p></div>
+      </a>
 
-      <!-- Project 10 -->
-      <div class="project-card">
-        <a href="projects/project10.html">
-          <img src="images/image2.jpg" alt="Single-Phase Transformer">
-          <h3>Single-Phase Transformer with Multi-Tap Output</h3>
-          <p>Designed a 12V–24V transformer with additional 8V and 16V taps for flexible use.</p>
-        </a>
-      </div>
+      <a class="card project-card" href="projects/project10.html">
+        <div class="proj-art" style="--c:#ffd740;"><svg><use href="#ic-bolt"/></svg><span class="cat-tag">Power</span></div>
+        <div class="proj-body"><h3>Single-Phase Transformer with Multi-Tap Output</h3><p>Designed a 12V–24V transformer with additional 8V and 16V taps for flexible use.</p></div>
+      </a>
 
-      <!-- Project 11 -->
-      <div class="project-card">
-        <a href="projects/project11.html">
-          <img src="images/image2.jpg" alt="Three Channel Power Supply">
-          <h3>Three-Channel Power Supply</h3>
-          <p>Designed fixed ±12V and 5V, plus variable 1.5–24V regulated outputs with current control.</p>
-        </a>
-      </div>
+      <a class="card project-card" href="projects/project11.html">
+        <div class="proj-art" style="--c:#ffd740;"><svg><use href="#ic-bolt"/></svg><span class="cat-tag">Power</span></div>
+        <div class="proj-body"><h3>Three-Channel Power Supply</h3><p>Designed fixed ±12V and 5V, plus variable 1.5–24V regulated outputs with current control.</p></div>
+      </a>
 
-      <!-- Project 12 -->
-      <div class="project-card">
-        <a href="projects/project12.html">
-          <img src="images/image2.jpg" alt="Ultrasonic Distance & Barrier">
-          <h3>Ultrasonic Distance Measurement & Barrier Control</h3>
-          <p>ATmega32A based system to measure distance and control a servo barrier automatically.</p>
-        </a>
-      </div>
+      <a class="card project-card" href="projects/project12.html">
+        <div class="proj-art" style="--c:#ff6d00;"><svg><use href="#ic-radar"/></svg><span class="cat-tag">IoT</span></div>
+        <div class="proj-body"><h3>Ultrasonic Distance Measurement &amp; Barrier Control</h3><p>ATmega32A based system to measure distance and control a servo barrier automatically.</p></div>
+      </a>
 
-      <!-- Project 13 -->
-      <div class="project-card">
-        <a href="projects/project13.html">
-          <img src="images/image2.jpg" alt="ESP32-S3 PCB">
-          <h3>ESP32‑S3 Custom PCB Layout</h3>
-          <p>Designed ESP32-S3 PCB with Type‑C impedance matching for high-speed USB reliability.</p>
-        </a>
-      </div>
+      <a class="card project-card" href="projects/project13.html">
+        <div class="proj-art" style="--c:#00e5ff;"><svg><use href="#ic-pcb"/></svg><span class="cat-tag">PCB</span></div>
+        <div class="proj-body"><h3>ESP32‑S3 Custom PCB Layout</h3><p>Designed ESP32-S3 PCB with Type‑C impedance matching for high-speed USB reliability.</p></div>
+      </a>
 
-      <!-- Project 14 -->
-      <div class="project-card">
-        <a href="projects/project14.html">
-          <img src="images/image2.jpg" alt="Toxic Gas Detection">
-          <h3>ESP32 Toxic Gas Detection</h3>
-          <p>MQ-7 and MQ-135 gas sensors with relay-controlled fan for air quality management.</p>
-        </a>
-      </div>
+      <a class="card project-card" href="projects/project14.html">
+        <div class="proj-art" style="--c:#ff6d00;"><svg><use href="#ic-radar"/></svg><span class="cat-tag">IoT</span></div>
+        <div class="proj-body"><h3>ESP32 Toxic Gas Detection</h3><p>MQ-7 and MQ-135 gas sensors with relay-controlled fan for air quality management.</p></div>
+      </a>
 
-      <!-- Project 15 -->
-      <div class="project-card">
-        <a href="projects/project15.html">
-          <img src="images/image2.jpg" alt="PIR Motion Sensor">
-          <h3>ESP32 PIR Motion Sensor with LED Array</h3>
-          <p>Motion-activated LED array and relay control with manual off button.</p>
-        </a>
-      </div>
+      <a class="card project-card" href="projects/project15.html">
+        <div class="proj-art" style="--c:#ff6d00;"><svg><use href="#ic-radar"/></svg><span class="cat-tag">IoT</span></div>
+        <div class="proj-body"><h3>ESP32 PIR Motion Sensor with LED Array</h3><p>Motion-activated LED array and relay control with manual off button.</p></div>
+      </a>
 
-      <!-- Project 16 -->
-      <div class="project-card">
-        <a href="projects/project16.html">
-          <img src="images/image2.jpg" alt="Curtain Mover">
-          <h3>ESP32 Curtain Mover with Rain Sensor</h3>
-          <p>Automated curtain control using L298N motor driver and rain detection.</p>
-        </a>
-      </div>
+      <a class="card project-card" href="projects/project16.html">
+        <div class="proj-art" style="--c:#ff6d00;"><svg><use href="#ic-radar"/></svg><span class="cat-tag">IoT</span></div>
+        <div class="proj-body"><h3>ESP32 Curtain Mover with Rain Sensor</h3><p>Automated curtain control using L298N motor driver and rain detection.</p></div>
+      </a>
 
-      <!-- Project 17 -->
-      <div class="project-card">
-        <a href="projects/project17.html">
-          <img src="images/image2.jpg" alt="Torch Light PCB">
-          <h3>Torch Light Custom PCB Layout</h3>
-          <p>Compact PCB design for a rechargeable torch light with LED control.</p>
-        </a>
-      </div>
+      <a class="card project-card" href="projects/project17.html">
+        <div class="proj-art" style="--c:#00e5ff;"><svg><use href="#ic-pcb"/></svg><span class="cat-tag">PCB</span></div>
+        <div class="proj-body"><h3>Torch Light Custom PCB Layout</h3><p>Compact PCB design for a rechargeable torch light with LED control.</p></div>
+      </a>
 
-      <!-- Project 18 -->
-      <div class="project-card">
-        <a href="projects/project18.html">
-          <img src="images/image2.jpg" alt="Data Logger PCB">
-          <h3>ATmega328P-based Data Logger PCB Design</h3>
-          <p>Custom PCB for logging sensor data to SD card using ATmega328P.</p>
-        </a>
-      </div>
+      <a class="card project-card" href="projects/project18.html">
+        <div class="proj-art" style="--c:#00e5ff;"><svg><use href="#ic-pcb"/></svg><span class="cat-tag">PCB</span></div>
+        <div class="proj-body"><h3>ATmega328P-based Data Logger PCB Design</h3><p>Custom PCB for logging sensor data to SD card using ATmega328P.</p></div>
+      </a>
 
-      <!-- Project 19 -->
-      <div class="project-card">
-        <a href="projects/project19.html">
-          <img src="images/image2.jpg" alt="Tweenbot PCB">
-          <h3>Tweenbot Custom PCB Layout</h3>
-          <p>PCB design for an autonomous Tweenbot robot platform.</p>
-        </a>
-      </div>
+      <a class="card project-card" href="projects/project19.html">
+        <div class="proj-art" style="--c:#00e5ff;"><svg><use href="#ic-robot"/></svg><span class="cat-tag">PCB · Robotics</span></div>
+        <div class="proj-body"><h3>Tweenbot Custom PCB Layout</h3><p>PCB design for an autonomous Tweenbot robot platform.</p></div>
+      </a>
 
-      <!-- Project 20 -->
-      <div class="project-card">
-        <a href="projects/project20.html">
-          <img src="images/image2.jpg" alt="Buck Converter PCB">
-          <h3>DC-to-DC Buck Converter PCB Layout</h3>
-          <p>Designed a step-down power converter PCB for efficient voltage regulation.</p>
-        </a>
-      </div>
+      <a class="card project-card" href="projects/project20.html">
+        <div class="proj-art" style="--c:#ffd740;"><svg><use href="#ic-bolt"/></svg><span class="cat-tag">Power</span></div>
+        <div class="proj-body"><h3>DC-to-DC Buck Converter PCB Layout</h3><p>Designed a step-down power converter PCB for efficient voltage regulation.</p></div>
+      </a>
 
-      <!-- Project 21 -->
-      <div class="project-card">
-        <a href="projects/project21.html">
-          <img src="images/image2.jpg" alt="Breadboard Power Supply PCB">
-          <h3>Breadboard Power Supply PCB Layout</h3>
-          <p>Custom PCB for powering breadboard circuits with selectable voltage outputs.</p>
-        </a>
-      </div>
+      <a class="card project-card" href="projects/project21.html">
+        <div class="proj-art" style="--c:#ffd740;"><svg><use href="#ic-bolt"/></svg><span class="cat-tag">Power</span></div>
+        <div class="proj-body"><h3>Breadboard Power Supply PCB Layout</h3><p>Custom PCB for powering breadboard circuits with selectable voltage outputs.</p></div>
+      </a>
+
+      <a class="card project-card" href="projects/project22.html">
+        <div class="proj-art" style="--c:#ffd740;"><svg><use href="#ic-bolt"/></svg><span class="cat-tag">Power</span></div>
+        <div class="proj-body"><h3>DC-DC Closed Loop Buck Converter 50-100W</h3><p>DC-DC voltage controlled closed loop buck converter for 50-100W.</p></div>
+      </a>
 
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer>
-    <p>© 2025 Abdul Basit. All rights reserved.</p>
+  <footer class="site-footer">
+    <div class="footer-in">
+      <div class="footer-brand">
+        <div class="logo"><a href="index.html"><span class="logo-mark"></span>Electro<span>Mania</span></a></div>
+        <p>A portfolio and knowledge-sharing platform for electronics &amp; embedded systems engineering.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Site</h4>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="skills.html">Skills</a>
+      </div>
+      <div class="footer-col">
+        <h4>More</h4>
+        <a href="materials.html">Study Material</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="https://www.linkedin.com/in/abdul-basit-fiaz-1138a427a" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://github.com/ABasit0010" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="mailto:abasitofficial007@gmail.com">Email</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Abdul Basit. All rights reserved.</p>
+      <a href="#" class="back-to-top" aria-label="Back to top" title="Back to top">↑</a>
+    </div>
   </footer>
 
+  <script src="js/main.js"></script>
 </body>
 </html>

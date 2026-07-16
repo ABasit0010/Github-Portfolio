@@ -1,131 +1,184 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Education - Abdul Basit Fiaz</title>
-  <link rel="stylesheet" href="css/style.css">
-  <style>
-    /* Education Page Styling */
-    body {
-      background-color: #f4f6f8;
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-      padding: 0;
-    }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Education | ElectroMania — Abdul Basit Fiaz</title>
+  <meta name="description" content="Abdul Basit Fiaz's academic journey — from Army Public School Kharian, through Garrison Academy, to a BE in Electrical Engineering at NUST CEME." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23020609'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%2300bcd4'/%3E%3Cpath d='M16 4v6M16 22v6M4 16h6M22 16h6' stroke='%2300bcd4' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
-    .edu-container {
-      max-width: 900px;
-      margin: 50px auto;
-      background: white;
-      padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    }
-
-    .edu-container h1 {
-      text-align: center;
-      color: #00bcd4;
-      font-size: 2.5em;
-      margin-bottom: 30px;
-    }
-
-    .edu-entry {
-      margin-bottom: 30px;
-    }
-
-    .edu-entry h2 {
-      color: #333;
-      font-size: 1.5em;
-      margin-bottom: 8px;
-    }
-
-    .edu-entry p {
-      color: #555;
-      font-size: 1.1em;
-      line-height: 1.6;
-    }
-
-    /* Divider between entries */
-    .edu-divider {
-      border-top: 2px solid #eee;
-      margin: 25px 0;
-    }
-
-    /* Images */
-    .edu-image {
-      text-align: center;
-      margin: 15px 0;
-    }
-    .edu-image img {
-      max-width: 100%;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    .edu-image caption {
-      display: block;
-      font-size: 0.9em;
-      color: #777;
-      margin-top: 5px;
-    }
-  </style>
+  <!-- Shared site stylesheet — every rule this page needs (.page-hero, .stat-box,
+       .edu-timeline, .card, .site-header, .site-footer, etc.) already lives here. -->
+  <link rel="stylesheet" href="../css/style.css" />
 </head>
 <body>
 
- 
-  <!-- Education Section -->
-  <section class="edu-container">
-    <h1>My Education</h1>
-
-    <!-- Matric -->
-    <div class="edu-entry">
-      <h2>Matriculation</h2>
-      <p>
-        I completed my matriculation from <strong>Army Public School and College, Kharian Cantonment</strong>, securing an impressive <strong>1014 out of 1100 marks</strong>.
-        My time here not only strengthened my academic foundation but also instilled discipline, confidence, and a drive to excel.
-      </p>
-      <div class="edu-image">
-        <img src="../images/aps.jpeg" alt="Army Public School Kharian">
-        <caption>Army Public School and College, Kharian Cantt</caption>
+  <!-- HEADER (inherited from global design, same as index.html / fyp.html) -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-left">
+        <a href="fyp.html" class="nav-arrow" title="Previous: FYP" aria-label="Previous page">‹</a>
+        <div class="logo"><a href="../index.html"><span class="logo-mark"></span>Electro<span>Mania</span></a></div>
+      </div>
+      <nav class="main-nav" id="mainNav">
+        <a href="../index.html">Home</a>
+        <a href="../about.html" class="active">About</a>
+        <a href="../projects.html">Projects</a>
+        <a href="../skills.html">Skills</a>
+        <a href="../materials.html">Material</a>
+        <a href="../blog.html">Blog</a>
+        <a href="../contact.html">Contact</a>
+      </nav>
+      <div class="header-right">
+        <a href="../about.html" class="nav-arrow" title="Next: About" aria-label="Next page">›</a>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
       </div>
     </div>
+  </header>
+  <div class="crumb-bar">
+    <div class="crumb">
+      <a href="../index.html">Home</a><span class="sep">›</span>
+      <a href="../about.html">About</a><span class="sep">›</span>
+      <span class="here">Education</span>
+    </div>
+  </div>
 
-    <div class="edu-divider"></div>
-
-    <!-- FSc -->
-    <div class="edu-entry">
-      <h2>FSc Pre-Engineering</h2>
-      <p>
-        I pursued my FSc Pre-Engineering at <strong>Garrison Academy, Kharian Cantonment</strong>, achieving <strong>1023 out of 1100 marks</strong>.
-        This stage of my education was crucial in shaping my interest in engineering and building a strong base in mathematics, physics, and technical problem-solving.
-      </p>
-      <div class="edu-image">
-        <img src="../images/gak.jpeg" alt="Garrison Academy Kharian">
-        <caption>Garrison Academy, Kharian Cantt</caption>
+  <!-- PAGE HERO — same gradient-banner language used on the FYP page -->
+  <div class="page-hero">
+    <div class="page-hero-in">
+      <h1>My <span class="hi">Education</span></h1>
+      <p class="sub">The academic path — from secondary school to a BE in Electrical Engineering at NUST — that built the foundation for everything on this site.</p>
+      <div class="stat-strip">
+        <div class="stat-box"><span class="num">1014</span><span class="lbl">Matric / 1100</span></div>
+        <div class="stat-box"><span class="num">1023</span><span class="lbl">FSc / 1100</span></div>
+        <div class="stat-box"><span class="num">3.8</span><span class="lbl">CGPA · NUST</span></div>
       </div>
     </div>
+  </div>
 
-    <div class="edu-divider"></div>
+  <div class="trace-divider" aria-hidden="true">
+    <svg viewBox="0 0 1160 18" preserveAspectRatio="none">
+      <path d="M0 9 H480 M520 9 H1160" />
+      <circle cx="500" cy="9" r="3.4"/>
+    </svg>
+  </div>
 
-    <!-- University -->
-    <div class="edu-entry">
-      <h2>Undergraduate Studies</h2>
-      <p>
-        Currently, I am pursuing a Bachelor’s degree in Electrical Engineering at the <strong>College of Electrical & Mechanical Engineering (EME), NUST</strong>,
-        maintaining an excellent <strong>CGPA of 3.8</strong>. My university journey has been a blend of technical learning, practical projects, and personal growth,
-        preparing me to excel in my professional career.
-      </p>
-      <div class="edu-image">
-        <img src="../images/ceme.jpg" alt="College of EME NUST">
-        <caption>College of Electrical & Mechanical Engineering, NUST</caption>
-      </div>
+  <!-- EDUCATION TIMELINE -->
+  <section class="reveal">
+    <div class="sec-head">
+      <div class="eyebrow">Academic timeline</div>
+      <h2>Where it all started</h2>
+      <p>Three stages, one continuous drive toward engineering.</p>
     </div>
 
+    <div class="edu-timeline">
+
+      <!-- Matric -->
+      <div class="edu-entry">
+        <div class="edu-mark">
+          <div class="edu-dot"></div>
+          <div class="edu-line"></div>
+          <div class="edu-yr">Secondary</div>
+        </div>
+        <div class="edu-content">
+          <h2>Matriculation</h2>
+          <span class="edu-score">1014 / 1100 marks</span>
+          <p>
+            Completed matriculation at <strong>Army Public School and College, Kharian Cantonment</strong>,
+            securing 1014 out of 1100 marks. This stage strengthened my academic foundation and instilled
+            the discipline, confidence, and drive to excel that carried through the rest of my education.
+          </p>
+          <div class="edu-image">
+            <img src="images/aps.jpeg" alt="Army Public School Kharian">
+            <div class="cap">Army Public School and College, Kharian Cantt</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FSc -->
+      <div class="edu-entry">
+        <div class="edu-mark">
+          <div class="edu-dot"></div>
+          <div class="edu-line"></div>
+          <div class="edu-yr">Intermediate</div>
+        </div>
+        <div class="edu-content">
+          <h2>FSc Pre-Engineering</h2>
+          <span class="edu-score">1023 / 1100 marks</span>
+          <p>
+            Pursued FSc Pre-Engineering at <strong>Garrison Academy, Kharian Cantonment</strong>, achieving
+            1023 out of 1100 marks. This stage was crucial in shaping my interest in engineering and building
+            a strong base in mathematics, physics, and technical problem-solving.
+          </p>
+          <div class="edu-image">
+            <img src="images/gak.jpeg" alt="Garrison Academy Kharian">
+            <div class="cap">Garrison Academy, Kharian Cantt</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- University -->
+      <div class="edu-entry">
+        <div class="edu-mark">
+          <div class="edu-dot"></div>
+          <div class="edu-yr">Undergraduate</div>
+        </div>
+        <div class="edu-content">
+          <h2>BE Electrical Engineering</h2>
+          <span class="edu-score">CGPA 3.8</span>
+          <p>
+            Pursuing a Bachelor's degree in Electrical Engineering at the
+            <strong>College of Electrical &amp; Mechanical Engineering (EME), NUST</strong>, maintaining a
+            CGPA of 3.8. This chapter blended technical coursework, hands-on projects — including the
+            <a href="fyp.html" style="color:var(--teal); text-decoration:underline;">Embedded Glove FYP</a> —
+            and personal growth that prepared me to excel professionally.
+          </p>
+          <div class="edu-image">
+            <img src="images/ceme.jpg" alt="College of EME NUST">
+            <div class="cap">College of Electrical &amp; Mechanical Engineering, NUST</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer>
-    <p>© 2025 Abdul Basit. All rights reserved.</p>
+  <!-- FOOTER (inherited from global design) -->
+  <footer class="site-footer">
+    <div class="footer-in">
+      <div class="footer-brand">
+        <div class="logo"><a href="../index.html"><span class="logo-mark"></span>Electro<span>Mania</span></a></div>
+        <p>A portfolio and knowledge-sharing platform for electronics &amp; embedded systems engineering.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Site</h4>
+        <a href="../index.html">Home</a>
+        <a href="../about.html">About</a>
+        <a href="../projects.html">Projects</a>
+        <a href="../skills.html">Skills</a>
+      </div>
+      <div class="footer-col">
+        <h4>More</h4>
+        <a href="../materials.html">Study Material</a>
+        <a href="../blog.html">Blog</a>
+        <a href="../contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="https://www.linkedin.com/in/abdul-basit-fiaz-1138a427a" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://github.com/ABasit0010" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="mailto:abasitofficial007@gmail.com">Email</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Abdul Basit. All rights reserved.</p>
+      <a href="#" class="back-to-top" aria-label="Back to top" title="Back to top">↑</a>
+    </div>
   </footer>
 
+  <script src="js/main.js"></script>
 </body>
 </html>

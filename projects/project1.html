@@ -1,118 +1,235 @@
+<!--
+  ═══════════════════════════════════════════════════════════════════
+  PROJECT PAGE TEMPLATE — reuse this file for project2.html … project30.html
+  To duplicate:
+    1. Save-as projects/project2.html (etc.)
+    2. Update: <title>, meta description, breadcrumb "here" text,
+       .page-hero h1 / .sub / .tag chips, hero image, and every
+       section under "PROJECT CONTENT" below.
+    3. Update the header prev/next arrows so each project links to
+       its neighbour (project1 ⇄ project2 ⇄ project3 …), and update
+       projects.html's card grid to link to the new file.
+    Everything else (header, crumb-bar, footer, all CSS classes) is
+    inherited from the global stylesheet — do not redefine it here.
+  ═══════════════════════════════════════════════════════════════════
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ATmega32 Development Board | Abdul Basit Fiaz</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ATmega32 Development Board | ElectroMania — Abdul Basit Fiaz</title>
+  <meta name="description" content="Custom ATmega32 development board — full PCB design, fabrication, and testing, by Abdul Basit Fiaz." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23020609'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%2300bcd4'/%3E%3Cpath d='M16 4v6M16 22v6M4 16h6M22 16h6' stroke='%2300bcd4' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Shared site stylesheet — not modified -->
+  <link rel="stylesheet" href="../css/style.css" />
+
   <style>
-    .project-details {
-      max-width: 900px;
-      margin: 40px auto;
-      background: rgba(255, 255, 255, 0.95);
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    /* Small scoped additions for project pages — built entirely from
+       global CSS variables already defined in style.css, so every
+       project page stays visually identical to the rest of the site. */
+    .proj-sec { margin-bottom: 22px; }
+    .proj-sec h2 {
+      font-size: 1.25em; color: #fff; margin: 0 0 14px;
+      display: flex; align-items: center; gap: 10px;
     }
-    .project-details img {
-      max-width: 100%;
-      border-radius: 10px;
-      margin: 20px 0;
+    .proj-sec h2::before {
+      content: ''; width: 4px; height: 20px; border-radius: 3px;
+      background: var(--teal); display: inline-block;
     }
-    .project-details h1 {
-      color: #00bcd4;
-      text-align: center;
-    }
-    .project-details h2 {
-      margin-top: 20px;
-      color: #333;
-    }
-    .project-details ul {
-      margin-left: 20px;
-    }
+    .proj-sec p { color: var(--text-body); font-size: 14.5px; line-height: 1.8; margin: 0; }
+    .proj-sec ul { margin: 0; padding-left: 20px; color: var(--text-body); font-size: 14.5px; line-height: 1.9; }
+    .proj-sec li::marker { color: var(--teal); }
+    .proj-card { padding: 28px 30px; }
+    .proj-hero-img { border-radius: var(--r-lg); box-shadow: var(--shadow-card); width: 100%; margin-bottom: 40px; }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <div class="logo">ElectroMania</div>
-    <nav>
-      <a href="../index.html">Home</a>
-      <a href="../projects.html" class="active">Projects</a>
-      <a href="../skills.html">Skills</a>
-      <a href="../blog.html">Blog</a>
-      <a href="../contact.html">Contact</a>
-    </nav>
+  <!-- HEADER (inherited from global design) -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-left">
+        <a href="../projects.html" class="nav-arrow" title="Back to all projects" aria-label="Previous page">‹</a>
+        <div class="logo"><a href="../index.html"><span class="logo-mark"></span>Electro<span>Mania</span></a></div>
+      </div>
+      <nav class="main-nav" id="mainNav">
+        <a href="../index.html">Home</a>
+        <a href="../about.html">About</a>
+        <a href="../projects.html" class="active">Projects</a>
+        <a href="../skills.html">Skills</a>
+        <a href="../materials.html">Material</a>
+        <a href="../blog.html">Blog</a>
+        <a href="../contact.html">Contact</a>
+      </nav>
+      <div class="header-right">
+        <!-- Update once project2.html exists -->
+        <a href="../projects.html" class="nav-arrow" title="Next project" aria-label="Next page">›</a>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
   </header>
+  <div class="crumb-bar">
+    <div class="crumb">
+      <a href="../index.html">Home</a><span class="sep">›</span>
+      <a href="../projects.html">Projects</a><span class="sep">›</span>
+      <span class="here">ATmega32 Development Board</span>
+    </div>
+  </div>
 
-  <!-- PROJECT DETAILS -->
-  <section class="project-details">
-    <h1>ATmega32 Development Board</h1>
-    <img src="../images/atmega.png" alt="ATmega32 Development Board">
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="page-hero-in">
+      <h1>ATmega32 <span class="hi">Development Board</span></h1>
+      <p class="sub">Custom PCB design, fabrication, and testing of a versatile ATmega32 microcontroller platform for rapid embedded prototyping.</p>
+      <div class="proj-tags">
+        <span class="tag">PCB Design</span>
+        <span class="tag">ATmega32</span>
+        <span class="tag">Embedded Systems</span>
+        <span class="tag">FR4 Etching</span>
+      </div>
+    </div>
+  </div>
 
-    <h2>Abstract</h2>
-    <p>
-      This project involved the complete design, fabrication, and testing of a custom ATmega32 development board.
-      The board was built to serve as a versatile microcontroller platform for embedded system projects, allowing for quick prototyping and experimentation.
-      It integrates essential hardware components, power regulation, and I/O accessibility, making it suitable for both educational and practical applications.
-    </p>
+  <div class="trace-divider" aria-hidden="true">
+    <svg viewBox="0 0 1160 18" preserveAspectRatio="none">
+      <path d="M0 9 H480 M520 9 H1160" />
+      <circle cx="500" cy="9" r="3.4"/>
+    </svg>
+  </div>
 
-    <h2>Objectives</h2>
-    <ul>
-      <li>Design a custom PCB layout for the ATmega32 microcontroller.</li>
-      <li>Fabricate the PCB using FR4 substrate and ferric chloride (FeCl₃) etching.</li>
-      <li>Assemble and solder all components, ensuring reliable connectivity.</li>
-      <li>Test, debug, and verify the functionality of the board.</li>
-    </ul>
+  <!-- PROJECT CONTENT -->
+  <section class="reveal">
+    <div class="container" style="max-width:900px; padding:0 24px 20px;">
 
-    <h2>Key Features</h2>
-    <ul>
-      <li>Custom PCB layout optimized for ATmega32 DIP package.</li>
-      <li>On-board power supply with regulated 5V output.</li>
-      <li>ISP (In-System Programming) header for easy firmware uploading.</li>
-      <li>Multiple GPIO headers for peripheral interfacing.</li>
-      <li>Crystal oscillator circuit for precise clocking.</li>
-      <li>Reset circuitry with push-button control.</li>
-      <li>Indicator LEDs for power and status monitoring.</li>
-    </ul>
+      <img class="proj-hero-img" src="../images/atmega.png" alt="ATmega32 Development Board">
 
-    <h2>Design & Fabrication Process</h2>
-    <p>
-      The PCB layout was created using PCB design software, with careful routing to minimize noise and ensure clean power delivery.
-      The design was then printed on glossy paper and transferred to the copper-clad FR4 board.
-      Ferric chloride solution was used for the etching process, followed by drilling component holes and cleaning the board surface.
-      Components including the ATmega32 microcontroller, voltage regulator, headers, and passive components were soldered.
-      The assembled board underwent continuity testing before applying power.
-    </p>
+      <div class="card proj-card">
+        <div class="proj-sec">
+          <h2>Abstract</h2>
+          <p>
+            This project involved the complete design, fabrication, and testing of a custom ATmega32
+            development board. The board was built to serve as a versatile microcontroller platform for
+            embedded system projects, allowing for quick prototyping and experimentation. It integrates
+            essential hardware components, power regulation, and I/O accessibility, making it suitable for
+            both educational and practical applications.
+          </p>
+        </div>
+      </div>
 
-    <h2>Testing & Verification</h2>
-    <p>
-      A simple LED blinking program was uploaded via ISP to confirm microcontroller functionality.
-      All GPIO pins were tested for proper digital I/O operation.
-      The power regulation circuitry provided a stable 5V output under different loads.
-    </p>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec">
+          <h2>Objectives</h2>
+          <ul>
+            <li>Design a custom PCB layout for the ATmega32 microcontroller.</li>
+            <li>Fabricate the PCB using FR4 substrate and ferric chloride (FeCl₃) etching.</li>
+            <li>Assemble and solder all components, ensuring reliable connectivity.</li>
+            <li>Test, debug, and verify the functionality of the board.</li>
+          </ul>
+        </div>
+        <div class="proj-sec" style="margin-top:24px; margin-bottom:0;">
+          <h2>Key Features</h2>
+          <ul>
+            <li>Custom PCB layout optimized for the ATmega32 DIP package.</li>
+            <li>On-board power supply with regulated 5V output.</li>
+            <li>ISP (In-System Programming) header for easy firmware uploading.</li>
+            <li>Multiple GPIO headers for peripheral interfacing.</li>
+            <li>Crystal oscillator circuit for precise clocking.</li>
+            <li>Reset circuitry with push-button control.</li>
+            <li>Indicator LEDs for power and status monitoring.</li>
+          </ul>
+        </div>
+      </div>
 
-    <h2>Applications</h2>
-    <ul>
-      <li>Educational tool for learning embedded systems.</li>
-      <li>Base platform for robotics projects.</li>
-      <li>IoT device prototyping with external modules (Wi-Fi, Bluetooth, etc.).</li>
-      <li>Custom automation control systems.</li>
-    </ul>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec">
+          <h2>Design &amp; Fabrication Process</h2>
+          <p>
+            The PCB layout was created using PCB design software, with careful routing to minimize noise
+            and ensure clean power delivery. The design was then printed on glossy paper and transferred to
+            the copper-clad FR4 board. Ferric chloride solution was used for the etching process, followed
+            by drilling component holes and cleaning the board surface. Components including the ATmega32
+            microcontroller, voltage regulator, headers, and passive components were soldered. The assembled
+            board underwent continuity testing before applying power.
+          </p>
+        </div>
+      </div>
 
-    <h2>Conclusion</h2>
-    <p>
-      The ATmega32 development board was successfully designed, fabricated, and tested.
-      It provides a stable, modular, and expandable platform for microcontroller-based applications.
-      The project strengthened PCB design, fabrication, and embedded system integration skills.
-    </p>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec">
+          <h2>Testing &amp; Verification</h2>
+          <p>
+            A simple LED blinking program was uploaded via ISP to confirm microcontroller functionality.
+            All GPIO pins were tested for proper digital I/O operation. The power regulation circuitry
+            provided a stable 5V output under different loads.
+          </p>
+        </div>
+      </div>
+
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec">
+          <h2>Applications</h2>
+          <ul>
+            <li>Educational tool for learning embedded systems.</li>
+            <li>Base platform for robotics projects.</li>
+            <li>IoT device prototyping with external modules (Wi-Fi, Bluetooth, etc.).</li>
+            <li>Custom automation control systems.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Conclusion</h2>
+          <p>
+            The ATmega32 development board was successfully designed, fabricated, and tested. It provides a
+            stable, modular, and expandable platform for microcontroller-based applications. The project
+            strengthened PCB design, fabrication, and embedded system integration skills.
+          </p>
+        </div>
+      </div>
+
+    </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer>
-    <p>© 2025 Abdul Basit. All rights reserved.</p>
+  <!-- FOOTER (inherited from global design) -->
+  <footer class="site-footer">
+    <div class="footer-in">
+      <div class="footer-brand">
+        <div class="logo"><a href="../index.html"><span class="logo-mark"></span>Electro<span>Mania</span></a></div>
+        <p>A portfolio and knowledge-sharing platform for electronics &amp; embedded systems engineering.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Site</h4>
+        <a href="../index.html">Home</a>
+        <a href="../about.html">About</a>
+        <a href="../projects.html">Projects</a>
+        <a href="../skills.html">Skills</a>
+      </div>
+      <div class="footer-col">
+        <h4>More</h4>
+        <a href="../materials.html">Study Material</a>
+        <a href="../blog.html">Blog</a>
+        <a href="../contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="https://www.linkedin.com/in/abdul-basit-fiaz-1138a427a" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://github.com/ABasit0010" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="mailto:abasitofficial007@gmail.com">Email</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Abdul Basit. All rights reserved.</p>
+      <a href="#" class="back-to-top" aria-label="Back to top" title="Back to top">↑</a>
+    </div>
   </footer>
 
+  <script src="../js/main.js"></script>
 </body>
 </html>

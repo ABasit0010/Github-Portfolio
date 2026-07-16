@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>16-bit RISC Microcontroller on FPGA | Abdul Basit Fiaz</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .project-details {
+      max-width: 900px;
+      margin: 40px auto;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .project-details img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+    .project-details h1 {
+      color: #00bcd4;
+      text-align: center;
+    }
+    .project-details h2 {
+      margin-top: 20px;
+      color: #333;
+    }
+    .project-details ul {
+      margin-left: 20px;
+    }
+    pre {
+      background: #f5f5f5;
+      padding: 10px;
+      overflow-x: auto;
+      border-radius: 6px;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">ElectroMania</div>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../projects.html" class="active">Projects</a>
+      <a href="../skills.html">Skills</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- PROJECT DETAILS -->
+  <section class="project-details">
+    <h1>Design & Implementation of a 16-bit RISC Microcontroller on FPGA</h1>
+    <img src="../images/risc16_fpga.png" alt="16-bit RISC Microcontroller FPGA">
+
+    <h2>Abstract</h2>
+    <p>
+      This project presents the complete design, implementation, and verification of a
+      16-bit Reduced Instruction Set Computer (RISC) microcontroller using Verilog HDL.
+      The microcontroller integrates a 16-bit datapath, register file, ALU, program ROM,
+      data RAM, and memory-mapped peripherals including GPIO and a timer. A single-cycle
+      architecture was adopted to ensure deterministic operation and simplicity, making
+      the design well-suited for educational and FPGA prototyping purposes.
+    </p>
+
+    <h2>Objectives</h2>
+    <ul>
+      <li>Design a synthesizable 16-bit RISC microcontroller using Verilog HDL.</li>
+      <li>Implement a single-cycle CPU architecture.</li>
+      <li>Integrate memory-mapped peripherals (GPIO and Timer).</li>
+      <li>Verify functionality through simulation and RTL analysis.</li>
+      <li>Target implementation on Intel Cyclone V FPGA.</li>
+    </ul>
+
+    <h2>System Specifications</h2>
+    <ul>
+      <li>Architecture: RISC, single-cycle</li>
+      <li>Data Width: 16 bits</li>
+      <li>Instruction Width: 16 bits</li>
+      <li>Register File: 4 × 16-bit general-purpose registers</li>
+      <li>Program Memory: ROM (4K × 16)</li>
+      <li>Data Memory: RAM (4K × 16)</li>
+      <li>Peripherals: GPIO (8-bit), Timer</li>
+    </ul>
+
+    <h2>Overall System Architecture</h2>
+    <p>
+      The microcontroller consists of a central processing core connected to instruction
+      memory, data memory, and peripherals through a shared address and data bus.
+      Memory-mapped I/O is employed, allowing GPIO and Timer peripherals to be accessed
+      using reserved addresses within the data memory space.
+    </p>
+
+    <h2>Key Functional Blocks</h2>
+    <ul>
+      <li>Program Counter (PC)</li>
+      <li>Instruction ROM</li>
+      <li>Control Unit with FSM</li>
+      <li>Register File (4 × 16-bit)</li>
+      <li>16-bit Arithmetic Logic Unit (ALU)</li>
+      <li>Data RAM</li>
+      <li>GPIO Peripheral</li>
+      <li>Timer Peripheral</li>
+    </ul>
+
+    <h2>Instruction Format</h2>
+    <p>
+      Each instruction is 16 bits wide and follows a fixed-length format to simplify
+      decoding and enable single-cycle execution.
+    </p>
+    <pre>
+[15:12] Opcode
+[11:10] Destination Register (Rd)
+[9:8]   Source Register (Rs)
+[7:6]   Source Register (Rt)
+[5:0]   Immediate / Unused
+    </pre>
+
+    <h2>ALU Functionality</h2>
+    <p>
+      The 16-bit ALU supports a wide range of arithmetic and logical operations including
+      addition, subtraction, multiplication, division, bitwise operations, shifts, and
+      comparisons. Status flags such as zero, carry, negative, greater-than, and less-than
+      are generated for control and branching decisions.
+    </p>
+
+    <h2>RTL Operation (Single-Cycle Execution)</h2>
+    <p>
+      In every clock cycle, the processor fetches an instruction, decodes it, reads the
+      required registers, executes the operation, writes back results, and updates the
+      program counter. This guarantees deterministic timing and simplifies control logic.
+    </p>
+
+    <h2>Simulation & Verification</h2>
+    <p>
+      The design was verified using ModelSim and Quartus. Simulation confirmed correct
+      operation of the ALU, register file, memory accesses, branching behavior, GPIO
+      read/write operations, and timer functionality. RTL schematics further validated
+      proper module integration.
+    </p>
+
+    <h2>Conclusion</h2>
+    <p>
+      A complete and fully synthesizable 16-bit RISC microcontroller was successfully
+      designed and verified. The modular architecture follows standard microcontroller
+      design principles and is suitable for FPGA deployment. The design can be extended
+      with pipelining, interrupts, or additional peripherals for advanced applications.
+    </p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Abdul Basit Fiaz. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

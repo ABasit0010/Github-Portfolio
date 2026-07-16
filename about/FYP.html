@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Embedded Glove FYP | ElectroMania</title>
+  <meta name="description" content="Embedded Glove for Pakistani Sign Language to Speech Conversion — Abdul Basit Fiaz's Final Year Project, covering a dual sensing architecture: an ESP32 + MPU-6050 + Random Forest pipeline and a novel, home-fabricated optical linear encoder glove with STM32-based deterministic gesture decoding, plus a PyQt5 rehabilitation game." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23020609'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%2300bcd4'/%3E%3Cpath d='M16 4v6M16 22v6M4 16h6M22 16h6' stroke='%2300bcd4' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Shared site stylesheet — not modified -->
+  <link rel="stylesheet" href="../css/style.css" />
+
+  <style>
+  /* ============================================================
+     FYP PAGE — all styles scoped here, no conflicts with style.css
+  ============================================================ */
+  :root {
+    --teal:   #00bcd4;
+    --pink:   #ff4081;
+    --gold:   #ffd740;
+    --silver: #b0bec5;
+    --purple: #e040fb;
+    --green:  #69f0ae;
+    --cb:     rgba(4,10,18,.93);
+    --cbr:    rgba(0,188,212,.16);
+    --dim:    rgba(255,255,255,.42);
+    --pale:   #80deea;
+  }
+
+  /* ── HERO ──────────────────────────────────────────────────── */
+
+  
+  /* ── STICKY NAV ────────────────────────────────────────────── */
+  .snw {
+    position: sticky; top: 0; z-index: 500;
+    background: rgba(2,6,9,.94);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(0,188,212,.09);
+    overflow-x: auto; scrollbar-width: none;
+  }
+  .snw::-webkit-scrollbar { display: none; }
+  .sn {
+    display: flex; max-width: 1100px; margin: 0 auto;
+    padding: 0 24px; white-space: nowrap;
+  }
+  .sn a {
+    display: block; padding: 13px 15px;
+    color: rgba(255,255,255,.36); text-decoration: none;
+    font-size: 12px; font-weight: 500;
+    border-bottom: 2px solid transparent;
+    transition: color .2s, border-color .2s; white-space: nowrap;
+  }
+  .sn a:hover, .sn a.on { color: var(--teal); border-bottom-color: var(--teal); }
+
+  /* ── CONTENT WRAPPER ───────────────────────────────────────── */
+  .pc { max-width: 1100px; margin: 0 auto; padding: 0 28px 100px; }
+
+  /* ── SECTION ───────────────────────────────────────────────── */
+  .ps { padding: 70px 0; border-bottom: 1px solid rgba(255,255,255,.05); }
+  .ps:last-child { border-bottom: none; }
+
+  /* Section heading */
+  .sh { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; }
+  .snum {
+    font-size: 11px; color: var(--teal); font-weight: 700;
+    letter-spacing: 2.5px; opacity: .58;
+  }
+  .sh h2 { color: #fff; font-size: 1.72em; margin: 0; font-weight: 700; }
+  .sh h2::after {
+    content: ''; display: block; height: 2px; width: 46px;
+    background: var(--teal); border-radius: 2px; margin-top: 8px;
+  }
+  .sh { margin-bottom: 34px; }
+
+  /* ── ABSTRACT ──────────────────────────────────────────────── */
+  .ab {
+    background: var(--cb); border: 1px solid var(--cbr);
+    border-left: 3px solid var(--teal); border-radius: 12px;
+    padding: 30px 34px;
+  }
+  .ab p {
+    color: rgba(255,255,255,.68); line-height: 1.9;
+    font-size: 14.5px; margin: 0 0 15px;
+  }
+  .ab p:last-of-type { margin-bottom: 0; }
+  .ab-kw {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    margin-top: 22px; padding-top: 18px;
+    border-top: 1px solid rgba(255,255,255,.07);
+  }
+  .kl { font-size: 11px; color: var(--dim); align-self: center; font-weight: 600; }
+  .kw {
+    padding: 4px 10px; border-radius: 6px;
+    background: rgba(0,188,212,.08); color: var(--pale);
+    font-size: 11px; border: 1px solid rgba(0,188,212,.18);
+  }
+
+  /* ── INTRO GRID ────────────────────────────────────────────── */
+  .ig { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .ic {
+    background: var(--cb); border: 1px solid var(--cbr);
+    border-radius: 14px; padding: 24px;
+    transition: border-color .25s, box-shadow .25s;
+  }
+  .ic:hover { border-color: rgba(0,188,212,.32); box-shadow: 0 8px 30px rgba(0,0,0,.3); }
+  .ic .ico { font-size: 28px; margin-bottom: 12px; }
+  .ic h3 { color: var(--teal); font-size: .97em; margin: 0 0 9px; }
+  .ic p  { color: rgba(255,255,255,.58); font-size: 13.5px; line-height: 1.72; margin: 0; }
+
+  /* ── BLOCK DIAGRAM ─────────────────────────────────────────── */
+  .dw {
+    background: rgba(0,0,0,.42);
+    border: 1px solid rgba(0,188,212,.11);
+    border-radius: 16px; padding: 28px 20px;
+    overflow-x: auto;
+  }
+  .dw svg { min-width: 780px; width: 100%; display: block; }
+
+  /* ── PCB GRID ──────────────────────────────────────────────── */
+  .pg { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .pcard {
+    background: var(--cb); border: 1px solid var(--cbr);
+    border-radius: 14px; overflow: hidden;
+    transition: transform .25s, box-shadow .25s;
+  }
+  .pcard:hover { transform: translateY(-4px); box-shadow: 0 14px 40px rgba(0,0,0,.45); }
+
+  /* Placeholder — swap for real <img> once you have PCB photos */
+  .pph {
+    width: 100%; height: 195px;
+    background: linear-gradient(135deg,rgba(0,188,212,.07),rgba(224,64,251,.05));
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; gap: 8px;
+    border-bottom: 1px solid rgba(255,255,255,.05);
+    position: relative; overflow: hidden;
+  }
+  .pph::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(45deg,
+      transparent, transparent 18px,
+      rgba(0,188,212,.03) 18px, rgba(0,188,212,.03) 19px);
+  }
+  .pph .pi  { font-size: 36px; opacity: .3; position: relative; }
+  .pph .pt  { font-size: 11.5px; color: rgba(255,255,255,.18); position: relative; }
+  .pph .pup {
+    position: relative; margin-top: 6px;
+    padding: 5px 14px; border-radius: 20px;
+    background: rgba(0,188,212,.1); border: 1px dashed rgba(0,188,212,.28);
+    color: var(--teal); font-size: 11px; cursor: pointer;
+  }
+  .pinfo { padding: 16px 18px; }
+  .pinfo h4 { color: #fff; font-size: 14px; margin: 0 0 6px; font-weight: 600; }
+  .pinfo p  { color: rgba(255,255,255,.44); font-size: 12.5px; margin: 0; line-height: 1.55; }
+
+  /* ── SENSOR WORKFLOW ───────────────────────────────────────── */
+  .wfl { position: relative; padding-left: 44px; }
+  .wfl::before {
+    content: ''; position: absolute;
+    left: 15px; top: 10px; bottom: 44px;
+    width: 2px;
+    background: linear-gradient(180deg,var(--teal),var(--purple),var(--pink));
+    opacity: .4;
+  }
+  .ws {
+    position: relative; margin-bottom: 18px;
+    background: var(--cb); border: 1px solid var(--cbr);
+    border-radius: 14px; padding: 20px 24px;
+    transition: border-color .22s;
+  }
+  .ws:hover { border-color: rgba(0,188,212,.3); }
+  .ws:last-child { margin-bottom: 0; }
+  .wd {
+    position: absolute; left: -37px; top: 22px;
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--teal); border: 2.5px solid #020609;
+    box-shadow: 0 0 10px rgba(0,188,212,.5);
+  }
+  .wn { font-size: 9.5px; color: var(--teal); font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; }
+  .ws h4 { color: #fff; font-size: 14px; margin: 0 0 8px; font-weight: 600; }
+  .ws p  { color: rgba(255,255,255,.54); font-size: 13px; line-height: 1.68; margin: 0; }
+
+  /* ── DATASET ───────────────────────────────────────────────── */
+  .dst { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; margin-bottom: 26px; }
+  .dsc {
+    background: var(--cb); border: 1px solid var(--cbr);
+    border-radius: 13px; padding: 20px 14px; text-align: center;
+  }
+  .dsc .n { font-size: 2em; font-weight: 700; color: var(--teal); line-height: 1; }
+  .dsc .l { font-size: 10.5px; color: var(--dim); margin-top: 5px; }
+  .dsub { color: rgba(255,255,255,.48); font-size: 13.5px; margin: 0 0 20px; line-height: 1.72; }
+  .glbl { font-size: 11px; color: var(--pale); letter-spacing: 1px; font-weight: 600; margin-bottom: 12px; text-transform: uppercase; }
+  .gg {
+    display: grid; grid-template-columns: repeat(5,1fr); gap: 10px;
+  }
+  .gc {
+    background: var(--cb); border: 1px solid var(--cbr);
+    border-radius: 10px; padding: 13px 8px; text-align: center;
+    transition: border-color .2s, background .2s, transform .2s;
+  }
+  .gc:hover {
+    border-color: rgba(0,188,212,.38);
+    background: rgba(0,188,212,.07);
+    transform: translateY(-2px);
+  }
+  .gc .gly { font-size: 22px; margin-bottom: 5px; }
+  .gc .gn  { font-size: 11px; color: rgba(255,255,255,.48); }
+
+  /* ── ML MODEL ──────────────────────────────────────────────── */
+  .mlc { display: grid; grid-template-columns: 1fr 1.45fr; gap: 22px; }
+  .mll { display: flex; flex-direction: column; gap: 11px; }
+  .mhd { font-size: 11px; color: var(--pale); letter-spacing: 1px; font-weight: 600; margin-bottom: 4px; text-transform: uppercase; }
+
+  .mr {
+    background: var(--cb); border: 1px solid var(--cbr);
+    border-radius: 12px; padding: 14px 16px;
+  }
+  .mr.win {
+    border-color: rgba(0,188,212,.38);
+    background: rgba(0,188,212,.055);
+  }
+  .mt { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .mn { font-size: 13px; font-weight: 600; color: rgba(255,255,255,.72); }
+  .mr.win .mn { color: var(--teal); }
+  .mp { font-size: 13px; font-weight: 700; color: rgba(255,255,255,.42); }
+  .mr.win .mp { color: var(--teal); }
+  .mb { height: 6px; background: rgba(255,255,255,.07); border-radius: 3px; overflow: hidden; }
+  .mf { height: 100%; border-radius: 3px; background: rgba(255,255,255,.16); }
+  .mr.win .mf { background: var(--teal); box-shadow: 0 0 8px rgba(0,188,212,.38); }
+  .wt {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 3px 9px; margin-top: 7px;
+    background: rgba(0,188,212,.12); border: 1px solid rgba(0,188,212,.28);
+    border-radius: 12px; color: var(--teal); font-size: 10px; font-weight: 700;
+  }
+
+  .rfc {
+    background: var(--cb); border: 1px solid rgba(0,188,212,.22);
+    border-radius: 14px; padding: 22px 24px;
+  }
+  .rfc h3 { color: var(--teal); font-size: 1em; margin: 0 0 16px; font-weight: 600; }
+  .rfl { display: flex; flex-direction: column; }
+  .rr {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,.05);
+  }
+  .rr:last-child { border-bottom: none; }
+  .rk { font-size: 12.5px; color: rgba(255,255,255,.44); }
+  .rv { font-size: 12.5px; color: #fff; font-weight: 600; font-family: 'Courier New', monospace; }
+
+  /* ── RESULTS ───────────────────────────────────────────────── */
+  .rg { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-bottom: 24px; }
+  .rsc {
+    background: var(--cb); border: 1px solid var(--cbr);
+    border-radius: 14px; padding: 26px 16px; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .rsc::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 2px;
+    background: var(--teal);
+  }
+  .rsc .n {
+    font-size: 2.3em; font-weight: 700; color: var(--teal); line-height: 1;
+    text-shadow: 0 0 20px rgba(0,188,212,.35);
+  }
+  .rsc .l { font-size: 11px; color: var(--dim); margin-top: 7px; }
+
+  .cmp {
+    background: var(--cb); border: 1px solid var(--cbr);
+    border-radius: 14px; padding: 36px; text-align: center;
+  }
+  .cmp .chi { font-size: 42px; opacity: .25; }
+  .cmp p { color: rgba(255,255,255,.22); font-size: 13px; margin: 10px 0 0; line-height: 1.55; }
+
+  .rsub { color: var(--pale); font-size: 11.5px; letter-spacing: 1px; font-weight: 600; margin: 0 0 14px; text-transform: uppercase; }
+
+  .cdp {
+    background: var(--cb); border: 1px solid var(--cbr);
+    border-radius: 14px; padding: 26px 28px; margin-top: 24px;
+  }
+  .cdp p { color: rgba(255,255,255,.6); font-size: 13.5px; line-height: 1.8; margin: 0 0 12px; }
+  .cdp p:last-child { margin-bottom: 0; }
+
+  /* ── REHAB GAME ────────────────────────────────────────────── */
+  .gg2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .gd {
+    background: var(--cb); border: 1px solid var(--cbr);
+    border-radius: 14px; padding: 24px;
+  }
+  .gd h3 { color: var(--teal); font-size: 1em; margin: 0 0 12px; }
+  .gd p  { color: rgba(255,255,255,.56); font-size: 13.5px; line-height: 1.72; margin: 0; }
+  .gm { margin-top: 16px; display: flex; flex-direction: column; gap: 9px; }
+  .gmode {
+    background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07);
+    border-radius: 9px; padding: 11px 14px;
+    display: flex; align-items: flex-start; gap: 11px;
+    font-size: 13px; color: rgba(255,255,255,.62);
+    transition: border-color .2s, background .2s;
+  }
+  .gmode:hover { border-color: rgba(0,188,212,.25); background: rgba(0,188,212,.045); }
+  .gmode .gi { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+  .gfl { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+  .gfl li { display: flex; align-items: flex-start; gap: 9px; font-size: 13.5px; color: rgba(255,255,255,.58); }
+  .gfl li::before { content: '✓'; color: var(--teal); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+  /* ── ACHIEVEMENTS ──────────────────────────────────────────── */
+  .ag { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
+  .ac {
+    border-radius: 20px; padding: 38px 24px 32px;
+    text-align: center; background: var(--cb);
+    position: relative; overflow: hidden;
+    transition: transform .3s, box-shadow .3s;
+  }
+  .ac:hover { transform: translateY(-7px); }
+  .ac::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+  }
+  .ac::after {
+    content: ''; position: absolute;
+    bottom: -50px; left: 50%; transform: translateX(-50%);
+    width: 160px; height: 160px; border-radius: 50%;
+    filter: blur(55px); opacity: .12; pointer-events: none;
+  }
+  /* Gold */
+  .ago { border: 1px solid rgba(255,215,64,.3); }
+  .ago::before { background: linear-gradient(90deg,transparent,#ffd740,transparent); }
+  .ago::after  { background: #ffd740; }
+  .ago:hover   { box-shadow: 0 20px 60px rgba(255,215,64,.1); }
+  /* Silver */
+  .ags { border: 1px solid rgba(176,190,197,.3); }
+  .ags::before { background: linear-gradient(90deg,transparent,#b0bec5,transparent); }
+  .ags::after  { background: #b0bec5; }
+  .ags:hover   { box-shadow: 0 20px 60px rgba(176,190,197,.1); }
+  /* Commandant */
+  .agc { border: 1px solid rgba(0,188,212,.3); }
+  .agc::before { background: linear-gradient(90deg,transparent,#00bcd4,transparent); }
+  .agc::after  { background: #00bcd4; }
+  .agc:hover   { box-shadow: 0 20px 60px rgba(0,188,212,.14); }
+
+  .am  { font-size: 54px; margin-bottom: 16px; display: block; }
+  .ar  { font-size: 10.5px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; margin-bottom: 8px; }
+  .ago .ar { color: #ffd740; }
+  .ags .ar { color: #b0bec5; }
+  .agc .ar { color: var(--teal); }
+  .at  { color: #fff; font-size: 1.08em; font-weight: 700; margin: 0 0 10px; }
+  .ad  { color: rgba(255,255,255,.44); font-size: 13px; line-height: 1.65; margin: 0; }
+
+  /* ── RESPONSIVE ────────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .ag  { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
+    .mlc { grid-template-columns: 1fr; }
+    .gg2 { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 720px) {
+    .ig, .pg   { grid-template-columns: 1fr; }
+    .rg, .dst  { grid-template-columns: 1fr 1fr; }
+    .gg        { grid-template-columns: repeat(2,1fr); }
+  }
+  @media (max-width: 500px) {
+    .ph       { padding: 38px 20px 32px; }
+    .ph h1    { font-size: 1.78em; }
+    .pc       { padding: 0 16px 70px; }
+    .ps       { padding: 50px 0; }
+    .dst, .rg { grid-template-columns: 1fr; }
+    .ig       { grid-template-columns: 1fr; }
+  }
+  </style>
+</head>
+
+<body>
+
+  <!-- ══ HEADER ════════════════════════════════════════════════ -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-left">
+        <a href="../about.html" class="nav-arrow" title="Previous: About" aria-label="Previous page">‹</a>
+        <div class="logo"><a href="../index.html"><span class="logo-mark"></span>Electro<span>Mania</span></a></div>
+      </div>
+      <nav class="main-nav" id="mainNav">
+        <a href="../index.html">Home</a>
+        <a href="../about.html" class="active">About</a>
+        <a href="../projects.html">Projects</a>
+        <a href="../skills.html">Skills</a>
+        <a href="../material.html">Material</a>
+        <a href="../blog.html">Blog</a>
+        <a href="../contact.html">Contact</a>
+      </nav>
+      <div class="header-right">
+        <a href="../skills.html" class="nav-arrow" title="Next: Skills" aria-label="Next page">›</a>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+  <div class="crumb-bar">
+    <div class="crumb">
+      <a href="../index.html">Home</a><span class="sep">›</span>
+      <a href="../about.html">About</a><span class="sep">›</span>
+      <span class="here">Embedded Glove — FYP</span>
+    </div>
+  </div>
+
+  <!-- ══ HERO ══════════════════════════════════════════════════ -->
+  <div class="page-hero">
+    <div class="page-hero-in">
+      <h1>Embedded Glove for <span class="hi">Pakistani Sign Language</span> to Speech Conversion</h1>
+      <p class="sub">Final Year Project (DE-44 EE) &nbsp;·&nbsp; BE Electrical Engineering &nbsp;·&nbsp; NUST College of E&amp;ME &nbsp;·&nbsp; 2025–26</p>
+
+      <div class="stat-strip">
+        <div class="stat-box"><span class="num">2</span><span class="lbl">Sensing Approaches</span></div>
+        <div class="stat-box"><span class="num">10</span><span class="lbl">PSL Gesture Classes</span></div>
+        <div class="stat-box"><span class="num">100%</span><span class="lbl">Optical Encoder Accuracy</span></div>
+        <div class="stat-box"><span class="num">3</span><span class="lbl">Awards Won</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ STICKY SECTION NAV ════════════════════════════════════ -->
+  <div class="snw">
+    <nav class="sn" id="secNav">
+      <a href="#abstract"        class="on">Abstract</a>
+      <a href="#introduction"           >Introduction</a>
+      <a href="#block-diagram"          >Architecture</a>
+      <a href="#pcb-design"             >PCB Design</a>
+      <a href="#imu-approach"           >Approach 1 — IMU</a>
+      <a href="#optical-encoder"        >Approach 2 — Optical</a>
+      <a href="#dataset"                >Gesture Dataset</a>
+      <a href="#ml-model"               >ML Model</a>
+      <a href="#results"                >Results</a>
+      <a href="#rehab-game"             >Rehab Game</a>
+      <a href="#achievements"           >Achievements</a>
+    </nav>
+  </div>
+
+  <!-- ══ MAIN CONTENT ══════════════════════════════════════════ -->
+  <div class="pc">
+
+    <!-- ─ 01 ABSTRACT ──────────────────────────────────────── -->
+    <div class="ps" id="abstract">
+      <div class="sh"><span class="snum">01</span><h2>Abstract</h2></div>
+      <div class="ab">
+        <p>The World Health Organization estimates that over 430 million people worldwide need rehabilitation services, and sign language remains the primary means of communication for a large share of them — yet the hearing majority rarely understands it, leaving users socially and economically excluded. A second, related problem sits alongside it: patients recovering from stroke, nerve injury, or hand surgery need repetitive finger-flexion exercises that are often too tedious to stick with. This project designs, builds, and tests an embedded smart glove system that addresses both problems from a single wearable platform.</p>
+        <p>Two independent glove designs were built and compared. The first instruments a single glove with six MPU-6050 inertial measurement units — one on each finger's proximal phalanx and one on the dorsum of the hand — polled through a TCA9548A I²C multiplexer by an ESP32, which computes a gravity-vector bend angle per finger and streams a compact packet over ESP-NOW to a receiver ESP32 wired to a Raspberry Pi Zero 2 W. There, a 24-dimensional statistical feature vector is built from sliding windows and classified by a trained Random Forest model (95.15% test accuracy, 95.29% 5-fold CV accuracy across 10 gesture classes). The second design is the project's core engineering contribution: a home-fabricated <strong>optical linear encoder</strong> glove, in which a photolithographically etched and CNC-machined copper aperture strip slides between an LED pair and a BPW34 photodiode at every joint, producing four clean optical states that an STM32F407VET6 decodes directly into a deterministic joint position — no machine learning required. In validation testing this approach reached 100% classification accuracy with under 5 ms of response latency.</p>
+        <p>Both pipelines terminate in the same Raspberry Pi Zero 2 W, which renders the recognised gesture as on-screen text and speaks it aloud through an offline pyttsx3 TTS engine via a MAX98357A I2S amplifier. A third subsystem — a PyQt5 rehabilitation game in which finger movements steer a car across a five-lane road — turns the same sensor glove into a therapy tool for post-stroke, prosthetic, and neurological rehabilitation patients. The combined system was awarded First Best Project by the Faculty Evaluation Panel, Second Best by the External Evaluation Committee, and the Commandant's Best Project of the Year.</p>
+        <div class="ab-kw">
+          <span class="kl">Keywords —</span>
+          <span class="kw">Pakistani Sign Language</span>
+          <span class="kw">Embedded Systems</span>
+          <span class="kw">ESP32</span>
+          <span class="kw">MPU-6050</span>
+          <span class="kw">ESP-NOW</span>
+          <span class="kw">Optical Linear Encoder</span>
+          <span class="kw">STM32</span>
+          <span class="kw">Random Forest</span>
+          <span class="kw">Speech Synthesis</span>
+          <span class="kw">Rehabilitation Gamification</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─ 02 INTRODUCTION ───────────────────────────────────── -->
+    <div class="ps" id="introduction">
+      <div class="sh"><span class="snum">02</span><h2>Introduction</h2></div>
+      <div class="ig">
+        <div class="ic">
+          <div class="ico">🎯</div>
+          <h3>Problem Statement</h3>
+          <p>Sign language is the primary mode of communication for a large part of the 430-million-strong global population the WHO identifies as needing rehabilitation services, out of over 300 sign languages in use worldwide. Most hearing people — including teachers, relatives, and healthcare workers — don't understand it, which isolates signers socially and limits education, employment, and healthcare access. Separately, stroke and nerve-injury patients need repetitive finger-flexion physiotherapy that's monotonous enough that many drop out before recovering full hand function.</p>
+        </div>
+        <div class="ic">
+          <div class="ico">💡</div>
+          <h3>Proposed Solution</h3>
+          <p>An embedded glove that pursues two parallel sensing strategies rather than one. The first uses six wrist- and finger-mounted MPU-6050 IMUs feeding a trained Random Forest classifier for flexible, retrainable gesture recognition. The second replaces the classifier entirely with a custom-built optical linear encoder — a physical, self-calibrating position sensor at each joint — so gestures are decoded deterministically from geometry rather than inferred statistically. Both speak through the same offline text-to-speech pipeline.</p>
+        </div>
+        <div class="ic">
+          <div class="ico">🌍</div>
+          <h3>Motivation &amp; Impact</h3>
+          <p>Camera-based sign language recognition struggles with lighting, occlusion, and background clutter; a wearable, camera-free glove sidesteps all three. Building the optical encoder in-house — after 3D printing, EDM wire-cutting, and photolithographic etching all fell short before CNC machining finally worked — was motivated by a desire to remove machine learning from the critical sensing path altogether, so the system doesn't need retraining every time it's worn differently or by someone new.</p>
+        </div>
+        <div class="ic">
+          <div class="ico">🔬</div>
+          <h3>System Overview</h3>
+          <p>Two separate glove prototypes were built and tested end-to-end. The IMU glove talks to a base-station ESP32 over ESP-NOW; the optical-encoder glove decodes its own joint states on an onboard STM32F407VET6. Both hand their result to a shared Raspberry Pi Zero 2 W, which drives on-screen text and offline speech. A PyQt5 rehabilitation game built on top of the same sensor glove turns repetitive finger-flexion exercises into a five-lane driving game for therapy patients.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─ 03 SYSTEM ARCHITECTURE / BLOCK DIAGRAM ────────────── -->
+    <div class="ps" id="block-diagram">
+      <div class="sh"><span class="snum">03</span><h2>System Architecture</h2></div>
+      <p class="dsub" style="margin-bottom:22px">The two glove designs share the same downstream destination but take very different routes to get there — one wireless and probabilistic, the other wired and deterministic — before converging on a single Raspberry Pi Zero 2 W for text and speech output.</p>
+      <div class="dw">
+        <svg viewBox="0 0 1200 345" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="at"  markerWidth="6" markerHeight="6" refX="6" refY="3" orient="auto"><polygon points="0 0,6 3,0 6" fill="#00bcd4"/></marker>
+            <marker id="apu" markerWidth="6" markerHeight="6" refX="6" refY="3" orient="auto"><polygon points="0 0,6 3,0 6" fill="#e040fb"/></marker>
+            <marker id="ago" markerWidth="6" markerHeight="6" refX="6" refY="3" orient="auto"><polygon points="0 0,6 3,0 6" fill="#ffd740"/></marker>
+            <marker id="apk" markerWidth="6" markerHeight="6" refX="6" refY="3" orient="auto"><polygon points="0 0,6 3,0 6" fill="#ff4081"/></marker>
+            <marker id="agr" markerWidth="6" markerHeight="6" refX="6" refY="3" orient="auto"><polygon points="0 0,6 3,0 6" fill="#69f0ae"/></marker>
+          </defs>
+
+          <!-- Row labels -->
+          <text x="10" y="16" font-family="Poppins,sans-serif" font-size="10.5" font-weight="700" letter-spacing="1" fill="#00bcd4">APPROACH 1 — IMU + RANDOM FOREST (WIRELESS)</text>
+          <text x="10" y="200" font-family="Poppins,sans-serif" font-size="10.5" font-weight="700" letter-spacing="1" fill="#ff4081">APPROACH 2 — OPTICAL LINEAR ENCODER (WIRED, DETERMINISTIC)</text>
+
+          <!-- ══ TOP ROW — IMU PATH ══ -->
+          <!-- B1 Sensors -->
+          <rect x="10" y="30" width="160" height="90" rx="10" fill="rgba(0,188,212,.09)" stroke="#00bcd4" stroke-width="1.4"/>
+          <text x="90" y="57" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13" font-weight="700" fill="#00bcd4">MPU-6050 ×6</text>
+          <text x="90" y="73" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10.5" fill="rgba(255,255,255,.62)">5 Finger + 1 Dorsal</text>
+          <text x="90" y="87" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9.5"  fill="rgba(255,255,255,.38)">6-DoF Accel + Gyro</text>
+          <text x="90" y="144" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9.5" fill="rgba(0,188,212,.48)" letter-spacing=".5">SENSORS</text>
+
+          <line x1="170" y1="75" x2="198" y2="75" stroke="#00bcd4" stroke-width="1.5" marker-end="url(#at)"/>
+
+          <!-- B2 ESP32 Tx -->
+          <rect x="200" y="30" width="140" height="90" rx="10" fill="rgba(224,64,251,.09)" stroke="#e040fb" stroke-width="1.4"/>
+          <text x="270" y="57" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13" font-weight="700" fill="#e040fb">ESP32 Tx</text>
+          <text x="270" y="73" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10.5" fill="rgba(255,255,255,.62)">I²C + TCA9548A Mux</text>
+          <text x="270" y="87" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9.5"  fill="rgba(255,255,255,.38)">Angle Compute</text>
+          <text x="270" y="144" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9.5" fill="rgba(224,64,251,.48)" letter-spacing=".5">EDGE MCU</text>
+
+          <line x1="340" y1="75" x2="378" y2="75" stroke="#e040fb" stroke-width="1.5" marker-end="url(#apu)"/>
+
+          <!-- B3 ESP-NOW -->
+          <rect x="380" y="30" width="130" height="90" rx="10" fill="rgba(255,215,64,.09)" stroke="#ffd740" stroke-width="1.4"/>
+          <text x="445" y="57" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13" font-weight="700" fill="#ffd740">ESP-NOW</text>
+          <text x="445" y="73" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10.5" fill="rgba(255,255,255,.62)">2.4GHz P2P Link</text>
+          <text x="445" y="87" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9.5"  fill="rgba(255,255,255,.38)">~125Hz / ≤8ms</text>
+          <text x="445" y="144" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9.5" fill="rgba(255,215,64,.48)" letter-spacing=".5">WIRELESS</text>
+
+          <line x1="510" y1="75" x2="548" y2="75" stroke="#ffd740" stroke-width="1.5" marker-end="url(#ago)"/>
+
+          <!-- B4 ESP32 Rx -->
+          <rect x="550" y="30" width="120" height="90" rx="10" fill="rgba(224,64,251,.09)" stroke="#e040fb" stroke-width="1.4"/>
+          <text x="610" y="57" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13" font-weight="700" fill="#e040fb">ESP32 Rx</text>
+          <text x="610" y="73" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10.5" fill="rgba(255,255,255,.62)">UART Bridge</text>
+          <text x="610" y="87" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9.5"  fill="rgba(255,255,255,.38)">115200 bps</text>
+          <text x="610" y="144" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9.5" fill="rgba(224,64,251,.48)" letter-spacing=".5">BRIDGE</text>
+
+          <!-- B4 -> junction (no arrowhead, feeder line) -->
+          <polyline points="670,75 690,75 690,167" fill="none" stroke="#e040fb" stroke-width="1.5"/>
+
+          <!-- ══ BOTTOM ROW — OPTICAL ENCODER PATH ══ -->
+          <!-- C1 Optical Encoders -->
+          <rect x="10" y="214" width="160" height="90" rx="10" fill="rgba(0,188,212,.09)" stroke="#00bcd4" stroke-width="1.4"/>
+          <text x="90" y="241" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13" font-weight="700" fill="#00bcd4">Optical Encoder ×20</text>
+          <text x="90" y="257" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10.5" fill="rgba(255,255,255,.62)">LED + Photodiode</text>
+          <text x="90" y="271" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9.5"  fill="rgba(255,255,255,.38)">4-State Encoding</text>
+          <text x="90" y="328" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9.5" fill="rgba(0,188,212,.48)" letter-spacing=".5">SENSORS</text>
+
+          <line x1="170" y1="259" x2="198" y2="259" stroke="#00bcd4" stroke-width="1.5" marker-end="url(#at)"/>
+
+          <!-- C2 STM32 -->
+          <rect x="200" y="214" width="140" height="90" rx="10" fill="rgba(224,64,251,.09)" stroke="#e040fb" stroke-width="1.4"/>
+          <text x="270" y="241" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13" font-weight="700" fill="#e040fb">STM32F407VET6</text>
+          <text x="270" y="257" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10.5" fill="rgba(255,255,255,.62)">20-ch ADC Scan</text>
+          <text x="270" y="271" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9.5"  fill="rgba(255,255,255,.38)">State-Decode FW</text>
+          <text x="270" y="328" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9.5" fill="rgba(224,64,251,.48)" letter-spacing=".5">EDGE MCU</text>
+
+          <!-- C2 -> junction (no arrowhead, feeder line) -->
+          <polyline points="340,259 690,259 690,167" fill="none" stroke="#e040fb" stroke-width="1.5"/>
+
+          <!-- Junction dot -->
+          <circle cx="690" cy="167" r="4.5" fill="#ff4081"/>
+
+          <!-- junction -> D1 -->
+          <line x1="694" y1="167" x2="708" y2="167" stroke="#ff4081" stroke-width="1.5" marker-end="url(#apk)"/>
+
+          <!-- ══ MERGE COLUMN ══ -->
+          <!-- D1 Raspberry Pi -->
+          <rect x="710" y="117" width="150" height="100" rx="10" fill="rgba(255,64,129,.09)" stroke="#ff4081" stroke-width="1.4"/>
+          <text x="785" y="147" text-anchor="middle" font-family="Poppins,sans-serif" font-size="12.5" font-weight="700" fill="#ff4081">Raspberry Pi</text>
+          <text x="785" y="163" text-anchor="middle" font-family="Poppins,sans-serif" font-size="12.5" font-weight="700" fill="#ff4081">Zero 2 W</text>
+          <text x="785" y="179" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9.5"  fill="rgba(255,255,255,.38)">Python Runtime</text>
+          <text x="785" y="241" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9.5" fill="rgba(255,64,129,.48)" letter-spacing=".5">PROCESSING</text>
+
+          <line x1="860" y1="167" x2="888" y2="167" stroke="#ff4081" stroke-width="1.5" marker-end="url(#apk)"/>
+
+          <!-- D2 Classifier / Lookup -->
+          <rect x="890" y="117" width="150" height="100" rx="10" fill="rgba(105,240,174,.09)" stroke="#69f0ae" stroke-width="1.4"/>
+          <text x="965" y="147" text-anchor="middle" font-family="Poppins,sans-serif" font-size="12" font-weight="700" fill="#69f0ae">RF Classifier /</text>
+          <text x="965" y="163" text-anchor="middle" font-family="Poppins,sans-serif" font-size="12" font-weight="700" fill="#69f0ae">State Lookup</text>
+          <text x="965" y="179" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9.5"  fill="rgba(255,255,255,.38)">10-Class Output</text>
+          <text x="965" y="241" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9.5" fill="rgba(105,240,174,.48)" letter-spacing=".5">CLASSIFY</text>
+
+          <line x1="1040" y1="167" x2="1068" y2="167" stroke="#69f0ae" stroke-width="1.5" marker-end="url(#agr)"/>
+
+          <!-- D3 Output -->
+          <rect x="1070" y="117" width="120" height="100" rx="10" fill="rgba(0,188,212,.09)" stroke="#00bcd4" stroke-width="1.4"/>
+          <text x="1130" y="147" text-anchor="middle" font-family="Poppins,sans-serif" font-size="12.5" font-weight="700" fill="#00bcd4">Output</text>
+          <text x="1130" y="163" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10"   fill="rgba(255,255,255,.7)">📝 Text Display</text>
+          <text x="1130" y="179" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10"   fill="rgba(255,255,255,.7)">🔊 Offline TTS</text>
+          <text x="1130" y="241" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9.5"  fill="rgba(0,188,212,.48)" letter-spacing=".5">OUTPUT</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- ─ 04 PCB DESIGN ─────────────────────────────────────── -->
+    <div class="ps" id="pcb-design">
+      <div class="sh"><span class="snum">04</span><h2>PCB Designs</h2></div>
+      <p class="dsub" style="margin-bottom:22px">All boards were designed in KiCad. Four custom PCBs were needed in total — two for the IMU glove, two for the optical linear encoder glove — each stripped down to only the components the application actually needs.</p>
+      <div class="pg">
+        <div class="pcard">
+          <div class="pph">
+            <span class="pi">🖨️</span>
+            <span class="pt">Add MPU-6050 Module Photo</span>
+            <span class="pup">+ Upload Photo</span>
+          </div>
+          <div class="pinfo">
+            <h4>MPU-6050 Custom Module (IMU Glove)</h4>
+            <p>Stripped-down breakout carrying only VDD, GND, SDA, and SCL out to a 4-pin header — commercial MPU-6050 breakouts were too large to fit six-per-glove. 4.7 kΩ I²C pull-ups and 0.1 µF/0.01 µF/2200 pF decoupling caps sit clear of the die area to avoid parasitic MEMS coupling. Two-layer stack-up, final size 11.75 mm × 15.05 mm.</p>
+          </div>
+        </div>
+        <div class="pcard">
+          <div class="pph">
+            <span class="pi">🖨️</span>
+            <span class="pt">Add ESP32 Module Photo</span>
+            <span class="pup">+ Upload Photo</span>
+          </div>
+          <div class="pinfo">
+            <h4>ESP32 Module with Charging &amp; BMS (IMU Glove)</h4>
+            <p>Built around the ESP32-S3-MINI-1-N8 with a TLV75801P0BV 3.3 V LDO, TP4056 USB-C Li-ion charger, and BOOT/reset tactile switches. Four-layer stack-up (signal / ground / power / ground) keeps the 2.4 GHz RF section clean, with copper cleared from the antenna keep-out area on every inner layer to avoid detuning the PCB trace antenna.</p>
+          </div>
+        </div>
+        <div class="pcard">
+          <div class="pph">
+            <span class="pi">🖨️</span>
+            <span class="pt">Add Optical Sensor PCB Photo</span>
+            <span class="pup">+ Upload Photo</span>
+          </div>
+          <div class="pinfo">
+            <h4>Optical Sensor PCB (Encoder Glove, ×20)</h4>
+            <p>An 8 mm × 12 mm two-layer FR4 board — one per joint — with a pair of 0805 red LEDs and their current-limiting resistor on top and the BPW34 photodiode on the underside, positioned to sit exactly in the housing's 1.5 mm optical aperture. Connects back to the main board through a 0.5 mm-pitch, 4-pin FFC.</p>
+          </div>
+        </div>
+        <div class="pcard">
+          <div class="pph">
+            <span class="pi">🖨️</span>
+            <span class="pt">Add Main Controller PCB Photo</span>
+            <span class="pup">+ Upload Photo</span>
+          </div>
+          <div class="pinfo">
+            <h4>STM32 Main Controller PCB (Encoder Glove)</h4>
+            <p>A 60 mm × 60 mm four-layer board aggregating all 20 Sensor PCBs, built around the STM32F407VET6 with onboard power regulation and a USB-to-UART debug bridge. Its 20 ADC inputs are split across the STM32's three independent ADC peripherals for simultaneous scan-mode sampling with zero inter-channel time skew.</p>
+          </div>
+        </div>
+        <div class="pcard">
+          <div class="pph">
+            <span class="pi">🖨️</span>
+            <span class="pt">Add Assembled Prototypes Photo</span>
+            <span class="pup">+ Upload Photo</span>
+          </div>
+          <div class="pinfo">
+            <h4>Final Assembled Prototypes</h4>
+            <p>Two independent glove builds: the IMU glove with its six sensor modules and wrist-mounted ESP32 + power board, and the spandex-based optical encoder glove with CNC-machined aluminium sensor housings at each joint wired back to the STM32 main board — both validated live against all ten PSL gesture classes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─ 05 APPROACH 1 — IMU GLOVE WORKFLOW ────────────────── -->
+    <div class="ps" id="imu-approach">
+      <div class="sh"><span class="snum">05</span><h2>Approach 1 — IMU-Based Sensor Workflow</h2></div>
+      <div class="wfl">
+
+        <div class="ws">
+          <span class="wd"></span>
+          <div class="wn">Step 01</div>
+          <h4>Six-Sensor Placement on a Single Glove</h4>
+          <p>Rather than instrumenting both hands, all six MPU-6050 6-DoF IMUs sit on one glove: five mounted at the proximal phalanx of the thumb, index, middle, ring, and little finger (channels 0–4), plus a sixth on the dorsum of the hand (channel 5) to track overall wrist and hand orientation. Because every MPU-6050 exposes only two selectable I²C addresses (0x68 / 0x69 via its AD0 pin), six units on one bus need a multiplexer.</p>
+        </div>
+
+        <div class="ws">
+          <span class="wd" style="background:var(--purple);box-shadow:0 0 10px rgba(224,64,251,.5)"></span>
+          <div class="wn" style="color:var(--purple)">Step 02</div>
+          <h4>I²C Multiplexing — TCA9548A</h4>
+          <p>A TCA9548A 8-channel I²C multiplexer, addressed at 0x70, isolates each MPU-6050 on its own sub-bus. The ESP32 firmware issues a channel-select write before each read, enabling only the target sensor's downstream bus and leaving the other five electrically isolated — repeated sequentially every update cycle to give all six units time-balanced access to a single I²C master.</p>
+        </div>
+
+        <div class="ws">
+          <span class="wd" style="background:var(--gold);box-shadow:0 0 10px rgba(255,215,64,.5)"></span>
+          <div class="wn" style="color:var(--gold)">Step 03</div>
+          <h4>Gravity-Vector Bend-Angle Estimation</h4>
+          <p>Rather than transmitting raw accelerometer values for downstream processing, the ESP32 computes finger bend angles directly. Each sensor's accelerometer output is normalised into a unit gravity vector; a one-time calibration snapshot — taken with the hand held flat and open — stores this as each finger's neutral reference. Every cycle, the geodesic angle between the current and reference vectors (via the clamped arc-cosine of their dot product) yields a bend angle from 0° (extended) to a hard-clamped 120° (fully flexed), while the dorsal sensor's signed pitch (via atan2) captures palm-up/palm-down orientation.</p>
+        </div>
+
+        <div class="ws">
+          <span class="wd" style="background:var(--pink);box-shadow:0 0 10px rgba(255,64,129,.5)"></span>
+          <div class="wn" style="color:var(--pink)">Step 04</div>
+          <h4>Adaptive Filtering &amp; Quantisation</h4>
+          <p>Raw bend angles are smoothed with an exponential moving average (α = 0.1) to strip MEMS noise and transient spikes without lagging behind genuine gesture motion. Each smoothed angle is then quantised to a 16-bit integer at 0.1° resolution (0–1200), and packed with the signed hand-pitch float into a 14-byte struct — compact enough to leave plenty of headroom in the update loop.</p>
+        </div>
+
+        <div class="ws">
+          <span class="wd"></span>
+          <div class="wn">Step 05</div>
+          <h4>ESP-NOW Wireless Transmission</h4>
+          <p>The transmitter ESP32 repeats its full sensor-read-to-radio pipeline every 8 ms (~125 Hz), sending the 14-byte packet to a registered receiver MAC address over ESP-NOW — a connectionless, access-point-free 2.4 GHz protocol with no TCP/IP or association overhead. The wireless hop itself takes under 2 ms, keeping total motion-to-radio latency to roughly one update period (≤8 ms), well inside the 200–250 m open-air range of the on-board PCB antenna.</p>
+        </div>
+
+        <div class="ws">
+          <span class="wd" style="background:var(--green);box-shadow:0 0 10px rgba(105,240,174,.5)"></span>
+          <div class="wn" style="color:var(--green)">Step 06</div>
+          <h4>Raspberry Pi Feature Extraction, Classification &amp; Speech</h4>
+          <p>A receiver ESP32 forwards each packet unmodified over UART (115200 bps) to the Raspberry Pi Zero 2 W. There, a Python service buffers the six channels into sliding windows, computes four statistics per channel — mean, standard deviation, mean absolute derivative, and range — for a 24-dimensional feature vector, standardises it, and feeds it to the pre-trained Random Forest model. The predicted label appears on screen and is spoken aloud through pyttsx3 (offline eSpeak) via a MAX98357A I2S amplifier and 4Ω/3W speaker, with the full gesture-to-speech turnaround landing around 100–300 ms.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ─ 06 APPROACH 2 — OPTICAL LINEAR ENCODER ────────────── -->
+    <div class="ps" id="optical-encoder">
+      <div class="sh"><span class="snum">06</span><h2>Approach 2 — Optical Linear Encoder (Novel Sensor Design)</h2></div>
+      <div class="wfl">
+
+        <div class="ws">
+          <span class="wd"></span>
+          <div class="wn">Step 01</div>
+          <h4>Motivation — Why Look Past IMUs and Flex Sensors</h4>
+          <p>IMU- and flex-sensor gloves work, but their signals drift with temperature, wear position, and time, which means the classifier needs periodic retraining to stay accurate across users and sessions. The team wanted a sensor that produced clean, repeatable, deterministic joint positions directly — turning gesture recognition into a lookup problem instead of a pattern-classification one. That led to the idea of a miniature optical linear encoder at every joint: a use of optical encoding principles that, as far as the literature review found, had not previously been applied to wearable finger-joint sensing.</p>
+        </div>
+
+        <div class="ws">
+          <span class="wd" style="background:var(--purple);box-shadow:0 0 10px rgba(224,64,251,.5)"></span>
+          <div class="wn" style="color:var(--purple)">Step 02</div>
+          <h4>Working Principle — Transmissive Optical Encoding</h4>
+          <p>Each sensor unit shares an optical axis between two 0805 red LEDs (625 nm, wired in parallel through a shared 180 Ω resistor, ~7.2 mA per branch) and a BPW34 silicon PIN photodiode run in reverse bias for speed. Between them slides a copper strip etched with a repeating, asymmetric pattern of small, medium, and large apertures. As a joint flexes, the strip moves linearly through the light gate, producing one of four discrete optical states — 0 (opaque, no light) through 3 (largest aperture, maximum light) — so a single channel encodes both the magnitude and direction of joint motion with no separate direction sensor needed.</p>
+        </div>
+
+        <div class="ws">
+          <span class="wd" style="background:var(--gold);box-shadow:0 0 10px rgba(255,215,64,.5)"></span>
+          <div class="wn" style="color:var(--gold)">Step 03</div>
+          <h4>The Fabrication Journey — Four Attempts to Get One Strip Right</h4>
+          <p><strong style="color:#fff">3D printing</strong> came first — quick to prototype, but the printed material diffracted light instead of absorbing it, blurring the boundaries between optical states beyond reliable discrimination. <strong style="color:#fff">EDM wire-cutting</strong> was tried next on copper sheet; the wire kept snapping under the thermal and mechanical stress of such fine features. <strong style="color:#fff">Photolithography with FeCl₃ chemical etching</strong> — UV-exposing a photoresist-coated copper mask, developing it, then etching at 45°C — finally produced sharp, accurate apertures, but batch-to-batch etch time and resist adhesion were hard to control consistently in a non-dedicated lab, so yield stayed low. After JLCPCB confirmed the tolerances were beyond their standard CNC capability, a fortunate break came through: another final-year team's self-built <strong style="color:#fff">CNC machine</strong>, which finally delivered strips to the required dimensions — combined with photolithography for the very finest features — giving a complete, repeatable fabrication process.</p>
+        </div>
+
+        <div class="ws">
+          <span class="wd" style="background:var(--pink);box-shadow:0 0 10px rgba(255,64,129,.5)"></span>
+          <div class="wn" style="color:var(--pink)">Step 04</div>
+          <h4>Housing &amp; PCB</h4>
+          <p>Each sensor sits in a small 6061-T6 aluminium enclosure, CNC-machined to keep the LED, strip slot, and photodiode co-axial while blocking ambient light. The strip's linear slot holds ±0.05 mm parallelism over a 20 mm length with 0.3 mm guide rails to stop lateral yaw, and the whole housing clips onto the glove via a spring-loaded, Velcro-compatible 3D-printed PLA mount. Electronics for each joint live on an 8 mm × 12 mm Sensor PCB, aggregated by a 60 mm × 60 mm four-layer Main Controller PCB carrying the STM32F407VET6.</p>
+        </div>
+
+        <div class="ws">
+          <span class="wd"></span>
+          <div class="wn">Step 05</div>
+          <h4>Sensor Placement — 20 Degrees of Freedom</h4>
+          <p>Encoders sit at the MCP, PIP, and DIP joints of the index, middle, ring, and little fingers, at the equivalent thumb joints, and at additional points capturing wrist flexion and finger abduction/adduction — 20 tracked degrees of freedom in total. A form-fitting spandex glove substrate keeps sensors from shifting between gestures, while rigid 1 mm ABS link plates bonded across each joint convert the joint's angular rotation into the strip's linear displacement.</p>
+        </div>
+
+        <div class="ws">
+          <span class="wd" style="background:var(--green);box-shadow:0 0 10px rgba(105,240,174,.5)"></span>
+          <div class="wn" style="color:var(--green)">Step 06</div>
+          <h4>Signal Processing &amp; Deterministic State Decoding</h4>
+          <p>The STM32F407VET6 scans all 20 ADC channels simultaneously via DMA at 10,000 samples/sec/channel, spread across its three ADC peripherals to remove inter-channel skew. A 16-sample moving-average filter (~277 Hz cutoff) knocks out high-frequency noise while leaving the sub-20 Hz motion band untouched, and hysteresis-protected thresholds — auto-calibrated at startup against each channel's own opaque and full-aperture extremes — classify each reading into one of four states. State transitions drive a signed position counter (~5° of joint rotation per count), and the resulting per-finger state codes concatenate into a single gesture "state word" that a lookup table maps directly to a label and TTS phrase — no trained model in the loop at all.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ─ 07 GESTURE DATASET ─────────────────────────────────── -->
+    <div class="ps" id="dataset">
+      <div class="sh"><span class="snum">07</span><h2>Gesture Dataset &amp; Vocabulary</h2></div>
+      <div class="dst">
+        <div class="dsc"><div class="n">10</div><div class="l">Gesture Classes</div></div>
+        <div class="dsc"><div class="n">24</div><div class="l">Features / Sample</div></div>
+        <div class="dsc"><div class="n">3,501</div><div class="l">Total Samples</div></div>
+        <div class="dsc"><div class="n">80/20</div><div class="l">Train / Test Split</div></div>
+      </div>
+      <p class="dsub">The IMU-based classifier is trained on 3,501 labelled samples across ten PSL gesture classes, referenced against video signs from the psl.org.pk dictionary. Five classes — <em>a</em>, <em>b</em>, <em>Asalam O Alaikum</em>, <em>My name is Basit</em>, and <em>Thank You</em> — have 400 samples each, while five directional/phrase classes — <em>Up</em>, <em>Down</em>, <em>Left</em>, <em>Right</em>, and <em>We are Electrical Engineers</em> — have 300–301 samples each, a modest ≈1.33:1 imbalance the classifiers proved robust to. Deliberate variation in signing speed, hand placement, and wrist rotation across trials was encouraged to improve generalisation. Each sample's six raw channels (five finger bend angles + hand pitch) are reduced to four statistics per channel — mean, standard deviation, mean absolute derivative, and range — for a 24-dimensional feature vector, split 80/20 (2,800 / 701 samples) with stratified sampling and evaluated under 5-fold cross-validation. The optical linear encoder approach recognises the same ten classes but needs no training dataset at all — each gesture maps to a unique, pre-calibrated joint-state word in a deterministic lookup table.</p>
+      <div class="glbl">10 Target PSL Gesture / Phrase Classes</div>
+      <div class="gg">
+        <div class="gc"><div class="gly">🅰️</div><div class="gn">a</div></div>
+        <div class="gc"><div class="gly">🅱️</div><div class="gn">b</div></div>
+        <div class="gc"><div class="gly">🤲</div><div class="gn">Asalam O Alaikum</div></div>
+        <div class="gc"><div class="gly">🙋</div><div class="gn">My name is Basit</div></div>
+        <div class="gc"><div class="gly">🙏</div><div class="gn">Thank You</div></div>
+        <div class="gc"><div class="gly">⬆️</div><div class="gn">Up</div></div>
+        <div class="gc"><div class="gly">⬇️</div><div class="gn">Down</div></div>
+        <div class="gc"><div class="gly">⬅️</div><div class="gn">Left</div></div>
+        <div class="gc"><div class="gly">➡️</div><div class="gn">Right</div></div>
+        <div class="gc"><div class="gly">⚡</div><div class="gn">We are Electrical Engineers</div></div>
+      </div>
+    </div>
+
+    <!-- ─ 08 ML MODEL ────────────────────────────────────────── -->
+    <div class="ps" id="ml-model">
+      <div class="sh"><span class="snum">08</span><h2>ML Model Selection &amp; Implementation</h2></div>
+      <div class="mlc">
+
+        <!-- Comparison bars -->
+        <div>
+          <div class="mhd">Accuracy Comparison — Test Set (N = 701)</div>
+          <div class="mll">
+            <div class="mr win">
+              <div class="mt"><span class="mn">Random Forest</span><span class="mp">95.15%</span></div>
+              <div class="mb"><div class="mf" style="width:95.15%"></div></div>
+              <span class="wt">✓ Selected</span>
+            </div>
+            <div class="mr">
+              <div class="mt"><span class="mn">K-Nearest Neighbours (k = 100)</span><span class="mp">92.87%</span></div>
+              <div class="mb"><div class="mf" style="width:92.87%"></div></div>
+            </div>
+            <div class="mr">
+              <div class="mt"><span class="mn">Support Vector Machine (RBF)</span><span class="mp">90.11%</span></div>
+              <div class="mb"><div class="mf" style="width:90.11%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RF implementation details -->
+        <div class="rfc">
+          <h3>🌲 Random Forest — Implementation</h3>
+          <div class="rfl">
+            <div class="rr"><span class="rk">Estimators (n_estimators)</span><span class="rv">200</span></div>
+            <div class="rr"><span class="rk">Split Criterion</span><span class="rv">Gini Impurity</span></div>
+            <div class="rr"><span class="rk">Max Depth</span><span class="rv">4</span></div>
+            <div class="rr"><span class="rk">Random State</span><span class="rv">42</span></div>
+            <div class="rr"><span class="rk">Input Feature Count</span><span class="rv">24 (4 stats × 6 channels)</span></div>
+            <div class="rr"><span class="rk">Target Classes</span><span class="rv">10 PSL Gestures</span></div>
+            <div class="rr"><span class="rk">Cross-Validation</span><span class="rv">5-Fold Stratified CV</span></div>
+            <div class="rr"><span class="rk">Train / Test Split</span><span class="rv">2,800 / 701 (80/20)</span></div>
+            <div class="rr"><span class="rk">Feature Scaler</span><span class="rv">StandardScaler (z-score)</span></div>
+            <div class="rr"><span class="rk">Library</span><span class="rv">scikit-learn</span></div>
+            <div class="rr"><span class="rk">Runtime</span><span class="rv">Python — RPi Zero 2 W</span></div>
+            <div class="rr"><span class="rk">Model Persistence</span><span class="rv">pickle / joblib (.pkl)</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ─ 09 RESULTS ─────────────────────────────────────────── -->
+    <div class="ps" id="results">
+      <div class="sh"><span class="snum">09</span><h2>Results</h2></div>
+
+      <div class="rsub">Approach 1 — IMU + Random Forest</div>
+      <div class="rg">
+        <div class="rsc">
+          <div class="n">95.15<span style="font-size:.5em">%</span></div>
+          <div class="l">Test Accuracy</div>
+        </div>
+        <div class="rsc">
+          <div class="n">95.29<span style="font-size:.5em">%</span></div>
+          <div class="l">5-Fold CV Accuracy</div>
+        </div>
+        <div class="rsc">
+          <div class="n">0.82–1.0</div>
+          <div class="l">Per-Class Recall Range</div>
+        </div>
+        <div class="rsc">
+          <div class="n">~0.96</div>
+          <div class="l">Overall F1-Score</div>
+        </div>
+      </div>
+
+      <div class="rsub">Approach 2 — Optical Linear Encoder</div>
+      <div class="rg">
+        <div class="rsc">
+          <div class="n">100<span style="font-size:.5em">%</span></div>
+          <div class="l">Validation Accuracy</div>
+        </div>
+        <div class="rsc">
+          <div class="n">&lt;5<span style="font-size:.5em">ms</span></div>
+          <div class="l">Response Latency</div>
+        </div>
+        <div class="rsc">
+          <div class="n">0</div>
+          <div class="l">Misclassifications</div>
+        </div>
+        <div class="rsc">
+          <div class="n">20</div>
+          <div class="l">Joint DoF Tracked</div>
+        </div>
+      </div>
+
+      <div class="cmp">
+        <div class="chi">📊</div>
+        <p>
+          Random Forest confusion matrix — add your image here:<br>
+          <code style="color:var(--teal);font-size:11.5px;display:inline-block;margin-top:8px;background:rgba(0,188,212,.07);padding:6px 14px;border-radius:6px;border:1px solid rgba(0,188,212,.18)">
+            &lt;img src="images/confusion-matrix.png" alt="Confusion Matrix"
+            style="max-width:600px;width:100%;border-radius:10px;margin-top:14px"&gt;
+          </code>
+        </p>
+      </div>
+
+      <div class="cdp">
+        <p><strong style="color:#fff">Comparative discussion.</strong> The IMU + Random Forest pipeline is the more scalable of the two — adding a new gesture just means collecting samples and retraining. The optical encoder trades that flexibility for determinism: because gestures are decoded from physical joint geometry rather than inferred statistically, its classification is zero-latency and immune to the model-generalisation errors an ML pipeline can make, at the cost of being constrained to gestures whose finger-state combinations are distinct enough to look up uniquely — a constraint satisfied by all ten gestures tested here.</p>
+        <p>The lowest per-class F1-score for the Random Forest model was 0.89, on 'Down' — a gesture whose multi-finger transitions carry more inter-sample variability than most. As a genuinely first-of-its-kind application of transmissive optical encoding to a wearable glove, the optical sensor's mechanical complexity means it hasn't yet reached its full performance ceiling as a piece of everyday hardware, even though it hit a clean 100% with zero misclassifications under controlled validation testing — the team considers the novel sensor and state-decoding architecture itself the project's main engineering contribution, ahead of either classifier.</p>
+      </div>
+    </div>
+
+    <!-- ─ 10 REHAB GAME ──────────────────────────────────────── -->
+    <div class="ps" id="rehab-game">
+      <div class="sh"><span class="snum">10</span><h2>Rehabilitation Game Module</h2></div>
+      <div class="gg2">
+
+        <div class="gd">
+          <h3>🎮 About the Module</h3>
+          <p>The rehabilitation module is a PyQt5 desktop application built around two classes: <code style="color:var(--pale)">GameCanvas</code>, which owns sensor integration, physics, and rendering, and <code style="color:var(--pale)">MainWindow</code>, which lays out the score, elapsed time, and serial connection status. It's aimed squarely at people with finger-flexion limitations — post-stroke and neurological rehabilitation patients, prosthetic-limb users, and elderly patients — for whom conventional repetitive physiotherapy is often too tedious to stick with.</p>
+          <p style="margin-top:12px">A background thread reads the glove's serial stream (115200 bps) without ever blocking the game's 30 ms/frame animation loop. Five sensor channels — one per finger — are read continuously and passed through a signal-processing pipeline before they're allowed to move the car:</p>
+          <div class="gm">
+            <div class="gmode"><span class="gi">📉</span><div><strong style="color:#fff;display:block;margin-bottom:2px">EMA Smoothing (α = 0.4)</strong>Each finger channel is exponentially smoothed to damp sensor jitter before anything else happens</div></div>
+            <div class="gmode"><span class="gi">⚡</span><div><strong style="color:#fff;display:block;margin-bottom:2px">Delta-Threshold Trigger</strong>The finger with the largest frame-to-frame change past a threshold of 5.0 is read as an intentional lane change</div></div>
+            <div class="gmode"><span class="gi">🔒</span><div><strong style="color:#fff;display:block;margin-bottom:2px">Lane-Lock Debounce (15 frames / ~450ms)</strong>Blocks new triggers right after a lane change so noise can't bounce the car back and forth</div></div>
+            <div class="gmode"><span class="gi">🎯</span><div><strong style="color:#fff;display:block;margin-bottom:2px">Snap-to-Lane (0.12 units)</strong>The car snaps cleanly onto the target lane instead of drifting at a fractional position between lanes</div></div>
+          </div>
+        </div>
+
+        <div class="gd">
+          <h3 style="color:#fff">Key Features</h3>
+          <ul class="gfl">
+            <li>Five-lane scrolling road with a player car, falling barrier obstacles, and scrolling tree scenery</li>
+            <li>Thumb steers to lane 1, then index, middle, ring, and little finger to lanes 2 through 5 in order</li>
+            <li>Barriers spawn in a random lane and fall at a constant speed; dodging one adds +1 to the score</li>
+            <li>Progressive difficulty — obstacle speed increases as the score climbs, pushing faster, more deliberate flexion</li>
+            <li>Collision triggers a game-over state and a three-frame sprite explosion at the car's position</li>
+            <li>Non-blocking serial architecture keeps the 30 ms/frame game loop smooth regardless of glove I/O</li>
+            <li>Score and elapsed session time are logged for therapists to track patient progress over time</li>
+            <li>Low cognitive load, high-contrast interface designed to be accessible to elderly patients</li>
+            <li>Fully offline — the entire therapy session runs with no internet connection required</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ─ 11 ACHIEVEMENTS ────────────────────────────────────── -->
+    <div class="ps" id="achievements">
+      <div class="sh"><span class="snum">11</span><h2>Achievements</h2></div>
+      <div class="ag">
+
+        <div class="ac ago">
+          <span class="am">🥇</span>
+          <div class="ar">1st Place</div>
+          <h3 class="at">Best Project — Faculty Evaluation</h3>
+          <p class="ad">Nominated First Best Project by the departmental faculty evaluation panel, recognising the system's technical depth, hardware-software co-design, dual sensing architecture, and real-world applicability in assistive communication technology.</p>
+        </div>
+
+        <div class="ac ags">
+          <span class="am">🥈</span>
+          <div class="ar">2nd Place</div>
+          <h3 class="at">Best Project — External Evaluators</h3>
+          <p class="ad">Ranked Second Best by the two-member external evaluation committee, commended for the from-scratch optical linear encoder design, robust custom PCB work across both gloves, strong classification results, and the rehabilitation game's therapeutic value.</p>
+        </div>
+
+        <div class="ac agc">
+          <span class="am">🏆</span>
+          <div class="ar">Top Honour</div>
+          <h3 class="at">Commandant's Best Project of the Year</h3>
+          <p class="ad">Awarded the highest institutional recognition — the Commandant's Best Project of the Year — for outstanding engineering innovation, measurable societal impact, and exemplary execution across the entire cohort of final year project submissions.</p>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /.pc -->
+
+  <!-- ══ FOOTER ════════════════════════════════════════════════ -->
+  <footer class="site-footer">
+    <div class="footer-in">
+      <div class="footer-brand">
+        <div class="logo"><a href="../index.html"><span class="logo-mark"></span>Electro<span>Mania</span></a></div>
+        <p>A portfolio and knowledge-sharing platform for electronics &amp; embedded systems engineering.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Site</h4>
+        <a href="../index.html">Home</a>
+        <a href="../about.html">About</a>
+        <a href="../projects.html">Projects</a>
+        <a href="../skills.html">Skills</a>
+      </div>
+      <div class="footer-col">
+        <h4>More</h4>
+        <a href="../material.html">Study Material</a>
+        <a href="../blog.html">Blog</a>
+        <a href="../contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="https://www.linkedin.com/in/abdul-basit-fiaz-1138a427a" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://github.com/ABasit0010" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="mailto:abasitofficial007@gmail.com">Email</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Abdul Basit. All rights reserved.</p>
+      <a href="#" class="back-to-top" aria-label="Back to top" title="Back to top">↑</a>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script>
+  /* ── Scroll-spy for sticky nav ── */
+  const links    = document.querySelectorAll('.sn a');
+  const sections = [...links].map(l => document.querySelector(l.getAttribute('href')));
+
+  function updateActive() {
+    const scrollY = window.scrollY + 130;
+    let cur = 0;
+    sections.forEach((s, i) => { if (s && s.offsetTop <= scrollY) cur = i; });
+    links.forEach((l, i) => l.classList.toggle('on', i === cur));
+    /* keep active link visible in sticky nav */
+    links[cur].scrollIntoView({ block: 'nearest', inline: 'nearest' });
+  }
+
+  window.addEventListener('scroll', updateActive, { passive: true });
+  updateActive();
+
+  /* ── Smooth scroll ── */
+  links.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const t = document.querySelector(link.getAttribute('href'));
+      if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+  </script>
+
+</body>
+</html>

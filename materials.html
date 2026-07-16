@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Study Material | ElectroMania</title>
+  <meta name="description" content="Free, semester-wise electrical engineering study materials — notes, slides, and past papers — curated by Abdul Basit Fiaz via ElectroMania." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23020609'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%2300bcd4'/%3E%3Cpath d='M16 4v6M16 22v6M4 16h6M22 16h6' stroke='%2300bcd4' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Shared site stylesheet — DO NOT MODIFY -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <style>
+  /* ============================================================
+     MATERIAL PAGE — scoped styles, no conflict with style.css
+  ============================================================ */
+  :root {
+    --teal:       #00bcd4;
+    --pink:       #ff4081;
+    --card-bg:    rgba(4, 10, 18, 0.93);
+    --card-border:rgba(0, 188, 212, 0.16);
+    --text-dim:   rgba(255,255,255,0.42);
+    --text-pale:  #80deea;
+  }
+
+  /* ── PAGE BACKGROUND ──────────────────────────────────────── */
+  body { background-color: #020609; }
+
+  /* ── HERO ─────────────────────────────────────────────────── */
+  .mat-hero {
+    background: linear-gradient(140deg,#000 0%,rgba(0,24,32,0.98) 100%);
+    padding: 56px 50px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 28px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--card-border);
+  }
+
+  .mat-hero h1 {
+    font-size: 2.9em;
+    color: #fff;
+    margin: 0 0 10px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+
+  .mat-hero h1 .hi {
+    color: var(--teal);
+    text-shadow: 0 0 28px rgba(0,188,212,0.5);
+  }
+
+  .mat-hero p {
+    color: var(--text-pale);
+    font-size: .97em;
+    max-width: 480px;
+    line-height: 1.65;
+    margin: 0 0 22px;
+  }
+
+  /* Search bar */
+  .mat-search { display:flex; max-width:480px; }
+
+  .mat-search input {
+    flex: 1;
+    padding: 11px 17px;
+    border: 1px solid var(--card-border);
+    border-right: none;
+    border-radius: 8px 0 0 8px;
+    background: rgba(0,0,0,0.55);
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    outline: none;
+    transition: border-color .25s;
+    margin-bottom: 0 !important;
+    width: auto !important;
+  }
+
+  .mat-search input:focus { border-color: var(--teal); }
+  .mat-search input::placeholder { color: rgba(255,255,255,.3); }
+
+  .mat-search button {
+    padding: 11px 17px;
+    background: var(--teal);
+    border: none;
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+    font-size: 15px;
+    color: #fff;
+    transition: background .2s;
+  }
+
+  .mat-search button:hover { background: #0097a7; }
+
+  /* Stats */
+  .mat-stats { display:flex; gap:16px; flex-wrap:wrap; }
+
+  .stat-box {
+    text-align: center;
+    background: rgba(0,188,212,0.07);
+    border: 1px solid rgba(0,188,212,0.2);
+    border-radius: 14px;
+    padding: 18px 26px;
+    min-width: 85px;
+  }
+
+  .stat-box .num {
+    display: block;
+    font-size: 2em;
+    font-weight: 700;
+    color: var(--teal);
+    text-shadow: 0 0 14px rgba(0,188,212,0.45);
+    line-height: 1.05;
+  }
+
+  .stat-box .lbl {
+    display: block;
+    font-size: 10px;
+    color: var(--text-pale);
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* ── MAIN SECTION ─────────────────────────────────────────── */
+  .mat-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 38px 28px 100px;
+  }
+
+  .sec-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .sec-top h2 { color:#fff; font-size:1.15em; margin:0; font-weight:600; }
+
+  /* Year filter tabs */
+  .yr-tabs { display:flex; gap:7px; flex-wrap:wrap; }
+
+  .yr-tab {
+    padding: 5px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--card-border);
+    background: transparent;
+    color: var(--text-pale);
+    font-family: 'Poppins', sans-serif;
+    font-size: 12.5px;
+    cursor: pointer;
+    transition: all .2s;
+  }
+
+  .yr-tab.on, .yr-tab:hover {
+    background: var(--teal);
+    border-color: var(--teal);
+    color: #fff;
+  }
+
+  /* ── SEMESTER GRID — 4 columns ────────────────────────────── */
+  .sem-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  @media (max-width: 1100px) { .sem-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width:  600px) { .sem-grid { grid-template-columns: 1fr; }
+    .mat-hero { padding: 36px 22px 30px; flex-direction: column; }
+    .mat-hero h1 { font-size: 2em; }
+    .mat-stats { justify-content: center; }
+  }
+
+  /* ── SEMESTER CARD ────────────────────────────────────────── */
+  .sem-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 18px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform .25s, box-shadow .3s, border-color .3s;
+    position: relative;
+  }
+
+  .sem-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 50px rgba(0,0,0,0.45);
+    border-color: rgba(0,188,212,0.36);
+  }
+
+  /* Colored banner */
+  .sem-banner {
+    padding: 26px 20px 22px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Glowing orb behind the icon */
+  .sem-banner::before {
+    content: '';
+    position: absolute;
+    top: -24px; right: -24px;
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    filter: blur(30px);
+    opacity: .6;
+    background: var(--c, #00bcd4);
+  }
+
+  /* Diagonal accent line */
+  .sem-banner::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--c, #00bcd4), transparent);
+    opacity: .35;
+  }
+
+  .sem-emoji {
+    display: block;
+    font-size: 34px;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .sem-num {
+    color: #fff;
+    font-size: 1.25em;
+    font-weight: 700;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+    letter-spacing: -.3px;
+  }
+
+  .yr-badge {
+    position: absolute;
+    top: 16px; right: 16px;
+    padding: 4px 11px;
+    border-radius: 20px;
+    font-size: 10.5px;
+    font-weight: 600;
+    z-index: 1;
+    letter-spacing: .3px;
+  }
+
+  /* Card body */
+  .sem-body {
+    padding: 16px 18px 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .subj-lbl {
+    font-size: 10px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    margin-bottom: 7px;
+  }
+
+  .subj-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 4px;
+  }
+
+  .subj-tag {
+    font-size: 11px;
+    padding: 4px 9px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.55);
+    border: 1px solid rgba(255,255,255,0.09);
+    line-height: 1.3;
+  }
+
+  .subj-count {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+
+  /* Download button */
+  .dl-sem-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 14px;
+    border-radius: 11px;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: auto;
+    transition: opacity .2s, transform .2s, box-shadow .2s;
+    letter-spacing: .2px;
+  }
+
+  .dl-sem-btn:hover {
+    opacity: .88;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 22px rgba(0,0,0,.35);
+  }
+
+  .dl-sem-btn svg {
+    flex-shrink: 0;
+    transition: transform .2s;
+  }
+
+  .dl-sem-btn:hover svg { transform: translateY(2px); }
+
+  /* No results */
+  .no-res {
+    display: none;
+    text-align: center;
+    padding: 60px 20px;
+    color: rgba(255,255,255,.25);
+    grid-column: 1/-1;
+  }
+
+  .no-res.show { display: block; }
+
+  /* ── CONTRIBUTE FAB ───────────────────────────────────────── */
+  .fab-contribute {
+    position: fixed;
+    right: 28px; bottom: 36px;
+    z-index: 900;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 13px 22px;
+    background: var(--pink);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 5px 28px rgba(255,64,129,0.42);
+    transition: transform .25s, box-shadow .25s;
+    animation: fabBreath 3s infinite;
+  }
+
+  .fab-contribute:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 38px rgba(255,64,129,.55);
+    animation: none;
+  }
+
+  @keyframes fabBreath {
+    0%,100% { box-shadow: 0 5px 28px rgba(255,64,129,0.42); }
+    50%      { box-shadow: 0 5px 38px rgba(255,64,129,0.62), 0 0 0 7px rgba(255,64,129,0.08); }
+  }
+
+  /* ── MODAL ────────────────────────────────────────────────── */
+  .modal-veil {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 1500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .28s;
+  }
+
+  .modal-veil.on { opacity:1; pointer-events:all; }
+
+  .modal-box {
+    background: #030a0f;
+    border: 1px solid rgba(0,188,212,.3);
+    border-radius: 20px;
+    padding: 34px 32px 30px;
+    max-width: 520px;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 24px 80px rgba(0,0,0,.55), 0 0 40px rgba(0,188,212,.09);
+    transform: translateY(18px);
+    transition: transform .3s;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .modal-veil.on .modal-box { transform: translateY(0); }
+
+  .modal-x {
+    position: absolute;
+    top: 16px; right: 16px;
+    background: rgba(255,255,255,0.06);
+    border: none;
+    color: rgba(255,255,255,0.4);
+    width: 30px; height: 30px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: all .2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-x:hover { background:rgba(255,64,129,.18); color:var(--pink); }
+
+  .modal-box h2 { color:#fff; margin:0 0 5px; font-size:1.35em; }
+  .modal-sub { color:var(--text-pale); font-size:13px; margin:0 0 22px; }
+
+  .auth-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: rgba(255,193,7,0.07);
+    border: 1px solid rgba(255,193,7,0.22);
+    border-radius: 9px;
+    padding: 11px 14px;
+    margin-bottom: 22px;
+  }
+
+  .auth-icon { font-size:15px; margin-top:1px; flex-shrink:0; }
+  .auth-notice p { margin:0; font-size:12px; color:rgba(255,236,153,.8); line-height:1.55; }
+
+  /* Override style.css form styles inside modal */
+  .modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    background: transparent !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+
+  .f-row { display:grid; grid-template-columns:1fr 1fr; gap:13px; }
+  @media(max-width:500px) { .f-row { grid-template-columns:1fr; } }
+
+  .f-grp { display:flex; flex-direction:column; gap:5px; }
+
+  .f-grp label {
+    font-size: 11.5px;
+    color: var(--text-pale);
+    font-weight: 500;
+    letter-spacing: .3px;
+  }
+
+  .f-grp input,
+  .f-grp select,
+  .f-grp textarea {
+    padding: 10px 13px !important;
+    background: rgba(255,255,255,0.05) !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    border-radius: 9px !important;
+    color: #fff !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 13px !important;
+    outline: none !important;
+    transition: border-color .2s !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    margin-bottom: 0 !important;
+  }
+
+  .f-grp input:focus,
+  .f-grp select:focus,
+  .f-grp textarea:focus { border-color: var(--teal) !important; }
+
+  .f-grp select option { background: #030a0f; }
+  .f-grp textarea { resize:vertical; min-height:76px; }
+
+  .f-hint { font-size:11px; color:rgba(255,255,255,.26); margin-top:3px; }
+
+  .submit-btn {
+    padding: 12px !important;
+    background: var(--pink) !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 9px !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 13.5px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all .22s !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    margin-top: 4px !important;
+    width: 100% !important;
+  }
+
+  .submit-btn:hover {
+    background: #e91e63 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(255,64,129,.32) !important;
+  }
+
+  .submit-btn.done {
+    background: #2e7d32 !important;
+    cursor: default !important;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+  </style>
+</head>
+
+<body>
+
+  <!-- ══ HEADER (same as index.html) ══════════════════════════ -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-left">
+        <a href="skills.html" class="nav-arrow" title="Previous: Skills" aria-label="Previous page">‹</a>
+        <div class="logo"><a href="index.html"><span class="logo-mark"></span>Electro<span>Mania</span></a></div>
+      </div>
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="skills.html">Skills</a>
+        <a href="materials.html" class="active">Material</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="header-right">
+        <a href="blog.html" class="nav-arrow" title="Next: Blog" aria-label="Next page">›</a>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+  <div class="crumb-bar">
+    <div class="crumb">
+      <a href="index.html">Home</a><span class="sep">›</span><span class="here">Material</span>
+    </div>
+  </div>
+
+  <!-- ══ HERO ═════════════════════════════════════════════════ -->
+  <div class="mat-hero">
+    <div>
+      <h1>Study <span class="hi">Materials</span></h1>
+      <p>One-click download for every semester. Everything you need — organized, curated, and ready for you.</p>
+      <div class="mat-search">
+        <input type="text" id="searchInput"
+               placeholder="Search by semester or subject…"
+               oninput="doSearch(this.value)" />
+        <button onclick="doSearch(document.getElementById('searchInput').value)">🔍</button>
+      </div>
+    </div>
+    <div class="mat-stats">
+      <div class="stat-box">
+        <span class="num">8</span>
+        <span class="lbl">Semesters</span>
+      </div>
+      <div class="stat-box">
+        <span class="num" id="statSubjects">—</span>
+        <span class="lbl">Subjects</span>
+      </div>
+      <div class="stat-box">
+        <span class="num">Free</span>
+        <span class="lbl">Always</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ GRID SECTION ═════════════════════════════════════════ -->
+  <div class="mat-section">
+    <div class="sec-top">
+      <h2>📁 Updated Semester Packs DE 46 onwards</h2>
+      <div class="yr-tabs">
+        <button class="yr-tab on" onclick="byYear(this,'all')">All Years</button>
+        <button class="yr-tab"    onclick="byYear(this,1)">Year 1</button>
+        <button class="yr-tab"    onclick="byYear(this,2)">Year 2</button>
+        <button class="yr-tab"    onclick="byYear(this,3)">Year 3</button>
+        <button class="yr-tab"    onclick="byYear(this,4)">Year 4</button>
+      </div>
+    </div>
+
+    <div class="sem-grid" id="grid"></div>
+    <div class="no-res" id="noRes">
+      <div style="font-size:44px;margin-bottom:10px">🔍</div>
+      <div style="font-size:16px;font-weight:600;">No results found</div>
+      <div style="font-size:13px;margin-top:6px;color:rgba(255,255,255,.22)">Try a different keyword</div>
+    </div>
+  </div>
+
+  <!-- ══ CONTRIBUTE FAB ════════════════════════════════════════ -->
+  <button class="fab-contribute" onclick="openModal()">
+    <span style="font-size:18px;font-weight:300;line-height:1">+</span>
+    Contribute
+  </button>
+
+  <!-- ══ UPLOAD MODAL ══════════════════════════════════════════ -->
+  <div class="modal-veil" id="modal" onclick="veilClick(event)">
+    <div class="modal-box">
+      <button class="modal-x" onclick="closeModal()">✕</button>
+      <h2>Contribute Materials</h2>
+      <p class="modal-sub">Share your notes or resources with fellow students</p>
+
+      <div class="auth-notice">
+        <span class="auth-icon">🔒</span>
+        <p>Your submission goes to <strong>Abdul Basit</strong> for review first.
+           Only approved materials will be published — you'll be notified once live.</p>
+      </div>
+
+      <!--
+        SETUP: Replace YOUR_FORM_ID with your Formspree ID.
+        1. Sign up free at https://formspree.io
+        2. Create a new form → copy the ID (e.g. xpwzjvkl)
+        3. Replace below:   action="https://formspree.io/f/xpwzjvkl"
+      -->
+      <form class="modal-form"
+            action="https://formspree.io/f/mojzprwg"
+            method="POST"
+            onsubmit="handleSubmit(event)">
+
+        <div class="f-row">
+          <div class="f-grp">
+            <label>Your Name *</label>
+            <input type="text" name="contributor_name"
+                   placeholder="e.g. Ali " required />
+          </div>
+          <div class="f-grp">
+            <label>Your Email *</label>
+            <input type="email" name="contributor_email"
+                   placeholder="ali@example.com" required />
+          </div>
+        </div>
+
+        <div class="f-row">
+          <div class="f-grp">
+            <label>Semester *</label>
+            <select name="semester" required>
+              <option value="" disabled selected>Select Semester</option>
+              <option>Semester 1</option><option>Semester 2</option>
+              <option>Semester 3</option><option>Semester 4</option>
+              <option>Semester 5</option><option>Semester 6</option>
+              <option>Semester 7</option><option>Semester 8</option>
+            </select>
+          </div>
+          <div class="f-grp">
+            <label>Subject *</label>
+            <input type="text" name="subject"
+                   placeholder="e.g. Embedded Systems" required />
+          </div>
+        </div>
+
+        <div class="f-grp">
+          <label>Description *</label>
+          <textarea name="description"
+                    placeholder="Describe what's in the material — chapter, topic, type (notes, slides, past papers)…"
+                    required></textarea>
+        </div>
+
+        <div class="f-grp">
+          <label>Google Drive / OneDrive Link *</label>
+          <input type="url" name="file_link"
+                 placeholder="https://drive.google.com/…" required />
+          <span class="f-hint">Set sharing to "Anyone with the link can view" before submitting</span>
+        </div>
+
+        <div class="f-grp">
+          <label>Extra Notes <span style="color:rgba(255,255,255,.25)">(optional)</span></label>
+          <input type="text" name="notes"
+                 placeholder="Any extra context for the reviewer…" />
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">
+          📤 &nbsp;Submit for Review
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ══ FOOTER ════════════════════════════════════════════════ -->
+  <footer class="site-footer">
+    <div class="footer-in">
+      <div class="footer-brand">
+        <div class="logo"><a href="index.html"><span class="logo-mark"></span>Electro<span>Mania</span></a></div>
+        <p>A portfolio and knowledge-sharing platform for electronics &amp; embedded systems engineering.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Site</h4>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="skills.html">Skills</a>
+      </div>
+      <div class="footer-col">
+        <h4>More</h4>
+        <a href="materials.html">Study Material</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="https://www.linkedin.com/in/abdul-basit-fiaz-1138a427a" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://github.com/ABasit0010" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="mailto:abasitofficial007@gmail.com">Email</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Abdul Basit. All rights reserved.</p>
+      <a href="#" class="back-to-top" aria-label="Back to top" title="Back to top">↑</a>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+
+  <script>
+  /* ============================================================
+     SEMESTER DATA
+     ─────────────────────────────────────────────────────────────
+     HOW TO UPDATE A DOWNLOAD LINK
+     ─────────────────────────────────────────────────────────────
+     OPTION A — Self-hosted ZIP (recommended if you have hosting):
+       1. Zip your semester folder  →  sem1.zip
+       2. Upload to your web server / GitHub repo
+       3. Set  download_url: "materials/sem1.zip"
+
+     OPTION B — Google Drive (easiest, no hosting needed):
+       1. Zip the semester folder
+       2. Upload to Google Drive
+       3. Right-click → Share → "Anyone with the link" → Copy link
+          The share URL looks like:
+            https://drive.google.com/file/d/ABCD1234xyz/view?usp=sharing
+       4. Extract the FILE ID  (the part between /d/ and /view)
+            FILE ID = ABCD1234xyz
+       5. Build the direct-download URL:
+            https://drive.google.com/uc?export=download&id=ABCD1234xyz
+       6. Paste that as  download_url: "https://drive.google.com/uc?..."
+
+     TO ADD A SUBJECT: just add it to the subjects array — it shows
+     as a tag on the card and is included in search.
+  ============================================================ */
+
+  const SEMESTERS = [
+    {
+      id: 1, year: 1,
+      icon: "🔬", color: "#00bcd4",
+      download_url: "https://drive.google.com/drive/folders/1xj7ykL6HpifmbFWjZr8XsKj_OtWmD4R8?usp=drive_link",
+      subjects: [
+        "Linear Circuit Analysis",
+        "Applied Physics",
+        "Calculus 1",
+        "Fundamentals of Programming",
+        "English",
+        "Islamiat",
+        "Workshop"
+      ]
+    },
+    {
+      id: 2, year: 1,
+      icon: "⚡", color: "#ff4081",
+      download_url: "https://drive.google.com/drive/folders/1KlhiP7Zqg-HydHPfEpF1WYypo7z95u91?usp=sharing",
+      subjects: [
+        "Electrical Network Analysis",
+        "LAODEs",
+        "Engineering Mechanics",
+        "Engineering Drawing",
+        "Ideology"
+      ]
+    },
+    {
+      id: 3, year: 2,
+      icon: "💡", color: "#ffd740",
+      download_url: "https://drive.google.com/drive/folders/1i36DXZ80ppki-f-eQ5RFietbQlcDVDya?usp=sharing",
+      subjects: [
+        "Digital Logic Design",
+        "Electronic Devices and Circuits",
+        "Vector Calculus",
+        "Thermodynamics",
+        "Technical Business Writing"
+      ]
+    },
+    {
+      id: 4, year: 2,
+      icon: "🔧", color: "#69f0ae",
+      download_url: "https://drive.google.com/drive/folders/1DTAyP4kXDSf4nna4HE2l93p4l7amhexw?usp=sharing",
+      subjects: [
+        "Microprocessor Systems",
+        "Electromagnetic Theory",
+        "Electronic Circuit Design",
+        "CVT",
+      ]
+    },
+    {
+      id: 5, year: 3,
+      icon: "📡", color: "#e040fb",
+      download_url: "https://drive.google.com/drive/folders/1z538cYtsOukvmJO0QYMg5u340eM0N1PQ?usp=sharing",
+      subjects: [
+        "Signals and Systems",
+        "Wave Propagation and Antennas",
+        "Electrical Machines",
+        "Probability and Statistics"
+      ]
+    },
+    {
+      id: 6, year: 3,
+      icon: "📶", color: "#ff6d00",
+      download_url: "https://drive.google.com/drive/folders/1hoOyT2GMYoP9ugA7yc2nEpSROnNBU4t5?usp=sharing",
+      subjects: [
+        "Numerical Methods",
+        "Digital Signal Processing",
+        "Linear Control Systems",
+        "Communication Systems"
+      ]
+    },
+    {
+      id: 7, year: 4,
+      icon: "🤖", color: "#00e5ff",
+      download_url: "https://drive.google.com/drive/folders/1PNaAr6_HPIwmy8Of-Map_Vgkk_oib7-v?usp=sharing",
+      subjects: [
+        "Digital System Design",
+        "Microwave Engineering",
+        "Final Year Project I",
+        "Power Electronics",
+        "Project Managemnet"
+      ]
+    },
+    {
+      id: 8, year: 4,
+      icon: "🎓", color: "#f48fb1",
+      download_url: "https://drive.google.com/drive/folders/19QQsksoU68ZqRUT6JU7v3p8Z_OXCPAyc?usp=sharing",
+      subjects: [
+        "Final Year Project II",
+        "Power Systems Analysis and Design",
+        "CMOS Analog Circuit Design",
+        "Entrepreneurship",
+        "Professional Ethics"
+      ]
+    }
+  ];
+
+  /* ── card builder ────────────────────────────────────────── */
+  function buildCard(s) {
+    const c = s.color;
+
+    // Lighter text badge colours for year
+    const yearLabel = `Year ${s.year}`;
+
+    const tags = s.subjects
+      .map(n => `<span class="subj-tag">${n}</span>`)
+      .join('');
+
+    const searchAttr = `semester ${s.id} year ${s.year} ${s.subjects.join(' ')}`.toLowerCase();
+
+    return `
+    <div class="sem-card" data-year="${s.year}" data-search="${searchAttr}">
+
+      <!-- Banner -->
+      <div class="sem-banner" style="--c:${c}; background:linear-gradient(135deg,${c}12 0%,${c}06 100%);">
+        <span class="sem-emoji">${s.icon}</span>
+        <h3 class="sem-num" style="color:${c};">Semester ${s.id}</h3>
+        <span class="yr-badge" style="color:${c};background:${c}18;border:1px solid ${c}30;">${yearLabel}</span>
+      </div>
+
+      <!-- Body -->
+      <div class="sem-body">
+        <div>
+          <div class="subj-lbl">What's inside</div>
+          <div class="subj-tags">${tags}</div>
+          <div class="subj-count">${s.subjects.length} subject${s.subjects.length!==1?'s':''}</div>
+        </div>
+
+        <a class="dl-sem-btn"
+           href="${s.download_url}"
+           download
+           style="background:${c};color:#000;"
+           title="Download Semester ${s.id} as ZIP">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2.5"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Download Semester ${s.id}
+        </a>
+      </div>
+    </div>`;
+  }
+
+  /* ── render ─────────────────────────────────────────────── */
+  let activeYear = 'all';
+
+  function getBase() {
+    return activeYear === 'all'
+      ? SEMESTERS
+      : SEMESTERS.filter(s => s.year === activeYear);
+  }
+
+  function render(list) {
+    const grid  = document.getElementById('grid');
+    const noRes = document.getElementById('noRes');
+    grid.innerHTML = list.map(buildCard).join('');
+    noRes.classList.toggle('show', list.length === 0);
+  }
+
+  function doSearch(q) {
+    q = q.toLowerCase().trim();
+    const base = getBase();
+    render(q
+      ? base.filter(s => s.data_search
+          ? s.data_search.includes(q)
+          : `semester ${s.id} year ${s.year} ${s.subjects.join(' ')}`.toLowerCase().includes(q))
+      : base);
+  }
+
+  function byYear(btn, yr) {
+    document.querySelectorAll('.yr-tab').forEach(b => b.classList.remove('on'));
+    btn.classList.add('on');
+    activeYear = yr === 'all' ? 'all' : Number(yr);
+    document.getElementById('searchInput').value = '';
+    render(getBase());
+  }
+
+  /* ── modal ──────────────────────────────────────────────── */
+  function openModal()  { document.getElementById('modal').classList.add('on');  document.body.style.overflow='hidden'; }
+  function closeModal() { document.getElementById('modal').classList.remove('on'); document.body.style.overflow=''; }
+  function veilClick(e) { if (e.target===document.getElementById('modal')) closeModal(); }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    btn.textContent = '✅  Submitted — Awaiting Review';
+    btn.classList.add('done');
+    btn.disabled = true;
+    setTimeout(() => {
+      closeModal();
+      btn.innerHTML = '📤 &nbsp;Submit for Review';
+      btn.classList.remove('done');
+      btn.disabled = false;
+    }, 3200);
+  }
+
+  /* ── init ───────────────────────────────────────────────── */
+  document.addEventListener('DOMContentLoaded', () => {
+    const total = SEMESTERS.reduce((t, s) => t + s.subjects.length, 0);
+    document.getElementById('statSubjects').textContent = total;
+    render(SEMESTERS);
+  });
+  </script>
+
+</body>
+</html>

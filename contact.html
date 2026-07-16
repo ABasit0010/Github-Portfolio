@@ -1,41 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact | Abdul Basit Fiaz</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact | ElectroMania</title>
+  <meta name="description" content="Get in touch with Abdul Basit Fiaz — electronics &amp; embedded systems engineer." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23020609'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%2300bcd4'/%3E%3Cpath d='M16 4v6M16 22v6M4 16h6M22 16h6' stroke='%2300bcd4' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .contact-wrap { display:grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items:start; }
+    @media (max-width: 800px) { .contact-wrap { grid-template-columns: 1fr; } }
+    .contact-info h2 { font-size: 1.6em; margin-bottom: 14px; }
+    .contact-info p { color: var(--text-body); font-size: 14.5px; line-height:1.75; margin-bottom: 26px; max-width: 400px; }
+    .contact-links { display:flex; flex-direction:column; gap: 12px; }
+    .contact-links a {
+      display:flex; align-items:center; gap: 12px; text-decoration:none;
+      color: #fff; font-size: 14px; padding: 12px 16px; border-radius: var(--r-md);
+      background: rgba(255,255,255,0.03); border: 1px solid var(--line); transition: border-color .2s, background .2s;
+    }
+    .contact-links a:hover { border-color: var(--card-border-hover); background: rgba(0,188,212,0.06); }
+    .contact-links svg { width: 18px; height: 18px; color: var(--teal); flex-shrink:0; }
+    .contact-form-card { padding: 34px; }
+    .contact-form-card h3 { font-size: 1.1em; margin-bottom: 18px; }
+    .contact-form-card label { display:block; font-family: var(--font-mono); font-size: 11px; color: var(--text-pale); letter-spacing:.5px; text-transform:uppercase; margin-bottom: 7px; }
+    .contact-form-card .field { margin-bottom: 18px; }
+    .contact-form-card input, .contact-form-card textarea {
+      width:100%; padding: 12px 15px; border-radius: var(--r-sm);
+      border: 1px solid var(--card-border); background: rgba(0,0,0,0.4); color:#fff;
+      font-family: var(--font-display); font-size: 14px; outline:none; transition: border-color .2s;
+    }
+    .contact-form-card input:focus, .contact-form-card textarea:focus { border-color: var(--teal); }
+    .contact-form-card textarea { min-height: 130px; resize: vertical; }
+    .contact-form-card button {
+      width:100%; padding: 13px; border:none; border-radius: 50px; background: var(--teal); color:#00161a;
+      font-family: var(--font-display); font-weight:600; font-size: 14.5px; cursor:pointer;
+      transition: transform .2s, box-shadow .2s; box-shadow: 0 8px 26px rgba(0,188,212,0.25);
+    }
+    .contact-form-card button:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,188,212,0.38); }
+  </style>
 </head>
 <body>
 
   <!-- HEADER -->
-  <header>
-    <div class="logo">ElectroMania</div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="projects.html">Projects</a>
-      <a href="skills.html">Skills</a>
-      <a href="blog.html">Blog</a>
-      <a href="contact.html" class="active">Contact</a>
-    </nav>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-left">
+        <a href="blog.html" class="nav-arrow" title="Previous: Blog" aria-label="Previous page">‹</a>
+        <div class="logo"><a href="index.html"><span class="logo-mark"></span>Electro<span>Mania</span></a></div>
+      </div>
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="skills.html">Skills</a>
+        <a href="materials.html">Material</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html" class="active">Contact</a>
+      </nav>
+      <div class="header-right">
+        <a href="index.html" class="nav-arrow" title="Next: Home" aria-label="Next page">›</a>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
   </header>
+  <div class="crumb-bar">
+    <div class="crumb"><a href="index.html">Home</a><span class="sep">›</span><span class="here">Contact</span></div>
+  </div>
 
-  <!-- CONTACT FORM -->
-  <section>
-    <h1>Contact Me</h1>
-    <form action="https://formspree.io/f/xjkordwg" method="POST">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="_replyto" placeholder="Your Email" required>
-      <textarea name="message" placeholder="Your Message" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-    <p>Email: <a href="mailto:abasitofficial007@gmail.com">abasitofficial007@gmail.com</a></p>
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="page-hero-in">
+      <h1>Get In <span class="hi">Touch</span></h1>
+      <p class="sub">Have a project, an opportunity, or a question about the study materials? Send a message.</p>
+    </div>
+  </div>
+
+  <section class="reveal">
+    <div class="contact-wrap">
+      <div class="contact-info">
+        <h2>Let's talk</h2>
+        <p>Whether it's about a collaboration, a job opportunity, or feedback on ElectroMania's study materials — I read every message and reply personally.</p>
+        <div class="contact-links">
+          <a href="mailto:abasitofficial007@gmail.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>
+            abasitofficial007@gmail.com
+          </a>
+          <a href="https://www.linkedin.com/in/abdul-basit-fiaz-1138a427a" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 10v7M7 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 13v4"/></svg>
+            LinkedIn — Abdul Basit Fiaz
+          </a>
+          <a href="https://github.com/ABasit0010" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 0 0-3.16 19.5c.5.1.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.36-1.65 2.34-4.68 4.68-4.93z"/></svg>
+            GitHub — ABasit0010
+          </a>
+        </div>
+      </div>
+
+      <div class="card contact-form-card">
+        <h3>Send a message</h3>
+        <form action="https://formspree.io/f/xjkordwg" method="POST">
+          <div class="field">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" placeholder="Jane Doe" required>
+          </div>
+          <div class="field">
+            <label for="email">Your Email</label>
+            <input type="email" id="email" name="_replyto" placeholder="jane@example.com" required>
+          </div>
+          <div class="field">
+            <label for="message">Your Message</label>
+            <textarea id="message" name="message" placeholder="Tell me a bit about what you have in mind..." required></textarea>
+          </div>
+          <button type="submit">Send Message</button>
+        </form>
+      </div>
+    </div>
   </section>
 
   <!-- FOOTER -->
-  <footer>
-    <p>© 2025 Abdul Basit. All rights reserved.</p>
+  <footer class="site-footer">
+    <div class="footer-in">
+      <div class="footer-brand">
+        <div class="logo"><a href="index.html"><span class="logo-mark"></span>Electro<span>Mania</span></a></div>
+        <p>A portfolio and knowledge-sharing platform for electronics &amp; embedded systems engineering.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Site</h4>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="skills.html">Skills</a>
+      </div>
+      <div class="footer-col">
+        <h4>More</h4>
+        <a href="materials.html">Study Material</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="https://www.linkedin.com/in/abdul-basit-fiaz-1138a427a" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://github.com/ABasit0010" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="mailto:abasitofficial007@gmail.com">Email</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Abdul Basit. All rights reserved.</p>
+      <a href="#" class="back-to-top" aria-label="Back to top" title="Back to top">↑</a>
+    </div>
   </footer>
 
+  <script src="js/main.js"></script>
 </body>
 </html>

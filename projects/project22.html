@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Closed Loop Buck Converter | Abdul Basit Fiaz</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .project-details {
+      max-width: 900px;
+      margin: 40px auto;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .project-details img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+    .project-details h1 {
+      color: #00bcd4;
+      text-align: center;
+    }
+    .project-details h2 {
+      margin-top: 20px;
+      color: #333;
+    }
+    .project-details ul {
+      margin-left: 20px;
+    }
+    pre {
+      background: #f5f5f5;
+      padding: 10px;
+      overflow-x: auto;
+      border-radius: 6px;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">ElectroMania</div>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../projects.html" class="active">Projects</a>
+      <a href="../skills.html">Skills</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- PROJECT DETAILS -->
+  <section class="project-details">
+    <h1>Closed Loop Buck Converter (50–100 W)</h1>
+    <img src="../images/buck_converter.png" alt="Closed Loop Buck Converter">
+
+    <h2>Abstract</h2>
+    <p>
+      This project presents the design, modeling, simulation, and hardware implementation
+      of a closed-loop buck converter capable of delivering 50–100 W output power.
+      Feedback control using a PI/PID-based controller ensures stable voltage regulation
+      under varying load conditions. Mathematical modeling and transfer function analysis
+      guided the controller design, while Proteus and MATLAB simulations validated
+      system performance. Experimental hardware testing confirmed excellent voltage
+      regulation, low ripple, and high efficiency.
+    </p>
+
+    <h2>Objectives</h2>
+    <ul>
+      <li>Design a closed-loop buck converter with 50–100 W output power.</li>
+      <li>Develop mathematical and small-signal models of the system.</li>
+      <li>Design a stable feedback controller with zero steady-state error.</li>
+      <li>Validate performance through simulation and hardware testing.</li>
+      <li>Perform loss analysis to identify dominant power losses.</li>
+    </ul>
+
+    <h2>Hardware Components</h2>
+    <ul>
+      <li>DC Input Power Supply (20 V)</li>
+      <li>IRFZ44 MOSFET</li>
+      <li>MBR30CHT20 Fast Recovery Diode</li>
+      <li>Inductor: 1 mH, 5 A</li>
+      <li>Capacitor: 250 µF, 200 V</li>
+      <li>Arduino (PWM & Control)</li>
+      <li>Resistive Load Bank</li>
+    </ul>
+
+    <h2>System Design & Functionality</h2>
+    <p>
+      The buck converter operates in continuous conduction mode (CCM) and steps down
+      a 20 V DC input to a regulated 10 V output. A closed-loop feedback system senses
+      output voltage via a resistor divider and compares it with a reference voltage.
+      A PID-based controller adjusts the PWM duty cycle to maintain regulation under
+      load and input variations. Switching frequency is set to 20 kHz.
+    </p>
+
+    <h2>Technical Specifications</h2>
+    <ul>
+      <li>Input Voltage: 20 V DC</li>
+      <li>Output Voltage: 10 V DC (regulated)</li>
+      <li>Output Power: 50–100 W</li>
+      <li>Switching Frequency: 20 kHz</li>
+      <li>Control Method: Closed-loop PID (Arduino)</li>
+      <li>Operating Mode: Continuous Conduction Mode (CCM)</li>
+    </ul>
+
+    <h2>Control & Mathematical Modeling</h2>
+    <p>
+      A small-signal averaged model of the buck converter was derived to obtain the
+      control-to-output transfer function. The plant exhibits a second-order LC response.
+      A PID (Type-III) compensator was analytically designed to achieve sufficient phase
+      margin, fast transient response, and zero steady-state error.
+    </p>
+
+    <h2>Key Transfer Function</h2>
+    <pre>
+// Buck Converter Control-to-Output Transfer Function
+Gvd(s) = Vin * (rC*C*s + 1) /
+         (L*C*s^2 + (L/R + rL*C + rC*C)*s + (1 + rL/R))
+    </pre>
+
+    <h2>Simulation & Testing Results</h2>
+    <p>
+      MATLAB and Proteus simulations confirmed stable closed-loop operation with a
+      crossover frequency of approximately 100 Hz and phase margin exceeding 55°.
+      Hardware testing demonstrated low output ripple, fast transient response, and
+      reliable regulation under load changes. The converter successfully powered
+      high-current resistive loads within supply limitations.
+    </p>
+
+    <h2>Conclusion</h2>
+    <p>
+      The closed-loop buck converter was successfully designed, simulated, and implemented.
+      Feedback control significantly improved voltage regulation, stability, and transient
+      performance compared to open-loop operation. Loss analysis provided insights into
+      efficiency optimization, making the design suitable for real-world power electronics
+      applications.
+    </p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Abdul Basit Fiaz. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
