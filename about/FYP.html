@@ -157,6 +157,17 @@
   .pinfo h4 { color: #fff; font-size: 14px; margin: 0 0 6px; font-weight: 600; }
   .pinfo p  { color: rgba(255,255,255,.44); font-size: 12.5px; margin: 0; line-height: 1.55; }
 
+  /* ── PHOTO SLOT (real image with graceful placeholder fallback) ── */
+  .pph-fallback {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; gap: 8px; position: relative;
+  }
+  .pph-img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block; position: relative; z-index: 1;
+  }
+
   /* ── SENSOR WORKFLOW ───────────────────────────────────────── */
   .wfl { position: relative; padding-left: 44px; }
   .wfl::before {
@@ -608,9 +619,12 @@
       <div class="pg">
         <div class="pcard">
           <div class="pph">
-            <span class="pi">🖨️</span>
-            <span class="pt">Add MPU-6050 Module Photo</span>
-            <span class="pup">+ Upload Photo</span>
+            <img class="pph-img" src="../images/mpu3d.png" alt="MPU-6050 custom module PCB photo" onerror="this.onerror=null;this.remove();this.parentElement.querySelector('.pph-fallback').style.display='flex';">
+            <div class="pph-fallback" style="display:none;">
+              <span class="pi">🖨️</span>
+              <span class="pt">Add MPU-6050 Module Photo</span>
+              <span class="pup">images/pcb-mpu6050-module.jpg</span>
+            </div>
           </div>
           <div class="pinfo">
             <h4>MPU-6050 Custom Module (IMU Glove)</h4>
@@ -619,9 +633,12 @@
         </div>
         <div class="pcard">
           <div class="pph">
-            <span class="pi">🖨️</span>
-            <span class="pt">Add ESP32 Module Photo</span>
-            <span class="pup">+ Upload Photo</span>
+            <img class="pph-img" src="../images/esp3d.png" alt="ESP32 module with charging and BMS PCB photo" onerror="this.onerror=null;this.remove();this.parentElement.querySelector('.pph-fallback').style.display='flex';">
+            <div class="pph-fallback" style="display:none;">
+              <span class="pi">🖨️</span>
+              <span class="pt">Add ESP32 Module Photo</span>
+              <span class="pup">images/pcb-esp32-module.jpg</span>
+            </div>
           </div>
           <div class="pinfo">
             <h4>ESP32 Module with Charging &amp; BMS (IMU Glove)</h4>
@@ -630,9 +647,12 @@
         </div>
         <div class="pcard">
           <div class="pph">
-            <span class="pi">🖨️</span>
-            <span class="pt">Add Optical Sensor PCB Photo</span>
-            <span class="pup">+ Upload Photo</span>
+            <img class="pph-img" src="../images/encoders.png" alt="Optical sensor PCB photo" onerror="this.onerror=null;this.remove();this.parentElement.querySelector('.pph-fallback').style.display='flex';">
+            <div class="pph-fallback" style="display:none;">
+              <span class="pi">🖨️</span>
+              <span class="pt">Add Optical Sensor PCB Photo</span>
+              <span class="pup">images/pcb-optical-sensor.jpg</span>
+            </div>
           </div>
           <div class="pinfo">
             <h4>Optical Sensor PCB (Encoder Glove, ×20)</h4>
@@ -641,24 +661,16 @@
         </div>
         <div class="pcard">
           <div class="pph">
-            <span class="pi">🖨️</span>
-            <span class="pt">Add Main Controller PCB Photo</span>
-            <span class="pup">+ Upload Photo</span>
+            <img class="pph-img" src="../images/stm.png" alt="STM32 main controller PCB photo" onerror="this.onerror=null;this.remove();this.parentElement.querySelector('.pph-fallback').style.display='flex';">
+            <div class="pph-fallback" style="display:none;">
+              <span class="pi">🖨️</span>
+              <span class="pt">Add Main Controller PCB Photo</span>
+              <span class="pup">images/pcb-stm32-controller.jpg</span>
+            </div>
           </div>
           <div class="pinfo">
             <h4>STM32 Main Controller PCB (Encoder Glove)</h4>
             <p>A 60 mm × 60 mm four-layer board aggregating all 20 Sensor PCBs, built around the STM32F407VET6 with onboard power regulation and a USB-to-UART debug bridge. Its 20 ADC inputs are split across the STM32's three independent ADC peripherals for simultaneous scan-mode sampling with zero inter-channel time skew.</p>
-          </div>
-        </div>
-        <div class="pcard">
-          <div class="pph">
-            <span class="pi">🖨️</span>
-            <span class="pt">Add Assembled Prototypes Photo</span>
-            <span class="pup">+ Upload Photo</span>
-          </div>
-          <div class="pinfo">
-            <h4>Final Assembled Prototypes</h4>
-            <p>Two independent glove builds: the IMU glove with its six sensor modules and wrist-mounted ESP32 + power board, and the spandex-based optical encoder glove with CNC-machined aluminium sensor housings at each joint wired back to the STM32 main board — both validated live against all ten PSL gesture classes.</p>
           </div>
         </div>
       </div>
@@ -880,15 +892,16 @@
         </div>
       </div>
 
-      <div class="cmp">
-        <div class="chi">📊</div>
-        <p>
-          Random Forest confusion matrix — add your image here:<br>
-          <code style="color:var(--teal);font-size:11.5px;display:inline-block;margin-top:8px;background:rgba(0,188,212,.07);padding:6px 14px;border-radius:6px;border:1px solid rgba(0,188,212,.18)">
-            &lt;img src="images/confusion-matrix.png" alt="Confusion Matrix"
-            style="max-width:600px;width:100%;border-radius:10px;margin-top:14px"&gt;
-          </code>
-        </p>
+      <div class="cmp" id="confusionMatrixWrap">
+        <img src="../images/conf.png" alt="Random Forest confusion matrix"
+             style="max-width:600px;width:100%;border-radius:10px;display:block;margin:0 auto;"
+             onerror="this.onerror=null;this.remove();document.getElementById('confusionMatrixFallback').style.display='block';">
+        <div id="confusionMatrixFallback" style="display:none;">
+          <div class="chi">📊</div>
+          <p>
+            Add your confusion matrix image at <code style="color:var(--teal);font-size:11.5px;background:rgba(0,188,212,.07);padding:3px 8px;border-radius:6px;border:1px solid rgba(0,188,212,.18)">images/confusion-matrix.png</code>
+          </p>
+        </div>
       </div>
 
       <div class="cdp">
