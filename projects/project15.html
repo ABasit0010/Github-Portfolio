@@ -1,101 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ESP32 PIR Motion Sensor with LED Array & Relay | Abdul Basit Fiaz</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ESP32 PIR Motion Sensor with LED Array & Relay | ElectroMania — Abdul Basit Fiaz</title>
+  <meta name="description" content="ESP32 PIR motion-activated lighting system with LED array, relay, and manual override, by Abdul Basit Fiaz." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23020609'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%2300bcd4'/%3E%3Cpath d='M16 4v6M16 22v6M4 16h6M22 16h6' stroke='%2300bcd4' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Shared site stylesheet — not modified -->
+  <link rel="stylesheet" href="../css/style.css" />
+
   <style>
-    .project-details {
-      max-width: 900px;
-      margin: 40px auto;
-      background: rgba(255, 255, 255, 0.95);
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    /* Small scoped additions for project pages — built entirely from
+       global CSS variables already defined in style.css, so every
+       project page stays visually identical to the rest of the site. */
+    .proj-sec { margin-bottom: 22px; }
+    .proj-sec h2 {
+      font-size: 1.25em; color: #fff; margin: 0 0 14px;
+      display: flex; align-items: center; gap: 10px;
     }
-    .project-details img {
-      max-width: 100%;
-      border-radius: 10px;
-      margin: 20px 0;
+    .proj-sec h2::before {
+      content: ''; width: 4px; height: 20px; border-radius: 3px;
+      background: var(--teal); display: inline-block;
     }
-    .project-details h1 {
-      color: #00bcd4;
-      text-align: center;
+    .proj-sec p { color: var(--text-body); font-size: 14.5px; line-height: 1.8; margin: 0; }
+    .proj-sec ul { margin: 0; padding-left: 20px; color: var(--text-body); font-size: 14.5px; line-height: 1.9; }
+    .proj-sec li::marker { color: var(--teal); }
+    .proj-sec p + ul, .proj-sec ul + p { margin-top: 12px; }
+    .proj-sec pre {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--r-md, 10px); padding: 14px 16px; overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.7;
+      color: var(--teal); margin: 12px 0 0;
     }
-    .project-details h2 {
-      margin-top: 20px;
-      color: #333;
-    }
-    .project-details ul {
-      margin-left: 20px;
-    }
-    pre {
-      background: #f5f5f5;
-      padding: 10px;
-      overflow-x: auto;
-      border-radius: 6px;
-      font-size: 0.9em;
-    }
+    .proj-card { padding: 28px 30px; }
+    .proj-hero-img { border-radius: var(--r-lg); box-shadow: var(--shadow-card); width: 100%; margin-bottom: 40px; }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <div class="logo">ElectroMania</div>
-    <nav>
-      <a href="../index.html">Home</a>
-      <a href="../projects.html" class="active">Projects</a>
-      <a href="../skills.html">Skills</a>
-      <a href="../blog.html">Blog</a>
-      <a href="../contact.html">Contact</a>
-    </nav>
+  <!-- HEADER (inherited from global design) -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-left">
+        <a href="project14.html" class="nav-arrow" title="Previous project" aria-label="Previous page">‹</a>
+        <div class="logo"><a href="../index.html"><span class="logo-mark"></span>Electro<span>Mania</span></a></div>
+      </div>
+      <nav class="main-nav" id="mainNav">
+        <a href="../index.html">Home</a>
+        <a href="../about.html">About</a>
+        <a href="../projects.html" class="active">Projects</a>
+        <a href="../skills.html">Skills</a>
+        <a href="../materials.html">Material</a>
+        <a href="../blog.html">Blog</a>
+        <a href="../contact.html">Contact</a>
+      </nav>
+      <div class="header-right">
+        <a href="project16.html" class="nav-arrow" title="Next project" aria-label="Next page">›</a>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
   </header>
+  <div class="crumb-bar">
+    <div class="crumb">
+      <a href="../index.html">Home</a><span class="sep">›</span>
+      <a href="../projects.html">Projects</a><span class="sep">›</span>
+      <span class="here">ESP32 PIR Motion Lighting</span>
+    </div>
+  </div>
 
-  <!-- PROJECT DETAILS -->
-  <section class="project-details">
-    <h1>ESP32 PIR Motion Sensor with LED Array & Relay (Manual Off Button)</h1>
-    <img src="../images/pir.jpg" alt="ESP32 PIR Motion Sensor with LED Array & Relay">
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="page-hero-in">
+      <h1>ESP32 PIR Motion <span class="hi">Lighting System</span></h1>
+      <p class="sub">A motion-activated ESP32 lighting system using a PIR sensor to drive an LED array and relay load, with a manual off override.</p>
+      <div class="proj-tags">
+        <span class="tag">ESP32</span>
+        <span class="tag">PIR Sensing</span>
+        <span class="tag">Home Automation</span>
+        <span class="tag">Relay Control</span>
+      </div>
+    </div>
+  </div>
 
-    <h2>Abstract</h2>
-    <p>
-      This project implements an ESP32-based motion-activated lighting system using a PIR sensor, LED array, and relay control. When motion is detected, LEDs are turned on, and an external relay can be triggered to power a higher load. A manual off button is included to override the system for energy savings.
-    </p>
+  <div class="trace-divider" aria-hidden="true">
+    <svg viewBox="0 0 1160 18" preserveAspectRatio="none">
+      <path d="M0 9 H480 M520 9 H1160" />
+      <circle cx="500" cy="9" r="3.4"/>
+    </svg>
+  </div>
 
-    <h2>Objectives</h2>
-    <ul>
-      <li>Detect human motion using a PIR sensor.</li>
-      <li>Activate LED array and/or relay load on motion detection.</li>
-      <li>Allow manual override to turn lights off.</li>
-    </ul>
+  <!-- PROJECT CONTENT -->
+  <section class="reveal">
+    <div class="container" style="max-width:900px; padding:0 24px 20px;">
 
-    <h2>Hardware Components</h2>
-    <ul>
-      <li>ESP32 Development Board</li>
-      <li>PIR Motion Sensor (HC-SR501)</li>
-      <li>LED Array (12V or WS2812B type)</li>
-      <li>Relay Module for high-power load control</li>
-      <li>Push Button for manual off control</li>
-      <li>12V Power Supply</li>
-    </ul>
+      <img class="proj-hero-img" src="../images/pir.jpg" alt="ESP32 PIR Motion Sensor with LED Array & Relay">
 
-    <h2>System Design & Functionality</h2>
-    <p>
-      The PIR sensor outputs a HIGH signal when motion is detected. The ESP32 reads this signal and switches on the LED array and relay. If the manual off button is pressed, the system disables outputs regardless of PIR state until reset.
-    </p>
-
-    <h2>Pin Configuration</h2>
-    <ul>
-      <li>PIR Sensor Output → GPIO33</li>
-      <li>LED Array Control → GPIO26</li>
-      <li>Relay IN → GPIO25</li>
-      <li>Manual Off Button → GPIO27</li>
-    </ul>
-
-    <h2>Key Code Snippet</h2>
-    <pre>
-if (digitalRead(PIR_PIN) == HIGH && !manualOff) {
+      <div class="card proj-card">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Abstract</h2>
+          <p>
+            This project implements an ESP32-based motion-activated lighting system using a PIR sensor, LED array, and relay control. When motion is detected, LEDs are turned on, and an external relay can be triggered to power a higher load. A manual off button is included to override the system for energy savings.
+          </p>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Objectives</h2>
+          <ul>
+            <li>Detect human motion using a PIR sensor.</li>
+            <li>Activate the LED array and/or relay load on motion detection.</li>
+            <li>Allow manual override to turn lights off.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Hardware Components</h2>
+          <ul>
+            <li>ESP32 development board</li>
+            <li>PIR motion sensor (HC-SR501)</li>
+            <li>LED array (12V or WS2812B type)</li>
+            <li>Relay module for high-power load control</li>
+            <li>Push button for manual off control</li>
+            <li>12V power supply</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>System Design &amp; Functionality</h2>
+          <p>
+            The PIR sensor outputs a HIGH signal when motion is detected. The ESP32 reads this signal and switches on the LED array and relay. If the manual off button is pressed, the system disables outputs regardless of PIR state until reset.
+          </p>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Pin Configuration</h2>
+          <ul>
+            <li>PIR sensor output &rarr; GPIO33</li>
+            <li>LED array control &rarr; GPIO26</li>
+            <li>Relay IN &rarr; GPIO25</li>
+            <li>Manual off button &rarr; GPIO27</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Key Code Snippet</h2>
+          <p>
+            Motion-triggered output with manual override:
+          </p>
+          <pre>if (digitalRead(PIR_PIN) == HIGH && !manualOff) {
     digitalWrite(LED_PIN, HIGH);
     digitalWrite(RELAY_PIN, HIGH);
 } else {
@@ -105,24 +166,62 @@ if (digitalRead(PIR_PIN) == HIGH && !manualOff) {
 
 if (digitalRead(BUTTON_PIN) == LOW) {
     manualOff = true;
-}
-    </pre>
+}</pre>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Testing &amp; Results</h2>
+          <p>
+            The system responded within 0.2 seconds to motion, activating LEDs and the relay. The manual off button worked instantly, preventing any accidental reactivation until system restart.
+          </p>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Conclusion</h2>
+          <p>
+            This ESP32 PIR lighting system is ideal for energy-efficient lighting control. The addition of a manual override increases user control and flexibility, making it suitable for home automation and security lighting.
+          </p>
+        </div>
+      </div>
 
-    <h2>Testing & Results</h2>
-    <p>
-      The system responded within 0.2 seconds to motion, activating LEDs and relay. The manual off button worked instantly, preventing any accidental reactivation until system restart.
-    </p>
-
-    <h2>Conclusion</h2>
-    <p>
-      This ESP32 PIR lighting system is ideal for energy-efficient lighting control. The addition of a manual override increases user control and flexibility, making it suitable for home automation and security lighting.
-    </p>
+    </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer>
-    <p>© 2025 Abdul Basit. All rights reserved.</p>
+  <!-- FOOTER (inherited from global design) -->
+  <footer class="site-footer">
+    <div class="footer-in">
+      <div class="footer-brand">
+        <div class="logo"><a href="../index.html"><span class="logo-mark"></span>Electro<span>Mania</span></a></div>
+        <p>A portfolio and knowledge-sharing platform for electronics &amp; embedded systems engineering.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Site</h4>
+        <a href="../index.html">Home</a>
+        <a href="../about.html">About</a>
+        <a href="../projects.html">Projects</a>
+        <a href="../skills.html">Skills</a>
+      </div>
+      <div class="footer-col">
+        <h4>More</h4>
+        <a href="../materials.html">Study Material</a>
+        <a href="../blog.html">Blog</a>
+        <a href="../contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="https://www.linkedin.com/in/abdul-basit-fiaz-1138a427a" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://github.com/ABasit0010" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="mailto:abasitofficial007@gmail.com">Email</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Abdul Basit. All rights reserved.</p>
+      <a href="#" class="back-to-top" aria-label="Back to top" title="Back to top">↑</a>
+    </div>
   </footer>
 
+  <script src="../js/main.js"></script>
 </body>
 </html>

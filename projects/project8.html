@@ -1,154 +1,236 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Digital Ammeter Design | Abdul Basit Fiaz</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Digital Ammeter Design | ElectroMania — Abdul Basit Fiaz</title>
+  <meta name="description" content="Digital ammeter using an ESP32 and ACS712 current sensor, by Abdul Basit Fiaz." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23020609'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%2300bcd4'/%3E%3Cpath d='M16 4v6M16 22v6M4 16h6M22 16h6' stroke='%2300bcd4' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Shared site stylesheet — not modified -->
+  <link rel="stylesheet" href="../css/style.css" />
+
   <style>
-    .project-details {
-      max-width: 900px;
-      margin: 40px auto;
-      background: rgba(255, 255, 255, 0.9);
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      text-align: center;
+    /* Small scoped additions for project pages — built entirely from
+       global CSS variables already defined in style.css, so every
+       project page stays visually identical to the rest of the site. */
+    .proj-sec { margin-bottom: 22px; }
+    .proj-sec h2 {
+      font-size: 1.25em; color: #fff; margin: 0 0 14px;
+      display: flex; align-items: center; gap: 10px;
     }
-    .project-details img {
-      max-width: 100%;
-      border-radius: 10px;
-      margin: 20px 0;
+    .proj-sec h2::before {
+      content: ''; width: 4px; height: 20px; border-radius: 3px;
+      background: var(--teal); display: inline-block;
     }
-    .project-details h1 {
-      color: #00bcd4;
-      margin-bottom: 10px;
+    .proj-sec p { color: var(--text-body); font-size: 14.5px; line-height: 1.8; margin: 0; }
+    .proj-sec ul { margin: 0; padding-left: 20px; color: var(--text-body); font-size: 14.5px; line-height: 1.9; }
+    .proj-sec li::marker { color: var(--teal); }
+    .proj-sec p + ul, .proj-sec ul + p { margin-top: 12px; }
+    .proj-sec pre {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--r-md, 10px); padding: 14px 16px; overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.7;
+      color: var(--teal); margin: 12px 0 0;
     }
-    .project-details h2 {
-      margin-top: 20px;
-      color: #333;
-    }
-    .project-details ul {
-      text-align: left;
-      margin: 0 auto;
-      max-width: 650px;
-      padding-left: 20px;
-    }
-    .project-details table {
-      margin: 15px auto;
-      border-collapse: collapse;
-      width: 100%;
-      max-width: 600px;
-    }
-    .project-details table td, 
-    .project-details table th {
-      padding: 6px;
-      border: 1px solid #ccc;
-      text-align: center;
-    }
-    code {
-      background: #f5f5f5;
-      padding: 2px 4px;
-      border-radius: 4px;
-      font-size: 0.9em;
-      color: #c7254e;
-    }
+    .proj-card { padding: 28px 30px; }
+    .proj-hero-img { border-radius: var(--r-lg); box-shadow: var(--shadow-card); width: 100%; margin-bottom: 40px; }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <div class="logo">ElectroMania</div>
-    <nav>
-      <a href="../index.html">Home</a>
-      <a href="../projects.html" class="active">Projects</a>
-      <a href="../skills.html">Skills</a>
-      <a href="../blog.html">Blog</a>
-      <a href="../contact.html">Contact</a>
-    </nav>
+  <!-- HEADER (inherited from global design) -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-left">
+        <a href="project7.html" class="nav-arrow" title="Previous project" aria-label="Previous page">‹</a>
+        <div class="logo"><a href="../index.html"><span class="logo-mark"></span>Electro<span>Mania</span></a></div>
+      </div>
+      <nav class="main-nav" id="mainNav">
+        <a href="../index.html">Home</a>
+        <a href="../about.html">About</a>
+        <a href="../projects.html" class="active">Projects</a>
+        <a href="../skills.html">Skills</a>
+        <a href="../materials.html">Material</a>
+        <a href="../blog.html">Blog</a>
+        <a href="../contact.html">Contact</a>
+      </nav>
+      <div class="header-right">
+        <a href="project9.html" class="nav-arrow" title="Next project" aria-label="Next page">›</a>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
   </header>
+  <div class="crumb-bar">
+    <div class="crumb">
+      <a href="../index.html">Home</a><span class="sep">›</span>
+      <a href="../projects.html">Projects</a><span class="sep">›</span>
+      <span class="here">Digital Ammeter Design</span>
+    </div>
+  </div>
 
-  <!-- PROJECT DETAILS -->
-  <section class="project-details">
-    <h1>Digital Ammeter using ESP32 & ACS712</h1>
-    <img src="../images/digital-ammeter.jpg" alt="Digital Ammeter Design">
-    <p>
-      This project demonstrates the design and implementation of a <strong>Digital Ammeter</strong> using an ESP32 microcontroller and an ACS712 Hall-effect current sensor. The system measures current in real time and displays it on an OLED screen, with optional IoT capabilities for wireless monitoring.
-    </p>
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="page-hero-in">
+      <h1>Digital Ammeter <span class="hi">ESP32 &amp; ACS712</span></h1>
+      <p class="sub">A compact digital ammeter using an ESP32 and ACS712 Hall-effect current sensor, with OLED readout and optional IoT monitoring.</p>
+      <div class="proj-tags">
+        <span class="tag">ESP32</span>
+        <span class="tag">Current Sensing</span>
+        <span class="tag">OLED Display</span>
+        <span class="tag">IoT</span>
+      </div>
+    </div>
+  </div>
 
-    <h2>Objective</h2>
-    <p>
-      To build a compact and accurate current measurement device that can display readings locally on an OLED display and optionally transmit them over Wi-Fi/Bluetooth for remote monitoring.
-    </p>
+  <div class="trace-divider" aria-hidden="true">
+    <svg viewBox="0 0 1160 18" preserveAspectRatio="none">
+      <path d="M0 9 H480 M520 9 H1160" />
+      <circle cx="500" cy="9" r="3.4"/>
+    </svg>
+  </div>
 
-    <h2>Hardware Components</h2>
-    <ul>
-      <li>ESP32 microcontroller</li>
-      <li>ACS712 Current Sensor (5A/20A/30A versions)</li>
-      <li>OLED Display (128×64 SSD1306)</li>
-      <li>5V power supply</li>
-      <li>Jumper wires and breadboard/PCB</li>
-      <li>Optional shunt resistor for extended range</li>
-    </ul>
+  <!-- PROJECT CONTENT -->
+  <section class="reveal">
+    <div class="container" style="max-width:900px; padding:0 24px 20px;">
 
-    <h2>Circuit Connections</h2>
-    <table>
-      <tr><th>Component</th><th>ESP32 Pin</th><th>Details</th></tr>
-      <tr><td>ACS712 OUT</td><td>GPIO34 (ADC)</td><td>Analog output of ACS712</td></tr>
-      <tr><td>ACS712 VCC</td><td>5V</td><td>Sensor power</td></tr>
-      <tr><td>ACS712 GND</td><td>GND</td><td>Common ground</td></tr>
-      <tr><td>OLED SCL</td><td>GPIO22</td><td>I²C clock</td></tr>
-      <tr><td>OLED SDA</td><td>GPIO21</td><td>I²C data</td></tr>
-      <tr><td>OLED VCC</td><td>3.3V</td><td>OLED power</td></tr>
-      <tr><td>OLED GND</td><td>GND</td><td>Common ground</td></tr>
-    </table>
+      <img class="proj-hero-img" src="../images/digital-ammeter.jpg" alt="Digital Ammeter Design">
 
-    <h2>Calculation Formula</h2>
-    <p>
-      The ACS712 outputs 2.5V at 0A. The current is calculated as:
-      <br><br>
-      <code>Current (A) = (Vout − Voffset) / Sensitivity</code>
-      <br><br>
-      For ACS712-5A: Sensitivity = 0.185 V/A
-    </p>
+      <div class="card proj-card">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Abstract</h2>
+          <p>
+            This project demonstrates the design and implementation of a Digital Ammeter using an ESP32 microcontroller and an ACS712 Hall-effect current sensor. The system measures current in real time and displays it on an OLED screen, with optional IoT capabilities for wireless monitoring.
+          </p>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Objective</h2>
+          <p>
+            To build a compact and accurate current measurement device that can display readings locally on an OLED display and optionally transmit them over Wi-Fi/Bluetooth for remote monitoring.
+          </p>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Hardware Components</h2>
+          <ul>
+            <li>ESP32 microcontroller</li>
+            <li>ACS712 current sensor (5A/20A/30A versions)</li>
+            <li>OLED display (128&times;64 SSD1306)</li>
+            <li>5V power supply</li>
+            <li>Jumper wires and breadboard/PCB</li>
+            <li>Optional shunt resistor for extended range</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Circuit Connections</h2>
+          <ul>
+            <li>ACS712 OUT &rarr; GPIO34 (ADC), analog output of ACS712</li>
+            <li>ACS712 VCC &rarr; 5V &middot; ACS712 GND &rarr; GND</li>
+            <li>OLED SCL &rarr; GPIO22 (I&sup2;C clock) &middot; OLED SDA &rarr; GPIO21 (I&sup2;C data)</li>
+            <li>OLED VCC &rarr; 3.3V &middot; OLED GND &rarr; GND</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Calculation Formula</h2>
+          <p>
+            The ACS712 outputs 2.5&nbsp;V at 0&nbsp;A. Current is calculated as follows; for the ACS712-5A variant, sensitivity = 0.185&nbsp;V/A.
+          </p>
+          <pre>Current (A) = (Vout − Voffset) / Sensitivity</pre>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Software Design</h2>
+          <p>
+            The ESP32 reads analog voltage from the ACS712, converts it to current, and updates the OLED display. Optionally, readings can be sent over Wi-Fi/Bluetooth.
+          </p>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Testing &amp; Calibration</h2>
+          <ul>
+            <li>Connect a known load and measure using a commercial ammeter for reference.</li>
+            <li>Adjust <code>offsetVoltage</code> and <code>sensitivity</code> in the code for calibration.</li>
+            <li>Validate readings at different load levels to ensure accuracy.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Sample Results</h2>
+          <ul>
+            <li>10&nbsp;&Omega; load: expected 0.50&nbsp;A, measured 0.49&nbsp;A (2% error)</li>
+            <li>20&nbsp;&Omega; load: expected 0.25&nbsp;A, measured 0.248&nbsp;A (0.8% error)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Future Enhancements</h2>
+          <ul>
+            <li>Wi-Fi integration for cloud data logging (ThingSpeak, Blynk, etc.)</li>
+            <li>Mobile app monitoring</li>
+            <li>Extended current range using a shunt resistor</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Conclusion</h2>
+          <p>
+            The digital ammeter successfully measures and displays current in real time with high accuracy. With IoT integration, it can be transformed into a remote monitoring tool for industrial and hobbyist applications.
+          </p>
+        </div>
+      </div>
 
-    <h2>Software Design</h2>
-    <p>
-      The ESP32 reads analog voltage from the ACS712, converts it to current, and updates the OLED display. Optionally, readings can be sent over Wi-Fi/Bluetooth.
-    </p>
-
-    <h2>Testing & Calibration</h2>
-    <ul>
-      <li>Connect a known load and measure using a commercial ammeter for reference.</li>
-      <li>Adjust <code>offsetVoltage</code> and <code>sensitivity</code> in the code for calibration.</li>
-      <li>Validate readings at different load levels to ensure accuracy.</li>
-    </ul>
-
-    <h2>Sample Results</h2>
-    <table>
-      <tr><th>Test Load</th><th>Expected Current (A)</th><th>Measured (A)</th><th>Error (%)</th></tr>
-      <tr><td>10 Ω</td><td>0.50</td><td>0.49</td><td>2%</td></tr>
-      <tr><td>20 Ω</td><td>0.25</td><td>0.248</td><td>0.8%</td></tr>
-    </table>
-
-    <h2>Future Enhancements</h2>
-    <ul>
-      <li>Wi-Fi integration for cloud data logging (ThingSpeak, Blynk, etc.)</li>
-      <li>Mobile app monitoring</li>
-      <li>Extended current range using shunt resistor</li>
-    </ul>
-
-    <h2>Conclusion</h2>
-    <p>
-      The digital ammeter successfully measures and displays current in real time with high accuracy. With IoT integration, it can be transformed into a remote monitoring tool for industrial and hobbyist applications.
-    </p>
+    </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer>
-    <p>© 2025 Abdul Basit. All rights reserved.</p>
+  <!-- FOOTER (inherited from global design) -->
+  <footer class="site-footer">
+    <div class="footer-in">
+      <div class="footer-brand">
+        <div class="logo"><a href="../index.html"><span class="logo-mark"></span>Electro<span>Mania</span></a></div>
+        <p>A portfolio and knowledge-sharing platform for electronics &amp; embedded systems engineering.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Site</h4>
+        <a href="../index.html">Home</a>
+        <a href="../about.html">About</a>
+        <a href="../projects.html">Projects</a>
+        <a href="../skills.html">Skills</a>
+      </div>
+      <div class="footer-col">
+        <h4>More</h4>
+        <a href="../materials.html">Study Material</a>
+        <a href="../blog.html">Blog</a>
+        <a href="../contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="https://www.linkedin.com/in/abdul-basit-fiaz-1138a427a" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://github.com/ABasit0010" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="mailto:abasitofficial007@gmail.com">Email</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Abdul Basit. All rights reserved.</p>
+      <a href="#" class="back-to-top" aria-label="Back to top" title="Back to top">↑</a>
+    </div>
   </footer>
 
+  <script src="../js/main.js"></script>
 </body>
 </html>

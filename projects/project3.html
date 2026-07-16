@@ -1,139 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Microstrip Tee Power Divider | Abdul Basit Fiaz</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Microstrip Tee Power Divider | ElectroMania — Abdul Basit Fiaz</title>
+  <meta name="description" content="Microstrip Tee power divider with quarter-wave transformers, designed and fabricated by Abdul Basit Fiaz." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23020609'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%2300bcd4'/%3E%3Cpath d='M16 4v6M16 22v6M4 16h6M22 16h6' stroke='%2300bcd4' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Shared site stylesheet — not modified -->
+  <link rel="stylesheet" href="../css/style.css" />
+
   <style>
-    .project-details {
-      max-width: 900px;
-      margin: 40px auto;
-      background: rgba(255, 255, 255, 0.9);
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      text-align: center;
+    /* Small scoped additions for project pages — built entirely from
+       global CSS variables already defined in style.css, so every
+       project page stays visually identical to the rest of the site. */
+    .proj-sec { margin-bottom: 22px; }
+    .proj-sec h2 {
+      font-size: 1.25em; color: #fff; margin: 0 0 14px;
+      display: flex; align-items: center; gap: 10px;
     }
-
-    .project-details img {
-      max-width: 100%;
-      border-radius: 10px;
-      margin: 20px 0;
+    .proj-sec h2::before {
+      content: ''; width: 4px; height: 20px; border-radius: 3px;
+      background: var(--teal); display: inline-block;
     }
-
-    .project-details h1 {
-      color: #00bcd4;
-      margin-bottom: 10px;
+    .proj-sec p { color: var(--text-body); font-size: 14.5px; line-height: 1.8; margin: 0; }
+    .proj-sec ul { margin: 0; padding-left: 20px; color: var(--text-body); font-size: 14.5px; line-height: 1.9; }
+    .proj-sec li::marker { color: var(--teal); }
+    .proj-sec p + ul, .proj-sec ul + p { margin-top: 12px; }
+    .proj-sec pre {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--r-md, 10px); padding: 14px 16px; overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.7;
+      color: var(--teal); margin: 12px 0 0;
     }
-
-    .project-details h2 {
-      margin-top: 20px;
-      color: #333;
-    }
-
-    .project-details ul {
-      text-align: left;
-      margin: 0 auto;
-      max-width: 500px;
-      padding-left: 20px;
-    }
-
-    .project-details table {
-      margin: 15px auto;
-      border-collapse: collapse;
-      width: 100%;
-      max-width: 500px;
-    }
-
-    .project-details table td {
-      padding: 6px;
-      border-bottom: 1px solid #ccc;
-      text-align: left;
-    }
+    .proj-card { padding: 28px 30px; }
+    .proj-hero-img { border-radius: var(--r-lg); box-shadow: var(--shadow-card); width: 100%; margin-bottom: 40px; }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <div class="logo">ElectroMania</div>
-    <nav>
-      <a href="../index.html">Home</a>
-      <a href="../projects.html" class="active">Projects</a>
-      <a href="../skills.html">Skills</a>
-      <a href="../blog.html">Blog</a>
-      <a href="../contact.html">Contact</a>
-    </nav>
+  <!-- HEADER (inherited from global design) -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-left">
+        <a href="project2.html" class="nav-arrow" title="Previous project" aria-label="Previous page">‹</a>
+        <div class="logo"><a href="../index.html"><span class="logo-mark"></span>Electro<span>Mania</span></a></div>
+      </div>
+      <nav class="main-nav" id="mainNav">
+        <a href="../index.html">Home</a>
+        <a href="../about.html">About</a>
+        <a href="../projects.html" class="active">Projects</a>
+        <a href="../skills.html">Skills</a>
+        <a href="../materials.html">Material</a>
+        <a href="../blog.html">Blog</a>
+        <a href="../contact.html">Contact</a>
+      </nav>
+      <div class="header-right">
+        <a href="project4.html" class="nav-arrow" title="Next project" aria-label="Next page">›</a>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
   </header>
+  <div class="crumb-bar">
+    <div class="crumb">
+      <a href="../index.html">Home</a><span class="sep">›</span>
+      <a href="../projects.html">Projects</a><span class="sep">›</span>
+      <span class="here">Microstrip Tee Power Divider</span>
+    </div>
+  </div>
 
-  <!-- PROJECT DETAILS -->
-  <section class="project-details">
-    <h1>Microstrip Tee Power Divider with Quarter-Wave Transformer</h1>
-    <img src="../images/image2.jpg" alt="Microstrip Tee Power Divider">
-    <p>
-      This project involved the design, simulation, fabrication, and testing of a <strong>microstrip Tee power divider</strong> optimized for <strong>5 GHz applications</strong>, using <strong>quarter-wave transformers</strong> for impedance matching. The design was created and simulated in <strong>Ansys HFSS</strong> and then fabricated on an FR4 substrate.
-    </p>
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="page-hero-in">
+      <h1>Microstrip Tee <span class="hi">Power Divider</span></h1>
+      <p class="sub">A 5&nbsp;GHz microstrip Tee power divider using quarter-wave transformers for impedance matching, simulated in Ansys HFSS and fabricated on FR4.</p>
+      <div class="proj-tags">
+        <span class="tag">RF Design</span>
+        <span class="tag">Microstrip</span>
+        <span class="tag">Ansys HFSS</span>
+        <span class="tag">PCB Fabrication</span>
+      </div>
+    </div>
+  </div>
 
-    <h2>Theoretical Background</h2>
-    <ul>
-      <li><strong>Microstrip Lines:</strong> Planar transmission lines supporting quasi-TEM wave propagation.</li>
-      <li><strong>Effective Dielectric Constant:</strong> 
-        <pre>ε_eff = (ε_r + 1) / 2</pre>
-      </li>
-      <li><strong>Characteristic Impedance:</strong>
-        <pre>Z_λ/4 = √(Z_in × Z_out)</pre>
-      </li>
-      <li><strong>Quarter-Wave Transformer:</strong> Used to match the 50 Ω main line to the desired output impedance (35.35 Ω) at 5 GHz.</li>
-    </ul>
+  <div class="trace-divider" aria-hidden="true">
+    <svg viewBox="0 0 1160 18" preserveAspectRatio="none">
+      <path d="M0 9 H480 M520 9 H1160" />
+      <circle cx="500" cy="9" r="3.4"/>
+    </svg>
+  </div>
 
-    <h2>Design & Simulation</h2>
-    <ul>
-      <li>Substrate: FR4 (εr = 4.4, h = 1.6 mm, tanδ = 0.02)</li>
-      <li>Operating frequency: 5 GHz</li>
-      <li>Main line: 50 Ω microstrip</li>
-      <li>Tee junction splitting into two quarter-wave transformers</li>
-      <li>Simulation results: S11 = −22 dB, S21 ≈ S31 = −3.96 dB (equal split)</li>
-    </ul>
+  <!-- PROJECT CONTENT -->
+  <section class="reveal">
+    <div class="container" style="max-width:900px; padding:0 24px 20px;">
 
-    <h2>Fabrication</h2>
-    <ul>
-      <li>Layout exported from HFSS and fabricated as a PCB.</li>
-      <li>High-frequency integrity maintained during etching.</li>
-      <li>SMA connectors soldered to all ports with proper grounding.</li>
-    </ul>
+      <img class="proj-hero-img" src="../images/image2.jpg" alt="Microstrip Tee Power Divider">
 
-    <h2>Testing & Measurements</h2>
-    <p>
-      After replacing faulty apparatus during initial trials, correct measurements showed nearly equal power division: ~1.5 V and ~1.4 V at respective output arms from a ~3.16 V input, confirming balanced operation.
-    </p>
+      <div class="card proj-card">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Abstract</h2>
+          <p>
+            This project involved the design, simulation, fabrication, and testing of a microstrip Tee power divider optimized for 5&nbsp;GHz applications, using quarter-wave transformers for impedance matching. The design was created and simulated in Ansys HFSS and then fabricated on an FR4 substrate.
+          </p>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Theoretical Background</h2>
+          <ul>
+            <li>Microstrip lines: planar transmission lines supporting quasi-TEM wave propagation.</li>
+            <li>Effective dielectric constant: &epsilon;<sub>eff</sub> = (&epsilon;<sub>r</sub> + 1) / 2</li>
+            <li>Characteristic impedance: Z<sub>&lambda;/4</sub> = &radic;(Z<sub>in</sub> &times; Z<sub>out</sub>)</li>
+            <li>Quarter-wave transformer used to match the 50&nbsp;&Omega; main line to the desired output impedance (35.35&nbsp;&Omega;) at 5&nbsp;GHz.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Design &amp; Simulation</h2>
+          <ul>
+            <li>Substrate: FR4 (&epsilon;r = 4.4, h = 1.6&nbsp;mm, tan&delta; = 0.02)</li>
+            <li>Operating frequency: 5&nbsp;GHz &middot; Main line: 50&nbsp;&Omega; microstrip</li>
+            <li>Tee junction splitting into two quarter-wave transformers</li>
+            <li>Simulation results: S11 = &minus;22&nbsp;dB, S21 &asymp; S31 = &minus;3.96&nbsp;dB (equal split)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Fabrication</h2>
+          <ul>
+            <li>Layout exported from HFSS and fabricated as a PCB.</li>
+            <li>High-frequency integrity maintained during etching.</li>
+            <li>SMA connectors soldered to all ports with proper grounding.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Testing &amp; Measurements</h2>
+          <p>
+            After replacing faulty apparatus during initial trials, correct measurements showed nearly equal power division: ~1.5&nbsp;V and ~1.4&nbsp;V at the respective output arms from a ~3.16&nbsp;V input, confirming balanced operation.
+          </p>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Applications</h2>
+          <ul>
+            <li>Beamforming networks</li>
+            <li>Antenna array feeding</li>
+            <li>Radar systems</li>
+            <li>RF front ends in communication systems</li>
+            <li>Signal routing in test equipment</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Conclusion</h2>
+          <p>
+            The integration of quarter-wave transformers effectively minimized return losses and achieved balanced power division. Future improvements could explore Wilkinson dividers for enhanced isolation or unequal split ratios for advanced RF applications.
+          </p>
+        </div>
+      </div>
 
-    <h2>Applications</h2>
-    <ul>
-      <li>Beamforming networks</li>
-      <li>Antenna array feeding</li>
-      <li>Radar systems</li>
-      <li>RF front ends in communication systems</li>
-      <li>Signal routing in test equipment</li>
-    </ul>
-
-    <h2>Challenges</h2>
-    <ul>
-      <li>Achieving precise impedance matching</li>
-      <li>Maintaining symmetry in layout</li>
-      <li>Preventing RF leakage through proper ground stitching</li>
-    </ul>
-
-    <h2>Conclusion</h2>
-    <p>
-      The integration of quarter-wave transformers effectively minimized return losses and achieved balanced power division. Future improvements could explore Wilkinson dividers for enhanced isolation or unequal split ratios for advanced RF applications.
-    </p>
+    </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer>
-    <p>© 2025 Abdul Basit. All rights reserved.</p>
+  <!-- FOOTER (inherited from global design) -->
+  <footer class="site-footer">
+    <div class="footer-in">
+      <div class="footer-brand">
+        <div class="logo"><a href="../index.html"><span class="logo-mark"></span>Electro<span>Mania</span></a></div>
+        <p>A portfolio and knowledge-sharing platform for electronics &amp; embedded systems engineering.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Site</h4>
+        <a href="../index.html">Home</a>
+        <a href="../about.html">About</a>
+        <a href="../projects.html">Projects</a>
+        <a href="../skills.html">Skills</a>
+      </div>
+      <div class="footer-col">
+        <h4>More</h4>
+        <a href="../materials.html">Study Material</a>
+        <a href="../blog.html">Blog</a>
+        <a href="../contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="https://www.linkedin.com/in/abdul-basit-fiaz-1138a427a" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://github.com/ABasit0010" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="mailto:abasitofficial007@gmail.com">Email</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Abdul Basit. All rights reserved.</p>
+      <a href="#" class="back-to-top" aria-label="Back to top" title="Back to top">↑</a>
+    </div>
   </footer>
 
+  <script src="../js/main.js"></script>
 </body>
 </html>

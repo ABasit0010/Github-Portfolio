@@ -1,141 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Breadboard Power Supply PCB Layout | Abdul Basit Fiaz</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Breadboard Power Supply PCB Layout | ElectroMania — Abdul Basit Fiaz</title>
+  <meta name="description" content="Dual-voltage breadboard power supply PCB using AMS1117 regulators, by Abdul Basit Fiaz." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23020609'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%2300bcd4'/%3E%3Cpath d='M16 4v6M16 22v6M4 16h6M22 16h6' stroke='%2300bcd4' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Shared site stylesheet — not modified -->
+  <link rel="stylesheet" href="../css/style.css" />
+
   <style>
-    .project-details {
-      max-width: 900px;
-      margin: 40px auto;
-      background: rgba(255, 255, 255, 0.95);
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    /* Small scoped additions for project pages — built entirely from
+       global CSS variables already defined in style.css, so every
+       project page stays visually identical to the rest of the site. */
+    .proj-sec { margin-bottom: 22px; }
+    .proj-sec h2 {
+      font-size: 1.25em; color: #fff; margin: 0 0 14px;
+      display: flex; align-items: center; gap: 10px;
     }
-    .project-details img {
-      max-width: 100%;
-      border-radius: 10px;
-      margin: 20px 0;
+    .proj-sec h2::before {
+      content: ''; width: 4px; height: 20px; border-radius: 3px;
+      background: var(--teal); display: inline-block;
     }
-    .project-details h1 {
-      color: #00bcd4;
-      text-align: center;
+    .proj-sec p { color: var(--text-body); font-size: 14.5px; line-height: 1.8; margin: 0; }
+    .proj-sec ul { margin: 0; padding-left: 20px; color: var(--text-body); font-size: 14.5px; line-height: 1.9; }
+    .proj-sec li::marker { color: var(--teal); }
+    .proj-sec p + ul, .proj-sec ul + p { margin-top: 12px; }
+    .proj-sec pre {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--r-md, 10px); padding: 14px 16px; overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.7;
+      color: var(--teal); margin: 12px 0 0;
     }
-    .project-details h2 {
-      margin-top: 20px;
-      color: #333;
-    }
-    .project-details ul {
-      margin-left: 20px;
-    }
-    pre {
-      background: #f5f5f5;
-      padding: 10px;
-      overflow-x: auto;
-      border-radius: 6px;
-      font-size: 0.9em;
-    }
+    .proj-card { padding: 28px 30px; }
+    .proj-hero-img { border-radius: var(--r-lg); box-shadow: var(--shadow-card); width: 100%; margin-bottom: 40px; }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <div class="logo">ElectroMania</div>
-    <nav>
-      <a href="../index.html">Home</a>
-      <a href="../projects.html" class="active">Projects</a>
-      <a href="../skills.html">Skills</a>
-      <a href="../blog.html">Blog</a>
-      <a href="../contact.html">Contact</a>
-    </nav>
+  <!-- HEADER (inherited from global design) -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-left">
+        <a href="project20.html" class="nav-arrow" title="Previous project" aria-label="Previous page">‹</a>
+        <div class="logo"><a href="../index.html"><span class="logo-mark"></span>Electro<span>Mania</span></a></div>
+      </div>
+      <nav class="main-nav" id="mainNav">
+        <a href="../index.html">Home</a>
+        <a href="../about.html">About</a>
+        <a href="../projects.html" class="active">Projects</a>
+        <a href="../skills.html">Skills</a>
+        <a href="../materials.html">Material</a>
+        <a href="../blog.html">Blog</a>
+        <a href="../contact.html">Contact</a>
+      </nav>
+      <div class="header-right">
+        <a href="project22.html" class="nav-arrow" title="Next project" aria-label="Next page">›</a>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
   </header>
+  <div class="crumb-bar">
+    <div class="crumb">
+      <a href="../index.html">Home</a><span class="sep">›</span>
+      <a href="../projects.html">Projects</a><span class="sep">›</span>
+      <span class="here">Breadboard Power Supply PCB</span>
+    </div>
+  </div>
 
-  <!-- PROJECT DETAILS -->
-  <section class="project-details">
-    <h1>Custom PCB Layout for Breadboard Power Supply</h1>
-    <img src="../images/supply.png" alt="Breadboard Power Supply PCB">
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="page-hero-in">
+      <h1>Breadboard Power <span class="hi">Supply PCB</span></h1>
+      <p class="sub">A compact dual-voltage (5V/3.3V) breadboard power supply PCB that plugs directly into a standard breadboard for prototyping.</p>
+      <div class="proj-tags">
+        <span class="tag">PCB Design</span>
+        <span class="tag">AMS1117</span>
+        <span class="tag">Prototyping Tools</span>
+      </div>
+    </div>
+  </div>
 
-    <h2>Abstract</h2>
-    <p>
-      This project features the design of a compact, dual-voltage breadboard power supply PCB
-      that directly plugs into a standard breadboard. It provides regulated 5 V and 3.3 V outputs
-      from a common DC input, making it highly suitable for prototyping microcontroller and
-      sensor-based circuits.
-    </p>
+  <div class="trace-divider" aria-hidden="true">
+    <svg viewBox="0 0 1160 18" preserveAspectRatio="none">
+      <path d="M0 9 H480 M520 9 H1160" />
+      <circle cx="500" cy="9" r="3.4"/>
+    </svg>
+  </div>
 
-    <h2>Objectives</h2>
-    <ul>
-      <li>Design a compact PCB that fits directly onto a breadboard.</li>
-      <li>Provide selectable regulated voltages (5 V and 3.3 V).</li>
-      <li>Include overcurrent protection and an onboard power indicator.</li>
-    </ul>
+  <!-- PROJECT CONTENT -->
+  <section class="reveal">
+    <div class="container" style="max-width:900px; padding:0 24px 20px;">
 
-    <h2>Hardware Components</h2>
-    <ul>
-      <li>AMS1117-5.0 Voltage Regulator</li>
-      <li>AMS1117-3.3 Voltage Regulator</li>
-      <li>Electrolytic Capacitors for input/output smoothing</li>
-      <li>Ceramic Capacitors for high-frequency noise filtering</li>
-      <li>DC Barrel Jack (5.5 mm)</li>
-      <li>2× Male Pin Headers (for breadboard power rails)</li>
-      <li>LED Power Indicator with current-limiting resistor</li>
-      <li>FR4 PCB, 1.6 mm thickness</li>
-    </ul>
+      <img class="proj-hero-img" src="../images/supply.png" alt="Breadboard Power Supply PCB">
 
-    <h2>System Design & Functionality</h2>
-    <p>
-      The PCB takes in a DC input voltage (7 V–12 V) through the barrel jack or optional USB input.
-      It uses two AMS1117 linear regulators to supply 5 V and 3.3 V rails, selectable via jumper pins
-      for each breadboard rail. Capacitors at the regulator input and output ensure stable voltage
-      delivery with minimal ripple. An onboard LED indicates power status.
-    </p>
+      <div class="card proj-card">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Abstract</h2>
+          <p>
+            This project features the design of a compact, dual-voltage breadboard power supply PCB that directly plugs into a standard breadboard. It provides regulated 5&nbsp;V and 3.3&nbsp;V outputs from a common DC input, making it highly suitable for prototyping microcontroller and sensor-based circuits.
+          </p>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Objectives</h2>
+          <ul>
+            <li>Design a compact PCB that fits directly onto a breadboard.</li>
+            <li>Provide selectable regulated voltages (5&nbsp;V and 3.3&nbsp;V).</li>
+            <li>Include overcurrent protection and an onboard power indicator.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Hardware Components</h2>
+          <ul>
+            <li>AMS1117-5.0 voltage regulator</li>
+            <li>AMS1117-3.3 voltage regulator</li>
+            <li>Electrolytic capacitors for input/output smoothing</li>
+            <li>Ceramic capacitors for high-frequency noise filtering</li>
+            <li>DC barrel jack (5.5&nbsp;mm)</li>
+            <li>2&times; male pin headers (for breadboard power rails)</li>
+            <li>LED power indicator with current-limiting resistor</li>
+            <li>FR4 PCB, 1.6&nbsp;mm thickness</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>System Design &amp; Functionality</h2>
+          <p>
+            The PCB takes in a DC input voltage (7&ndash;12&nbsp;V) through the barrel jack or an optional USB input. It uses two AMS1117 linear regulators to supply 5&nbsp;V and 3.3&nbsp;V rails, selectable via jumper pins for each breadboard rail. Capacitors at the regulator input and output ensure stable voltage delivery with minimal ripple, and an onboard LED indicates power status.
+          </p>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Technical Specifications</h2>
+          <ul>
+            <li>Input voltage: 7&nbsp;V &ndash; 12&nbsp;V DC</li>
+            <li>Output voltage: selectable 5&nbsp;V or 3.3&nbsp;V for each rail</li>
+            <li>Max output current: 800&nbsp;mA (per regulator)</li>
+            <li>PCB size: 50&nbsp;mm &times; 25&nbsp;mm</li>
+            <li>Mounting: direct breadboard insertion</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>PCB Design Process</h2>
+          <p>
+            Designed in EasyEDA, the layout minimizes track length between the regulator, capacitors, and output pins to reduce noise and improve stability. Thick copper pours were used for ground and Vcc to handle higher currents, with silkscreen labels added for easy jumper configuration and connection identification.
+          </p>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Key Circuit Snippet</h2>
+          <p>
+            Voltage regulation via AMS1117 (fixed versions use internal resistors):
+          </p>
+          <pre>Vout = 1.25 * (1 + R2 / R1) + Iadj * R2
+// For fixed versions, internal resistors set the output to 3.3V or 5V.</pre>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Testing &amp; Results</h2>
+          <p>
+            The breadboard power supply delivered stable 5&nbsp;V and 3.3&nbsp;V outputs under load, with less than 30&nbsp;mV ripple. It fit securely on the breadboard and powered ESP32, Arduino, and sensor modules without voltage drops, with the onboard LED providing clear power indication.
+          </p>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Conclusion</h2>
+          <p>
+            This custom PCB provides a reliable, easy-to-use power source for breadboard prototyping. Its compact design, dual voltage outputs, and ease of use make it a must-have tool for electronics hobbyists and engineers.
+          </p>
+        </div>
+      </div>
 
-    <h2>Technical Specifications</h2>
-    <ul>
-      <li>Input Voltage: 7 V – 12 V DC</li>
-      <li>Output Voltage: Selectable 5 V or 3.3 V for each rail</li>
-      <li>Max Output Current: 800 mA (per regulator)</li>
-      <li>PCB Size: 50 mm × 25 mm</li>
-      <li>Mounting: Direct breadboard insertion</li>
-    </ul>
-
-    <h2>PCB Design Process</h2>
-    <p>
-      Designed in EasyEDA, the layout minimizes track length between the regulator, capacitors,
-      and output pins to reduce noise and improve stability. Thick copper pours were used for
-      ground and Vcc to handle higher currents. The design includes silkscreen labels for easy
-      jumper configuration and connection identification.
-    </p>
-
-    <h2>Key Circuit Snippet</h2>
-    <pre>
-// Voltage Regulation using AMS1117:
-Vout = 1.25 * (1 + R2 / R1) + Iadj * R2
-// For fixed versions, internal resistors set the output to 3.3V or 5V.
-    </pre>
-
-    <h2>Testing & Results</h2>
-    <p>
-      The breadboard power supply delivered stable 5 V and 3.3 V outputs under load, with less
-      than 30 mV ripple. It fit securely on the breadboard and powered ESP32, Arduino, and
-      sensor modules without voltage drops. The onboard LED provided clear power indication.
-    </p>
-
-    <h2>Conclusion</h2>
-    <p>
-      This custom PCB provides a reliable, easy-to-use power source for breadboard prototyping.
-      Its compact design, dual voltage outputs, and ease of use make it a must-have tool for
-      electronics hobbyists and engineers.
-    </p>
+    </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer>
-    <p>© 2025 Abdul Basit. All rights reserved.</p>
+  <!-- FOOTER (inherited from global design) -->
+  <footer class="site-footer">
+    <div class="footer-in">
+      <div class="footer-brand">
+        <div class="logo"><a href="../index.html"><span class="logo-mark"></span>Electro<span>Mania</span></a></div>
+        <p>A portfolio and knowledge-sharing platform for electronics &amp; embedded systems engineering.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Site</h4>
+        <a href="../index.html">Home</a>
+        <a href="../about.html">About</a>
+        <a href="../projects.html">Projects</a>
+        <a href="../skills.html">Skills</a>
+      </div>
+      <div class="footer-col">
+        <h4>More</h4>
+        <a href="../materials.html">Study Material</a>
+        <a href="../blog.html">Blog</a>
+        <a href="../contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="https://www.linkedin.com/in/abdul-basit-fiaz-1138a427a" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://github.com/ABasit0010" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="mailto:abasitofficial007@gmail.com">Email</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Abdul Basit. All rights reserved.</p>
+      <a href="#" class="back-to-top" aria-label="Back to top" title="Back to top">↑</a>
+    </div>
   </footer>
 
+  <script src="../js/main.js"></script>
 </body>
 </html>

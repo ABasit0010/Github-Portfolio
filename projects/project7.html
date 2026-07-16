@@ -1,148 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>4-Bit ALU | Abdul Basit Fiaz</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4-Bit ALU | ElectroMania — Abdul Basit Fiaz</title>
+  <meta name="description" content="4-bit Arithmetic Logic Unit built from discrete digital ICs, by Abdul Basit Fiaz." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23020609'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%2300bcd4'/%3E%3Cpath d='M16 4v6M16 22v6M4 16h6M22 16h6' stroke='%2300bcd4' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Shared site stylesheet — not modified -->
+  <link rel="stylesheet" href="../css/style.css" />
+
   <style>
-    .project-details {
-      max-width: 900px;
-      margin: 40px auto;
-      background: rgba(255, 255, 255, 0.9);
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      text-align: center;
+    /* Small scoped additions for project pages — built entirely from
+       global CSS variables already defined in style.css, so every
+       project page stays visually identical to the rest of the site. */
+    .proj-sec { margin-bottom: 22px; }
+    .proj-sec h2 {
+      font-size: 1.25em; color: #fff; margin: 0 0 14px;
+      display: flex; align-items: center; gap: 10px;
     }
-
-    .project-details img {
-      max-width: 100%;
-      border-radius: 10px;
-      margin: 20px 0;
+    .proj-sec h2::before {
+      content: ''; width: 4px; height: 20px; border-radius: 3px;
+      background: var(--teal); display: inline-block;
     }
-
-    .project-details h1 {
-      color: #00bcd4;
-      margin-bottom: 10px;
+    .proj-sec p { color: var(--text-body); font-size: 14.5px; line-height: 1.8; margin: 0; }
+    .proj-sec ul { margin: 0; padding-left: 20px; color: var(--text-body); font-size: 14.5px; line-height: 1.9; }
+    .proj-sec li::marker { color: var(--teal); }
+    .proj-sec p + ul, .proj-sec ul + p { margin-top: 12px; }
+    .proj-sec pre {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--r-md, 10px); padding: 14px 16px; overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.7;
+      color: var(--teal); margin: 12px 0 0;
     }
-
-    .project-details h2 {
-      margin-top: 20px;
-      color: #333;
-    }
-
-    .project-details ul {
-      text-align: left;
-      margin: 0 auto;
-      max-width: 600px;
-      padding-left: 20px;
-    }
-
-    .project-details table {
-      margin: 15px auto;
-      border-collapse: collapse;
-      width: 100%;
-      max-width: 600px;
-    }
-
-    .project-details table td, .project-details table th {
-      padding: 6px;
-      border: 1px solid #ccc;
-      text-align: center;
-    }
+    .proj-card { padding: 28px 30px; }
+    .proj-hero-img { border-radius: var(--r-lg); box-shadow: var(--shadow-card); width: 100%; margin-bottom: 40px; }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <div class="logo">ElectroMania</div>
-    <nav>
-      <a href="../index.html">Home</a>
-      <a href="../projects.html" class="active">Projects</a>
-      <a href="../skills.html">Skills</a>
-      <a href="../blog.html">Blog</a>
-      <a href="../contact.html">Contact</a>
-    </nav>
+  <!-- HEADER (inherited from global design) -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-left">
+        <a href="project6.html" class="nav-arrow" title="Previous project" aria-label="Previous page">‹</a>
+        <div class="logo"><a href="../index.html"><span class="logo-mark"></span>Electro<span>Mania</span></a></div>
+      </div>
+      <nav class="main-nav" id="mainNav">
+        <a href="../index.html">Home</a>
+        <a href="../about.html">About</a>
+        <a href="../projects.html" class="active">Projects</a>
+        <a href="../skills.html">Skills</a>
+        <a href="../materials.html">Material</a>
+        <a href="../blog.html">Blog</a>
+        <a href="../contact.html">Contact</a>
+      </nav>
+      <div class="header-right">
+        <a href="project8.html" class="nav-arrow" title="Next project" aria-label="Next page">›</a>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
   </header>
+  <div class="crumb-bar">
+    <div class="crumb">
+      <a href="../index.html">Home</a><span class="sep">›</span>
+      <a href="../projects.html">Projects</a><span class="sep">›</span>
+      <span class="here">4-Bit ALU</span>
+    </div>
+  </div>
 
-  <!-- PROJECT DETAILS -->
-  <section class="project-details">
-    <h1>4-Bit Arithmetic Logic Unit (ALU)</h1>
-    <img src="../images/alu.png" alt="4-Bit ALU">
-    <p>
-      This project involves the design and implementation of a <strong>4-bit Arithmetic Logic Unit (ALU)</strong> capable of performing multiple arithmetic, logic, and control operations. The ALU integrates several ICs to achieve functionality including addition, subtraction, bitwise operations, increment/decrement, complementing, overflow detection, and Loader/Counter operations.
-    </p>
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="page-hero-in">
+      <h1>4-Bit <span class="hi">Arithmetic Logic Unit</span></h1>
+      <p class="sub">A discrete-IC 4-bit ALU performing arithmetic, logic, complement, and control operations via multiplexer-based sequencing.</p>
+      <div class="proj-tags">
+        <span class="tag">Digital Logic</span>
+        <span class="tag">ALU Design</span>
+        <span class="tag">TTL ICs</span>
+      </div>
+    </div>
+  </div>
 
-    <h2>Features & Operations</h2>
-    <ul>
-      <li>Bitwise operations: AND, OR, XOR</li>
-      <li>Arithmetic operations: Addition, Subtraction</li>
-      <li>Increment & Decrement (for A and B)</li>
-      <li>1’s and 2’s Complement (for A and B)</li>
-      <li>Loader and Counter functions</li>
-      <li>Overflow detection</li>
-      <li>Comparator (A > B, A < B, A = B)</li>
-      <li>Sequence control using 16×1 multiplexers</li>
-    </ul>
+  <div class="trace-divider" aria-hidden="true">
+    <svg viewBox="0 0 1160 18" preserveAspectRatio="none">
+      <path d="M0 9 H480 M520 9 H1160" />
+      <circle cx="500" cy="9" r="3.4"/>
+    </svg>
+  </div>
 
-    <h2>Key ICs Used</h2>
-    <ul>
-      <li>74157 – Quad 2×1 Multiplexer</li>
-      <li>7404 – NOT Gate (1’s Complement)</li>
-      <li>74283 – 4-bit Adder (Addition, Subtraction, 2’s Complement)</li>
-      <li>7408 – AND Gate</li>
-      <li>7486 – XOR Gate</li>
-      <li>7474 – D Flip-Flop (Loader/Counter)</li>
-      <li>7485 – Comparator</li>
-      <li>555 Timer – Clock generator</li>
-      <li>4067 – 16×1 Multiplexer (Operation selector)</li>
-    </ul>
+  <!-- PROJECT CONTENT -->
+  <section class="reveal">
+    <div class="container" style="max-width:900px; padding:0 24px 20px;">
 
-    <h2>Implementation Details</h2>
-    <ul>
-      <li><strong>Input Selection:</strong> 74157 MUX selects between A and B as inputs.</li>
-      <li><strong>Complement Circuits:</strong> 1’s complement via 7404; 2’s complement via 74283 with binary 1 addition.</li>
-      <li><strong>Adder/Subtractor:</strong> Single 74283 handles both operations via select line.</li>
-      <li><strong>Increment/Decrement:</strong> Implemented by adding or subtracting binary 1.</li>
-      <li><strong>Overflow Detection:</strong> Using (A3·B3) XOR (Sum3) with 7408 and 7486.</li>
-      <li><strong>Loader/Counter:</strong> 7474 D flip-flops store values and count using clock pulses.</li>
-      <li><strong>Clock:</strong> 555 timer with passive components for stable pulse generation.</li>
-      <li><strong>Comparator:</strong> 7485 compares A and B, LEDs indicate relation.</li>
-    </ul>
+      <img class="proj-hero-img" src="../images/alu.png" alt="4-Bit ALU">
 
-    <h2>Operation Codes</h2>
-    <table>
-      <tr><th>Binary Code</th><th>Operation</th></tr>
-      <tr><td>0000</td><td>A: 1’s Complement</td></tr>
-      <tr><td>0001</td><td>A: 2’s Complement</td></tr>
-      <tr><td>0010</td><td>A: Increment</td></tr>
-      <tr><td>0011</td><td>A: Decrement</td></tr>
-      <tr><td>0100</td><td>B: 1’s Complement</td></tr>
-      <tr><td>0101</td><td>B: 2’s Complement</td></tr>
-      <tr><td>0110</td><td>B: Increment</td></tr>
-      <tr><td>0111</td><td>B: Decrement</td></tr>
-      <tr><td>1000</td><td>Loader A</td></tr>
-      <tr><td>1001</td><td>Bitwise AND</td></tr>
-      <tr><td>1010</td><td>Bitwise XOR</td></tr>
-      <tr><td>1011</td><td>Counter A</td></tr>
-      <tr><td>1100</td><td>Bitwise OR</td></tr>
-      <tr><td>1101</td><td>Subtraction</td></tr>
-      <tr><td>1110</td><td>Addition</td></tr>
-      <tr><td>1111</td><td>Don’t Care</td></tr>
-    </table>
+      <div class="card proj-card">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Abstract</h2>
+          <p>
+            This project involves the design and implementation of a 4-bit Arithmetic Logic Unit (ALU) capable of performing multiple arithmetic, logic, and control operations. The ALU integrates several ICs to achieve functionality including addition, subtraction, bitwise operations, increment/decrement, complementing, overflow detection, and Loader/Counter operations.
+          </p>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Features &amp; Operations</h2>
+          <ul>
+            <li>Bitwise operations: AND, OR, XOR</li>
+            <li>Arithmetic operations: addition, subtraction</li>
+            <li>Increment &amp; decrement (for A and B)</li>
+            <li>1's and 2's complement (for A and B)</li>
+            <li>Loader and counter functions</li>
+            <li>Overflow detection</li>
+            <li>Comparator (A &gt; B, A &lt; B, A = B)</li>
+            <li>Sequence control using 16&times;1 multiplexers</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Key ICs Used</h2>
+          <ul>
+            <li>74157 &ndash; Quad 2&times;1 multiplexer</li>
+            <li>7404 &ndash; NOT gate (1's complement)</li>
+            <li>74283 &ndash; 4-bit adder (addition, subtraction, 2's complement)</li>
+            <li>7408 &ndash; AND gate</li>
+            <li>7486 &ndash; XOR gate</li>
+            <li>7474 &ndash; D flip-flop (loader/counter)</li>
+            <li>7485 &ndash; comparator</li>
+            <li>555 timer &ndash; clock generator</li>
+            <li>4067 &ndash; 16&times;1 multiplexer (operation selector)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Implementation Details</h2>
+          <ul>
+            <li>Input selection: 74157 MUX selects between A and B as inputs.</li>
+            <li>Complement circuits: 1's complement via 7404; 2's complement via 74283 with binary 1 addition.</li>
+            <li>Adder/subtractor: a single 74283 handles both operations via a select line.</li>
+            <li>Increment/decrement: implemented by adding or subtracting binary 1.</li>
+            <li>Overflow detection: using (A3&middot;B3) XOR (Sum3) with 7408 and 7486.</li>
+            <li>Loader/counter: 7474 D flip-flops store values and count using clock pulses.</li>
+            <li>Clock: 555 timer with passive components for stable pulse generation.</li>
+            <li>Comparator: 7485 compares A and B, with LEDs indicating the relation.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Operation Codes</h2>
+          <ul>
+            <li>0000 &ndash; A: 1&rsquo;s complement &middot; 0001 &ndash; A: 2&rsquo;s complement</li>
+            <li>0010 &ndash; A: increment &middot; 0011 &ndash; A: decrement</li>
+            <li>0100 &ndash; B: 1&rsquo;s complement &middot; 0101 &ndash; B: 2&rsquo;s complement</li>
+            <li>0110 &ndash; B: increment &middot; 0111 &ndash; B: decrement</li>
+            <li>1000 &ndash; Loader A &middot; 1001 &ndash; Bitwise AND</li>
+            <li>1010 &ndash; Bitwise XOR &middot; 1011 &ndash; Counter A</li>
+            <li>1100 &ndash; Bitwise OR &middot; 1101 &ndash; Subtraction</li>
+            <li>1110 &ndash; Addition &middot; 1111 &ndash; Don&rsquo;t care</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Conclusion</h2>
+          <p>
+            The implemented 4-bit ALU integrates arithmetic, logical, and control functions into a single modular circuit. Through the use of multiplexers, adders, logic gates, and flip-flops, the design achieves versatility, accuracy, and expandability for digital computing applications.
+          </p>
+        </div>
+      </div>
 
-    <h2>Conclusion</h2>
-    <p>
-      The implemented 4-bit ALU integrates arithmetic, logical, and control functions into a single modular circuit. Through the use of multiplexers, adders, logic gates, and flip-flops, the design achieves versatility, accuracy, and expandability for digital computing applications.
-    </p>
+    </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer>
-    <p>© 2025 Abdul Basit. All rights reserved.</p>
+  <!-- FOOTER (inherited from global design) -->
+  <footer class="site-footer">
+    <div class="footer-in">
+      <div class="footer-brand">
+        <div class="logo"><a href="../index.html"><span class="logo-mark"></span>Electro<span>Mania</span></a></div>
+        <p>A portfolio and knowledge-sharing platform for electronics &amp; embedded systems engineering.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Site</h4>
+        <a href="../index.html">Home</a>
+        <a href="../about.html">About</a>
+        <a href="../projects.html">Projects</a>
+        <a href="../skills.html">Skills</a>
+      </div>
+      <div class="footer-col">
+        <h4>More</h4>
+        <a href="../materials.html">Study Material</a>
+        <a href="../blog.html">Blog</a>
+        <a href="../contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="https://www.linkedin.com/in/abdul-basit-fiaz-1138a427a" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://github.com/ABasit0010" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="mailto:abasitofficial007@gmail.com">Email</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Abdul Basit. All rights reserved.</p>
+      <a href="#" class="back-to-top" aria-label="Back to top" title="Back to top">↑</a>
+    </div>
   </footer>
 
+  <script src="../js/main.js"></script>
 </body>
 </html>

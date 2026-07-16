@@ -1,148 +1,221 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EEG Real-Time Visualization and Analysis | Abdul Basit Fiaz</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EEG Real-Time Visualization and Analysis | ElectroMania — Abdul Basit Fiaz</title>
+  <meta name="description" content="Real-time EEG signal visualization and analysis system built in MATLAB, by Abdul Basit Fiaz." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23020609'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%2300bcd4'/%3E%3Cpath d='M16 4v6M16 22v6M4 16h6M22 16h6' stroke='%2300bcd4' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Shared site stylesheet — not modified -->
+  <link rel="stylesheet" href="../css/style.css" />
+
   <style>
-    .project-details {
-      max-width: 900px;
-      margin: 40px auto;
-      background: rgba(255, 255, 255, 0.9);
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      text-align: center;
+    /* Small scoped additions for project pages — built entirely from
+       global CSS variables already defined in style.css, so every
+       project page stays visually identical to the rest of the site. */
+    .proj-sec { margin-bottom: 22px; }
+    .proj-sec h2 {
+      font-size: 1.25em; color: #fff; margin: 0 0 14px;
+      display: flex; align-items: center; gap: 10px;
     }
-
-    .project-details img {
-      max-width: 100%;
-      border-radius: 10px;
-      margin: 20px 0;
+    .proj-sec h2::before {
+      content: ''; width: 4px; height: 20px; border-radius: 3px;
+      background: var(--teal); display: inline-block;
     }
-
-    .project-details h1 {
-      color: #00bcd4;
-      margin-bottom: 10px;
+    .proj-sec p { color: var(--text-body); font-size: 14.5px; line-height: 1.8; margin: 0; }
+    .proj-sec ul { margin: 0; padding-left: 20px; color: var(--text-body); font-size: 14.5px; line-height: 1.9; }
+    .proj-sec li::marker { color: var(--teal); }
+    .proj-sec p + ul, .proj-sec ul + p { margin-top: 12px; }
+    .proj-sec pre {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--r-md, 10px); padding: 14px 16px; overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.7;
+      color: var(--teal); margin: 12px 0 0;
     }
-
-    .project-details h2 {
-      margin-top: 20px;
-      color: #333;
-    }
-
-    .project-details ul {
-      text-align: left;
-      margin: 0 auto;
-      max-width: 500px;
-      padding-left: 20px;
-    }
-
-    .project-details table {
-      margin: 15px auto;
-      border-collapse: collapse;
-      width: 100%;
-      max-width: 500px;
-    }
-
-    .project-details table td {
-      padding: 6px;
-      border-bottom: 1px solid #ccc;
-      text-align: left;
-    }
+    .proj-card { padding: 28px 30px; }
+    .proj-hero-img { border-radius: var(--r-lg); box-shadow: var(--shadow-card); width: 100%; margin-bottom: 40px; }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <div class="logo">ElectroMania</div>
-    <nav>
-      <a href="../index.html">Home</a>
-      <a href="../projects.html" class="active">Projects</a>
-      <a href="../skills.html">Skills</a>
-      <a href="../blog.html">Blog</a>
-      <a href="../contact.html">Contact</a>
-    </nav>
+  <!-- HEADER (inherited from global design) -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-left">
+        <a href="project3.html" class="nav-arrow" title="Previous project" aria-label="Previous page">‹</a>
+        <div class="logo"><a href="../index.html"><span class="logo-mark"></span>Electro<span>Mania</span></a></div>
+      </div>
+      <nav class="main-nav" id="mainNav">
+        <a href="../index.html">Home</a>
+        <a href="../about.html">About</a>
+        <a href="../projects.html" class="active">Projects</a>
+        <a href="../skills.html">Skills</a>
+        <a href="../materials.html">Material</a>
+        <a href="../blog.html">Blog</a>
+        <a href="../contact.html">Contact</a>
+      </nav>
+      <div class="header-right">
+        <a href="project5.html" class="nav-arrow" title="Next project" aria-label="Next page">›</a>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
   </header>
+  <div class="crumb-bar">
+    <div class="crumb">
+      <a href="../index.html">Home</a><span class="sep">›</span>
+      <a href="../projects.html">Projects</a><span class="sep">›</span>
+      <span class="here">EEG Real-Time Visualization</span>
+    </div>
+  </div>
 
-  <!-- PROJECT DETAILS -->
-  <section class="project-details">
-    <h1>Real-Time Visualization and Analysis of EEG Signals</h1>
-    <img src="../images/eeg.jpg" alt="EEG Real-Time Visualization Project">
-    <p>
-      This project implements a <strong>real-time EEG signal visualization and analysis system</strong> using MATLAB. It processes multichannel EEG data, removes power-line interference, extracts standard brainwave frequency bands, and simulates live signal streaming for neurophysiological analysis.
-    </p>
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="page-hero-in">
+      <h1>EEG Signal <span class="hi">Visualization &amp; Analysis</span></h1>
+      <p class="sub">A real-time EEG signal visualization and analysis system in MATLAB, extracting brainwave bands and simulating live signal streaming.</p>
+      <div class="proj-tags">
+        <span class="tag">MATLAB</span>
+        <span class="tag">DSP</span>
+        <span class="tag">Biomedical Signals</span>
+        <span class="tag">EEG</span>
+      </div>
+    </div>
+  </div>
 
-    <h2>Objectives</h2>
-    <ul>
-      <li>Load and visualize multichannel EEG data.</li>
-      <li>Remove 50 Hz noise using a notch filter.</li>
-      <li>Extract Delta, Theta, Alpha, Sigma, and Beta bands using bandpass filters.</li>
-      <li>Simulate real-time streaming for the alpha band.</li>
-    </ul>
+  <div class="trace-divider" aria-hidden="true">
+    <svg viewBox="0 0 1160 18" preserveAspectRatio="none">
+      <path d="M0 9 H480 M520 9 H1160" />
+      <circle cx="500" cy="9" r="3.4"/>
+    </svg>
+  </div>
 
-    <h2>Background</h2>
-    <ul>
-      <li><strong>EEG Signals:</strong> Brain activity measured via scalp electrodes, recorded in microvolts.</li>
-      <li><strong>Noise Sources:</strong> Power-line interference, muscle artifacts (EMG), eye blinks (EOG), electrode movement.</li>
-      <li><strong>Brainwave Bands:</strong>
-        <ul>
-          <li>Delta: 0.5–4 Hz (deep sleep)</li>
-          <li>Theta: 4–7 Hz (meditation)</li>
-          <li>Alpha: 8–12 Hz (relaxation)</li>
-          <li>Sigma: 12–16 Hz (sleep spindles)</li>
-          <li>Beta: 13–30 Hz (active thinking)</li>
-        </ul>
-      </li>
-    </ul>
+  <!-- PROJECT CONTENT -->
+  <section class="reveal">
+    <div class="container" style="max-width:900px; padding:0 24px 20px;">
 
-    <h2>Filter Design</h2>
-    <ul>
-      <li><strong>Notch Filter:</strong> 
-        <pre>designfilt('bandstopiir', ...)</pre>
-        Removes 50 Hz power-line interference.
-      </li>
-      <li><strong>Bandpass Filters:</strong> 
-        <pre>bandpass(signal, [f_low f_high], fs)</pre>
-        Isolate specific EEG frequency bands.
-      </li>
-    </ul>
+      <img class="proj-hero-img" src="../images/eeg.jpg" alt="EEG Real-Time Visualization Project">
 
-    <h2>Implementation</h2>
-    <ul>
-      <li>Load and plot raw EEG signals from .mat dataset (5 channels, 500 Hz).</li>
-      <li>Apply IIR notch filter to remove 50 Hz interference.</li>
-      <li>Design FIR/IIR bandpass filters for each EEG band.</li>
-      <li>Simulate real-time streaming using a sliding 1–2 second window for alpha band extraction.</li>
-      <li>Develop MATLAB App Designer GUI for live EEG channel & band selection with PSD plotting.</li>
-    </ul>
+      <div class="card proj-card">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Abstract</h2>
+          <p>
+            This project implements a real-time EEG signal visualization and analysis system using MATLAB. It processes multichannel EEG data, removes power-line interference, extracts standard brainwave frequency bands, and simulates live signal streaming for neurophysiological analysis.
+          </p>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Objectives</h2>
+          <ul>
+            <li>Load and visualize multichannel EEG data.</li>
+            <li>Remove 50&nbsp;Hz noise using a notch filter.</li>
+            <li>Extract Delta, Theta, Alpha, Sigma, and Beta bands using bandpass filters.</li>
+            <li>Simulate real-time streaming for the alpha band.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Background</h2>
+          <ul>
+            <li>EEG signals: brain activity measured via scalp electrodes, recorded in microvolts.</li>
+            <li>Noise sources: power-line interference, muscle artifacts (EMG), eye blinks (EOG), electrode movement.</li>
+            <li>Brainwave bands &mdash; Delta: 0.5&ndash;4&nbsp;Hz (deep sleep), Theta: 4&ndash;7&nbsp;Hz (meditation), Alpha: 8&ndash;12&nbsp;Hz (relaxation), Sigma: 12&ndash;16&nbsp;Hz (sleep spindles), Beta: 13&ndash;30&nbsp;Hz (active thinking).</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Filter Design</h2>
+          <p>
+            A notch filter removes 50&nbsp;Hz power-line interference, while bandpass filters isolate specific EEG frequency bands.
+          </p>
+          <pre>designfilt('bandstopiir', ...)               % 50 Hz notch filter
+bandpass(signal, [f_low f_high], fs)         % isolate EEG band</pre>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Implementation</h2>
+          <ul>
+            <li>Load and plot raw EEG signals from a .mat dataset (5 channels, 500&nbsp;Hz).</li>
+            <li>Apply an IIR notch filter to remove 50&nbsp;Hz interference.</li>
+            <li>Design FIR/IIR bandpass filters for each EEG band.</li>
+            <li>Simulate real-time streaming using a sliding 1&ndash;2 second window for alpha band extraction.</li>
+            <li>Develop a MATLAB App Designer GUI for live EEG channel &amp; band selection with PSD plotting.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Results</h2>
+          <ul>
+            <li>Significant reduction of 50&nbsp;Hz interference confirmed in filtered data.</li>
+            <li>Distinct waveform morphology observed in each EEG band.</li>
+            <li>Real-time alpha band streaming prototype successfully demonstrated.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Applications</h2>
+          <ul>
+            <li>Sleep analysis and monitoring.</li>
+            <li>Brain-computer interfaces (BCI).</li>
+            <li>Clinical neurofeedback systems.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Conclusion</h2>
+          <p>
+            This project demonstrates an effective approach for EEG preprocessing, band extraction, and real-time visualization using MATLAB. The developed framework serves as a foundation for advanced EEG-based monitoring and BCI systems.
+          </p>
+        </div>
+      </div>
 
-    <h2>Results</h2>
-    <ul>
-      <li>Significant reduction of 50 Hz interference confirmed in filtered data.</li>
-      <li>Distinct waveform morphology observed in each EEG band.</li>
-      <li>Real-time alpha band streaming prototype successfully demonstrated.</li>
-    </ul>
-
-    <h2>Applications</h2>
-    <ul>
-      <li>Sleep analysis and monitoring.</li>
-      <li>Brain-computer interfaces (BCI).</li>
-      <li>Clinical neurofeedback systems.</li>
-    </ul>
-
-    <h2>Conclusion</h2>
-    <p>
-      This project demonstrates an effective approach for <strong>EEG preprocessing, band extraction, and real-time visualization</strong> using MATLAB. The developed framework serves as a foundation for advanced EEG-based monitoring and BCI systems.
-    </p>
+    </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer>
-    <p>© 2025 Abdul Basit. All rights reserved.</p>
+  <!-- FOOTER (inherited from global design) -->
+  <footer class="site-footer">
+    <div class="footer-in">
+      <div class="footer-brand">
+        <div class="logo"><a href="../index.html"><span class="logo-mark"></span>Electro<span>Mania</span></a></div>
+        <p>A portfolio and knowledge-sharing platform for electronics &amp; embedded systems engineering.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Site</h4>
+        <a href="../index.html">Home</a>
+        <a href="../about.html">About</a>
+        <a href="../projects.html">Projects</a>
+        <a href="../skills.html">Skills</a>
+      </div>
+      <div class="footer-col">
+        <h4>More</h4>
+        <a href="../materials.html">Study Material</a>
+        <a href="../blog.html">Blog</a>
+        <a href="../contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="https://www.linkedin.com/in/abdul-basit-fiaz-1138a427a" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://github.com/ABasit0010" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="mailto:abasitofficial007@gmail.com">Email</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Abdul Basit. All rights reserved.</p>
+      <a href="#" class="back-to-top" aria-label="Back to top" title="Back to top">↑</a>
+    </div>
   </footer>
 
+  <script src="../js/main.js"></script>
 </body>
 </html>
