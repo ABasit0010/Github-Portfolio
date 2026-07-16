@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>16-bit RISC Microcontroller on FPGA | ElectroMania — Abdul Basit Fiaz</title>
-  <meta name="description" content="Design and implementation of a 16-bit single-cycle RISC microcontroller in Verilog HDL, by Abdul Basit Fiaz." />
+  <title>ESP32-S3 Custom BMS & Compact MPU-6050 Module | ElectroMania — Abdul Basit Fiaz</title>
+  <meta name="description" content="Custom ESP32-S3 board with integrated battery management system and a miniaturized MPU-6050 IMU breakout module, by Abdul Basit Fiaz." />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23020609'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%2300bcd4'/%3E%3Cpath d='M16 4v6M16 22v6M4 16h6M22 16h6' stroke='%2300bcd4' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -96,7 +96,7 @@
   <header class="site-header">
     <div class="header-inner">
       <div class="header-left">
-        <a href="project22.html" class="nav-arrow" title="Previous project" aria-label="Previous page">‹</a>
+        <a href="project23.html" class="nav-arrow" title="Previous project" aria-label="Previous page">‹</a>
         <div class="logo"><a href="../index.html"><span class="logo-mark"></span>Electro<span>Mania</span></a></div>
       </div>
       <nav class="main-nav" id="mainNav">
@@ -109,7 +109,7 @@
         <a href="../contact.html">Contact</a>
       </nav>
       <div class="header-right">
-        <a href="project24.html" class="nav-arrow" title="Next project" aria-label="Next page">›</a>
+        <a href="../projects.html" class="nav-arrow" title="Next project" aria-label="Next page">›</a>
         <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
       </div>
     </div>
@@ -118,20 +118,21 @@
     <div class="crumb">
       <a href="../index.html">Home</a><span class="sep">›</span>
       <a href="../projects.html">Projects</a><span class="sep">›</span>
-      <span class="here">16-bit RISC Microcontroller</span>
+      <span class="here">ESP32-S3 Custom BMS & MPU-6050 Module</span>
     </div>
   </div>
 
   <!-- PAGE HERO -->
   <div class="page-hero">
     <div class="page-hero-in">
-      <h1>16-Bit RISC <span class="hi">Microcontroller on FPGA</span></h1>
-      <p class="sub">A fully synthesizable single-cycle 16-bit RISC microcontroller written in Verilog HDL, with memory-mapped GPIO and timer peripherals, verified on FPGA.</p>
+      <h1>ESP32-S3 Custom BMS &amp; <span class="hi">Compact MPU-6050 Module</span></h1>
+      <p class="sub">A battery-powered ESP32-S3 sensor node with a fully custom Li-ion BMS and a purpose-built, reduced-footprint MPU-6050 IMU breakout module.</p>
       <div class="proj-tags">
-        <span class="tag">Verilog HDL</span>
-        <span class="tag">FPGA</span>
-        <span class="tag">Computer Architecture</span>
-        <span class="tag">RISC</span>
+        <span class="tag">ESP32-S3</span>
+        <span class="tag">Custom BMS</span>
+        <span class="tag">MPU-6050</span>
+        <span class="tag">PCB Design</span>
+        <span class="tag">Li-ion Charging</span>
       </div>
     </div>
   </div>
@@ -147,13 +148,13 @@
   <section class="reveal">
     <div class="container" style="max-width:900px; padding:0 24px 20px;">
 
-      <img class="proj-hero-img" src="../images/risc16_fpga.png" alt="16-bit RISC Microcontroller FPGA" onclick="openLightbox(this.src, this.alt)">
+      <img class="proj-hero-img" src="../images/esp32_bms_pcb.png" alt="ESP32-S3 Custom BMS PCB Layout" onclick="openLightbox(this.src, this.alt)">
 
       <div class="card proj-card">
         <div class="proj-sec" style="margin-bottom:0;">
           <h2>Abstract</h2>
           <p>
-            This project presents the complete design, implementation, and verification of a 16-bit Reduced Instruction Set Computer (RISC) microcontroller using Verilog HDL. The microcontroller integrates a 16-bit datapath, register file, ALU, program ROM, data RAM, and memory-mapped peripherals including GPIO and a timer. A single-cycle architecture was adopted to ensure deterministic operation and simplicity, making the design well-suited for educational and FPGA prototyping purposes.
+            This project presents a compact, battery-powered ESP32-S3 sensor node built around a fully custom Battery Management System (BMS) and a purpose-built, miniaturized MPU-6050 IMU breakout module. Rather than using an off-the-shelf GY-521 breakout, the MPU-6050 was laid out on its own reduced-footprint PCB with only the essential support components, allowing it to be mounted remotely and connected back to the main board over a simple 4-pin I&sup2;C header. The main board integrates USB-C charging, battery protection, boost-regulated 5&nbsp;V, and LDO-regulated 3.3&nbsp;V logic supply around the ESP32-S3-MINI-1 module.
           </p>
         </div>
       </div>
@@ -161,93 +162,75 @@
         <div class="proj-sec" style="margin-bottom:0;">
           <h2>Objectives</h2>
           <ul>
-            <li>Design a synthesizable 16-bit RISC microcontroller using Verilog HDL.</li>
-            <li>Implement a single-cycle CPU architecture.</li>
-            <li>Integrate memory-mapped peripherals (GPIO and timer).</li>
-            <li>Verify functionality through simulation and RTL analysis.</li>
-            <li>Target implementation on an Intel Cyclone V FPGA.</li>
+            <li>Design a single-cell Li-ion powered ESP32-S3 board with integrated USB-C charging and protection.</li>
+            <li>Build a custom BMS combining a linear Li-ion charger, a boost converter, and dedicated over-current/over-discharge protection.</li>
+            <li>Design a physically miniaturized MPU-6050 breakout module for flexible, remote mounting.</li>
+            <li>Verify stable power delivery and I&sup2;C communication between the two custom boards.</li>
           </ul>
         </div>
       </div>
       <div class="card proj-card" style="margin-top:20px;">
         <div class="proj-sec" style="margin-bottom:0;">
-          <h2>System Specifications</h2>
+          <h2>Main Board &mdash; Hardware Components</h2>
           <ul>
-            <li>Architecture: RISC, single-cycle</li>
-            <li>Data width: 16 bits</li>
-            <li>Instruction width: 16 bits</li>
-            <li>Register file: 4 &times; 16-bit general-purpose registers</li>
-            <li>Program memory: ROM (4K &times; 16)</li>
-            <li>Data memory: RAM (4K &times; 16)</li>
-            <li>Peripherals: GPIO (8-bit), timer</li>
+            <li>ESP32-S3-MINI-1-N8 module (U1) &mdash; main processor</li>
+            <li>TLV75801PDBV LDO regulator (U3) &mdash; 5&nbsp;V<sub>USB</sub> &rarr; 3.3&nbsp;V logic rail</li>
+            <li>TP4056 linear Li-ion charge controller, ESOP8 package (U5)</li>
+            <li>D3V3XK4B10LP USB D+/D&minus; ESD protection array (U4)</li>
+            <li>MT3608 boost converter (U6) &mdash; battery &rarr; regulated 5&nbsp;V rail</li>
+            <li>FS312F-G battery protection IC (IC1) with FS8205 dual N-MOSFET (Q1) &mdash; over-charge/over-discharge/over-current protection</li>
+            <li>USB Type-C receptacle (J2), CC1/CC2 configured via 5.1&nbsp;k&Omega; resistor (R14)</li>
+            <li>Reset1 &amp; Boot1 tactile switches, SW3 toggle power switch</li>
+            <li>Status LEDs: CHRG / STDBY (D3, D4) on the charger, power-good LED (D1) on the LDO</li>
+            <li>Test points TP1&ndash;TP4: Bat+, Bat&minus;, 3V3, GND</li>
           </ul>
         </div>
       </div>
       <div class="card proj-card" style="margin-top:20px;">
         <div class="proj-sec" style="margin-bottom:0;">
-          <h2>Overall System Architecture</h2>
-          <p>
-            The microcontroller consists of a central processing core connected to instruction memory, data memory, and peripherals through a shared address and data bus. Memory-mapped I/O is employed, allowing GPIO and timer peripherals to be accessed using reserved addresses within the data memory space.
-          </p>
+          <h2>Power Architecture &amp; System Design</h2>
+          <p style="margin-bottom:16px;">USB-C power enters through J2 and is protected on the data lines by the ESD diode array (U4) before reaching the TP4056 (U5), which charges the single-cell Li-ion battery and drives the CHRG/STDBY status LEDs. The battery is guarded by the FS312F-G protection IC (IC1) switching a pair of back-to-back FS8205 MOSFETs (Q1) against over-charge, over-discharge, and short-circuit conditions. From the protected battery rail, the MT3608 boost converter (U6) generates a stable 5&nbsp;V USB rail, which the TLV75801 LDO (U3) then steps down to the 3.3&nbsp;V logic supply for the ESP32-S3. The ESP32-S3 talks to the remote IMU module over I&sup2;C (SDA/SCL, with 10&nbsp;k&Omega; pull-ups on the main board) through a 4-pin header.</p>
+          <div class="proj-gallery">
+            <img class="proj-hero-img" src="../images/espbms.png" alt="ESP32-S3 main board schematic" onclick="openLightbox(this.src, this.alt)">
+            <img class="proj-hero-img" src="../images/bms.png" alt="Custom BMS: charging, boost converter and protection schematic" onclick="openLightbox(this.src, this.alt)">
+          </div>
         </div>
       </div>
       <div class="card proj-card" style="margin-top:20px;">
         <div class="proj-sec" style="margin-bottom:0;">
-          <h2>Key Functional Blocks</h2>
+          <h2>Custom MPU-6050 Module &mdash; Reduced Footprint</h2>
+          <p style="margin-bottom:16px;">To keep the IMU small enough for remote/flexible mounting, the MPU-6050 was broken out onto its own minimal PCB rather than reusing a bulky commercial module. The schematic keeps only what the sensor strictly needs: 4.7&nbsp;k&Omega; pull-ups on SDA/SCL (R2, R3) and on AD0 (R4, tied low to fix the I&sup2;C address), 0.1&nbsp;&micro;F decoupling on V<sub>DD</sub>/V<sub>LOGIC</sub> (C7), CLKIN/FSYNC grounded through C4 (0.01&nbsp;&micro;F) and C5 (0.1&nbsp;&micro;F), and REGOUT decoupled with a 2200&nbsp;pF capacitor (C6). Everything connects out through a single 4-pin header (SCL, SDA, 3.3V, GND). On the PCB, the layout follows InvenSense&rsquo;s guidance of keeping copper out from directly beneath the MPU-6050 package, and the component count is trimmed to the bare minimum &mdash; shrinking the module well below the footprint of a standard breakout board.</p>
+          <div class="proj-gallery">
+            <img class="proj-hero-img" src="../images/MPUs.png" alt="Custom MPU-6050 IMU module schematic" onclick="openLightbox(this.src, this.alt)">
+            <img class="proj-hero-img" src="../images/MPUl.png" alt="Custom MPU-6050 IMU module PCB layout, reduced footprint" onclick="openLightbox(this.src, this.alt)">
+          </div>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Main Board PCB Layout</h2>
+          <p style="margin-bottom:16px;">The ESP32-S3-MINI module sits top-left with clean fan-out routing for its castellated pins. The charging, boost, and protection circuitry is grouped toward the bottom-right of the board, physically separating the switching power section from the RF and digital logic to reduce EMI coupling. A continuous ground pour runs beneath both sections, and the four test points (Bat+, Bat&minus;, 3V3, GND) are broken out along the left edge for easy multimeter access during bring-up. The USB-C receptacle sits at the board edge alongside its adjacent ESD and CC configuration network.</p>
+          <div class="proj-gallery">
+            <img class="proj-hero-img" src="../images/espbms2.png" alt="ESP32-S3 + custom BMS PCB layout" onclick="openLightbox(this.src, this.alt)">
+          </div>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Testing &amp; Verification</h2>
           <ul>
-            <li>Program Counter (PC)</li>
-            <li>Instruction ROM</li>
-            <li>Control unit with FSM</li>
-            <li>Register file (4 &times; 16-bit)</li>
-            <li>16-bit Arithmetic Logic Unit (ALU)</li>
-            <li>Data RAM</li>
-            <li>GPIO peripheral</li>
-            <li>Timer peripheral</li>
+            <li>Charge cycle verified: CHRG LED (D3) active while charging, STDBY LED (D4) lit on completion.</li>
+            <li>5&nbsp;V boost rail (MT3608) remained stable under ESP32-S3 Wi-Fi transmit current spikes.</li>
+            <li>3.3&nbsp;V LDO output (TLV75801) checked for regulation and ripple across the battery voltage range.</li>
+            <li>I&sup2;C link between the ESP32-S3 and the remote MPU-6050 module verified at address 0x68 (AD0 grounded), with accelerometer and gyroscope data read back successfully over the 4-wire header.</li>
           </ul>
-        </div>
-      </div>
-      <div class="card proj-card" style="margin-top:20px;">
-        <div class="proj-sec" style="margin-bottom:0;">
-          <h2>Instruction Format</h2>
-          <p>
-            Each instruction is 16 bits wide and follows a fixed-length format to simplify decoding and enable single-cycle execution:
-          </p>
-          <pre>[15:12] Opcode
-[11:10] Destination Register (Rd)
-[9:8]   Source Register (Rs)
-[7:6]   Source Register (Rt)
-[5:0]   Immediate / Unused</pre>
-        </div>
-      </div>
-      <div class="card proj-card" style="margin-top:20px;">
-        <div class="proj-sec" style="margin-bottom:0;">
-          <h2>ALU Functionality</h2>
-          <p>
-            The 16-bit ALU supports a wide range of arithmetic and logical operations including addition, subtraction, multiplication, division, bitwise operations, shifts, and comparisons. Status flags such as zero, carry, negative, greater-than, and less-than are generated for control and branching decisions.
-          </p>
-        </div>
-      </div>
-      <div class="card proj-card" style="margin-top:20px;">
-        <div class="proj-sec" style="margin-bottom:0;">
-          <h2>RTL Operation (Single-Cycle Execution)</h2>
-          <p>
-            In every clock cycle, the processor fetches an instruction, decodes it, reads the required registers, executes the operation, writes back results, and updates the program counter. This guarantees deterministic timing and simplifies control logic.
-          </p>
-        </div>
-      </div>
-      <div class="card proj-card" style="margin-top:20px;">
-        <div class="proj-sec" style="margin-bottom:0;">
-          <h2>Simulation &amp; Verification</h2>
-          <p>
-            The design was verified using ModelSim and Quartus. Simulation confirmed correct operation of the ALU, register file, memory accesses, branching behavior, GPIO read/write operations, and timer functionality. RTL schematics further validated proper module integration.
-          </p>
         </div>
       </div>
       <div class="card proj-card" style="margin-top:20px;">
         <div class="proj-sec" style="margin-bottom:0;">
           <h2>Conclusion</h2>
           <p>
-            A complete and fully synthesizable 16-bit RISC microcontroller was successfully designed and verified. The modular architecture follows standard microcontroller design principles and is suitable for FPGA deployment. The design can be extended with pipelining, interrupts, or additional peripherals for advanced applications.
+            Splitting the design into two purpose-built boards &mdash; a compact power/processing board with an integrated custom BMS, and a minimal, remotely-mountable MPU-6050 module &mdash; delivered a smaller, more flexible sensor node than would be possible with off-the-shelf breakout boards. The project reinforced practical skills across Li-ion charging and protection circuit design, switching regulator layout, and careful component selection for miniaturized sensor PCBs.
           </p>
         </div>
       </div>
