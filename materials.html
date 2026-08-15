@@ -522,6 +522,32 @@
     transform: none !important;
     box-shadow: none !important;
   }
+    /* ── YOUTUBE CHANNEL LINKS IN MODAL ──────────────────────── */
+  .yt-channel-link {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 16px;
+    background: rgba(255,0,0,0.05);
+    border: 1px solid rgba(255,0,0,0.14);
+    border-radius: 12px; text-decoration: none;
+    transition: background .2s, border-color .2s, transform .18s;
+  }
+  .yt-channel-link:hover {
+    background: rgba(255,0,0,0.1);
+    border-color: rgba(255,0,0,0.32);
+    transform: translateX(4px);
+  }
+  .yt-ch-icon {
+    width: 42px; height: 42px; flex-shrink: 0;
+    background: #FF0000; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 13px;
+  }
+  .yt-ch-info { flex: 1; min-width: 0; }
+  .yt-ch-name { color: #fff; font-size: 13.5px; font-weight: 600; margin-bottom: 3px; }
+  .yt-ch-desc { color: rgba(255,255,255,.42); font-size: 11.5px; line-height: 1.45; }
+  .yt-ch-arrow { color: rgba(255,255,255,.25); font-size: 17px; flex-shrink: 0; transition: color .2s; }
+  .yt-channel-link:hover .yt-ch-arrow { color: #FF0000; }
+  
   </style>
 </head>
 
@@ -559,7 +585,7 @@
   <div class="mat-hero">
     <div>
       <h1>Study <span class="hi">Materials</span></h1>
-      <p>One-click download for every semester. Everything you need — organized, curated, and ready for you.</p>
+      <p>One-click download for every semester. Everything you need organized, curated, and ready for you.</p>
       <div class="mat-search">
         <input type="text" id="searchInput"
                placeholder="Search by semester or subject…"
@@ -610,6 +636,61 @@
     Contribute
   </button>
 
+  <!-- ══ YOUTUBE MODAL ═════════════════════════════════════════ -->
+  <div class="modal-veil" id="ytModal" onclick="if(event.target===this)closeYTModal()">
+    <div class="modal-box" style="max-width:450px;">
+      <button class="modal-x" onclick="closeYTModal()">✕</button>
+
+      <h2 style="display:flex;align-items:center;gap:10px;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="#FF0000">
+          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12
+          3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0
+          3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s
+          7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0
+          -3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+        </svg>
+        CEME Lectures
+      </h2>
+      <p class="modal-sub">Pick a channel to open on YouTube</p>
+
+      <div style="display:flex;flex-direction:column;gap:11px;">
+
+        <!-- ── Channel 1 — replace href if needed ── -->
+        <a href="https://youtube.com/@excellencewithelectromania1"
+          target="_blank" rel="noopener noreferrer" class="yt-channel-link">
+          <div class="yt-ch-icon">▶</div>
+          <div class="yt-ch-info">
+            <div class="yt-ch-name">ElectroMania</div>
+            <div class="yt-ch-desc">Abdul Basit's main channel — EE tutorials, projects &amp; Recorded Lecture</div>
+          </div>
+          <div class="yt-ch-arrow">›</div>
+        </a>
+
+        <!-- ── Channel 2 — replace href and text ── -->
+        <a href="https://youtube.com/@studyworld7478?si=64hYV4z7mO-TG8V7"
+          target="_blank" rel="noopener noreferrer" class="yt-channel-link">
+          <div class="yt-ch-icon">▶</div>
+          <div class="yt-ch-info">
+            <div class="yt-ch-name">Study World</div>
+            <div class="yt-ch-desc">Where you can find some CEME EE lectures</div>
+          </div>
+          <div class="yt-ch-arrow">›</div>
+        </a>
+
+        <!-- ── Channel 3 — replace href and text ── -->
+        <a href="https://youtube.com/@xceltube_education?si=i38BoN869WUs9hyv"
+          target="_blank" rel="noopener noreferrer" class="yt-channel-link">
+          <div class="yt-ch-icon">▶</div>
+          <div class="yt-ch-info">
+            <div class="yt-ch-name">XcelTube</div>
+            <div class="yt-ch-desc">Where you can find some CEME EE lectures</div>
+          </div>
+          <div class="yt-ch-arrow">›</div>
+        </a>
+
+      </div>
+    </div>
+  </div>
   <!-- ══ UPLOAD MODAL ══════════════════════════════════════════ -->
   <div class="modal-veil" id="modal" onclick="veilClick(event)">
     <div class="modal-box">
@@ -716,6 +797,7 @@
         <h4>Connect</h4>
         <a href="https://www.linkedin.com/in/abdul-basit-fiaz-1138a427a" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         <a href="https://github.com/ABasit0010" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://youtube.com/@excellencewithelectromania1?si=0SN2yeCCjKuNkH5s">Youtube</a>
         <a href="mailto:abasitofficial007@gmail.com">Email</a>
       </div>
     </div>
@@ -910,21 +992,25 @@
       : SEMESTERS.filter(s => s.year === activeYear);
   }
 
-  function render(list) {
+  function render(list, showYT = false) {
     const grid  = document.getElementById('grid');
     const noRes = document.getElementById('noRes');
-    grid.innerHTML = list.map(buildCard).join('');
-    noRes.classList.toggle('show', list.length === 0);
+    const cardsHTML = list.map(buildCard).join('');
+    grid.innerHTML = cardsHTML + (showYT ? buildYTCard() : '');
+    noRes.classList.toggle('show', list.length === 0 && !showYT);
   }
 
   function doSearch(q) {
     q = q.toLowerCase().trim();
     const base = getBase();
-    render(q
-      ? base.filter(s => s.data_search
-          ? s.data_search.includes(q)
-          : `semester ${s.id} year ${s.year} ${s.subjects.join(' ')}`.toLowerCase().includes(q))
-      : base);
+    const filtered = q
+      ? base.filter(s => `semester ${s.id} year ${s.year} ${s.subjects.join(' ')}`.toLowerCase().includes(q))
+      : base;
+
+    const isAllYears = activeYear === 'all';
+    const ytMatches  = !q || 'youtube lectures ceme video channel'.includes(q);
+
+    render(filtered, isAllYears && ytMatches);
   }
 
   function byYear(btn, yr) {
@@ -932,9 +1018,49 @@
     btn.classList.add('on');
     activeYear = yr === 'all' ? 'all' : Number(yr);
     document.getElementById('searchInput').value = '';
-    render(getBase());
+    render(getBase(), activeYear === 'all');
   }
+  /* ── YouTube modal ───────────────────────────────────────── */
+  function openYTModal()  { document.getElementById('ytModal').classList.add('on');    document.body.style.overflow='hidden'; }
+  function closeYTModal() { document.getElementById('ytModal').classList.remove('on'); document.body.style.overflow='';       }
 
+  /* ── YouTube card ────────────────────────────────────────── */
+  function buildYTCard() {
+    return `
+    <div class="sem-card" style="cursor:pointer;" onclick="openYTModal()">
+      <div class="sem-banner"
+          style="--c:#FF0000;background:linear-gradient(135deg,#FF000014 0%,#FF000007 100%);">
+        <span class="sem-emoji">▶️</span>
+        <h3 class="sem-num" style="color:#FF0000;">CEME Lectures</h3>
+        <span class="yr-badge"
+              style="color:#FF0000;background:#FF000018;border:1px solid #FF000030;">
+          YouTube
+        </span>
+      </div>
+      <div class="sem-body">
+        <div>
+          <div class="subj-lbl">Watch on YouTube</div>
+          <div class="subj-tags">
+            <span class="subj-tag">ElectroMania</span>
+            <span class="subj-tag">Study World</span>
+            <span class="subj-tag">XcelTube</span>
+          </div>
+          <div class="subj-count">3 YouTube channels</div>
+        </div>
+        <button class="dl-sem-btn"
+                style="background:#FF0000;color:#fff;border:none;cursor:pointer;width:100%;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12
+            3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0
+            3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s
+            7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0
+            -3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+          Watch Lectures
+        </button>
+      </div>
+    </div>`;
+  }
   /* ── modal ──────────────────────────────────────────────── */
   function openModal()  { document.getElementById('modal').classList.add('on');  document.body.style.overflow='hidden'; }
   function closeModal() { document.getElementById('modal').classList.remove('on'); document.body.style.overflow=''; }
@@ -954,11 +1080,10 @@
     }, 3200);
   }
 
-  /* ── init ───────────────────────────────────────────────── */
   document.addEventListener('DOMContentLoaded', () => {
     const total = SEMESTERS.reduce((t, s) => t + s.subjects.length, 0);
     document.getElementById('statSubjects').textContent = total;
-    render(SEMESTERS);
+    render(SEMESTERS, true);
   });
   </script>
 
