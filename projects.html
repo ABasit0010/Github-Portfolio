@@ -11,9 +11,40 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css" />
   <style>
-    .legend { display:flex; flex-wrap:wrap; gap:10px 18px; margin: 22px 0 36px; }
-    .legend-item { display:flex; align-items:center; gap:7px; font-family:var(--font-mono); font-size:11.5px; color:var(--text-dim); }
-    .legend-dot { width:9px; height:9px; border-radius:50%; background:var(--c); box-shadow:0 0 8px 1px var(--c); }
+    /* ---- Category filter bar (doubles as the old legend) ---- */
+    .filter-bar { display:flex; flex-wrap:wrap; gap:9px; margin: 22px 0 30px; }
+    .filter-btn {
+      display:inline-flex; align-items:center; gap:7px;
+      padding: 7px 15px 7px 12px; border-radius: 30px;
+      font-family: var(--font-mono); font-size: 11.5px; font-weight: 500;
+      color: var(--text-dim); background: rgba(255,255,255,0.03);
+      border: 1px solid var(--card-border); cursor: pointer;
+      transition: color .2s, background .2s, border-color .2s, transform .2s;
+    }
+    .filter-btn:hover { color: #fff; border-color: color-mix(in srgb, var(--c, var(--teal)) 45%, var(--card-border)); transform: translateY(-1px); }
+    .filter-btn.active {
+      color: var(--c, var(--teal));
+      background: color-mix(in srgb, var(--c, var(--teal)) 14%, transparent);
+      border-color: color-mix(in srgb, var(--c, var(--teal)) 45%, transparent);
+    }
+    .filter-dot { width:8px; height:8px; border-radius:50%; background: var(--c, var(--teal)); box-shadow: 0 0 7px 1px var(--c, var(--teal)); flex-shrink:0; }
+
+    /* ---- Filtering + entrance animation ---- */
+    .project-card.is-hidden { display: none; }
+    .project-card.pop { animation: cardPop .35s var(--ease); }
+    @keyframes cardPop { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    .empty-state { display:none; text-align:center; color:var(--text-dim); font-family:var(--font-mono); font-size:13px; padding: 50px 0; }
+    .empty-state.show { display:block; }
+
+    /* ---- Cards, tightened slightly for a denser, more attractive grid ---- */
+    .project-grid { grid-template-columns: repeat(auto-fit, minmax(246px, 1fr)); gap: 17px; }
+    .proj-art { height: 122px; }
+    .proj-art svg { width: 38px; height: 38px; }
+    .proj-body { padding: 14px 16px 16px; }
+    .proj-body h3 { font-size: 0.96em; margin-bottom: 6px; }
+    .proj-body p { font-size: 12.4px; }
+    .proj-body .proj-link { margin-top: 10px; }
   </style>
 </head>
 <body>
@@ -46,6 +77,9 @@
     </symbol>
     <symbol id="ic-robot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
       <rect x="5" y="8" width="14" height="11" rx="2"/><path d="M12 8V4M9 4h6"/><circle cx="9.5" cy="13.5" r="1.2" fill="currentColor" stroke="none"/><circle cx="14.5" cy="13.5" r="1.2" fill="currentColor" stroke="none"/><path d="M2 12v3M22 12v3"/>
+    </symbol>
+    <symbol id="ic-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M5 12h14M13 6l6 6-6 6"/>
     </symbol>
   </svg>
 
@@ -83,7 +117,7 @@
       <h1>My <span class="hi">Projects</span></h1>
       <p class="sub">Several builds spanning PCB design, embedded systems, RF, biomedical signal processing and power electronics.</p>
       <div class="stat-strip">
-        <div class="stat-box"><span class="num">24</span><span class="lbl">Projects</span></div>
+        <div class="stat-box"><span class="num" id="projCount">24</span><span class="lbl">Projects</span></div>
         <div class="stat-box"><span class="num">8</span><span class="lbl">Categories</span></div>
         <div class="stat-box"><span class="num">5GHz</span><span class="lbl">Top Frequency</span></div>
       </div>
@@ -92,139 +126,169 @@
 
   <!-- PROJECTS SECTION -->
   <section class="reveal">
-    <div class="legend">
-      <div class="legend-item"><span class="legend-dot" style="--c:#ff4081"></span>Embedded Systems</div>
-      <div class="legend-item"><span class="legend-dot" style="--c:#00bcd4"></span>Analog Circuit</div>
-      <div class="legend-item"><span class="legend-dot" style="--c:#e040fb"></span>RF &amp; Communication</div>
-      <div class="legend-item"><span class="legend-dot" style="--c:#69f0ae"></span>Biomedical Signal</div>
-      <div class="legend-item"><span class="legend-dot" style="--c:#ffd740"></span>Power Electronics</div>
-      <div class="legend-item"><span class="legend-dot" style="--c:#ff6d00"></span>IoT &amp; Automation</div>
-      <div class="legend-item"><span class="legend-dot" style="--c:#00e5ff"></span>PCB Design</div>
-      <div class="legend-item"><span class="legend-dot" style="--c:#f48fb1"></span>Digital Logic</div>
+
+    <!-- ============================================================
+         FILTER BAR — click a category to show only matching projects.
+         A project that belongs to more than one category (e.g. an
+         "Embedded and PCB" build) carries both slugs in data-cat and
+         will appear under either filter. To add a category: add a
+         button here with a new data-filter slug + accent colour, then
+         add that slug to any project card's data-cat attribute below.
+    ============================================================ -->
+    <div class="filter-bar" role="group" aria-label="Filter projects by category">
+      <button class="filter-btn active" data-filter="all" style="--c:#ffffff;" aria-pressed="true">
+        <span class="filter-dot" style="--c:#ffffff;"></span>All
+      </button>
+      <button class="filter-btn" data-filter="embedded" style="--c:#ff4081;" aria-pressed="false">
+        <span class="filter-dot"></span>Embedded Systems
+      </button>
+      <button class="filter-btn" data-filter="analog" style="--c:#00bcd4;" aria-pressed="false">
+        <span class="filter-dot"></span>Analog Circuit
+      </button>
+      <button class="filter-btn" data-filter="rf" style="--c:#e040fb;" aria-pressed="false">
+        <span class="filter-dot"></span>RF &amp; Communication
+      </button>
+      <button class="filter-btn" data-filter="biomedical" style="--c:#69f0ae;" aria-pressed="false">
+        <span class="filter-dot"></span>Biomedical Signal
+      </button>
+      <button class="filter-btn" data-filter="power" style="--c:#ffd740;" aria-pressed="false">
+        <span class="filter-dot"></span>Power Electronics
+      </button>
+      <button class="filter-btn" data-filter="iot" style="--c:#ff6d00;" aria-pressed="false">
+        <span class="filter-dot"></span>IoT &amp; Automation
+      </button>
+      <button class="filter-btn" data-filter="pcb" style="--c:#00e5ff;" aria-pressed="false">
+        <span class="filter-dot"></span>PCB Design
+      </button>
+      <button class="filter-btn" data-filter="digital" style="--c:#f48fb1;" aria-pressed="false">
+        <span class="filter-dot"></span>Digital Logic
+      </button>
     </div>
 
-    <div class="project-grid">
+    <div class="project-grid" id="projectGrid">
 
-      <a class="card project-card" href="projects/project1.html">
+      <a class="card project-card" href="projects/project1.html" data-cat="embedded pcb">
         <div class="proj-art" style="--c:#ff4081;"><svg><use href="#ic-chip"/></svg><span class="cat-tag">Embedded and PCB</span></div>
-        <div class="proj-body"><h3>Atmega32 Development Board</h3><p>Designed an Atmega32 based development board PCB and implemented a toll barrier system.</p></div>
+        <div class="proj-body"><h3>Atmega32 Development Board</h3><p>Designed an Atmega32 based development board PCB and implemented a toll barrier system.</p><span class="proj-link">View Project <svg><use href="#ic-arrow"/></svg></span></div>
       </a>
 
-      <a class="card project-card" href="projects/project2.html">
+      <a class="card project-card" href="projects/project2.html" data-cat="analog">
         <div class="proj-art" style="--c:#00bcd4;"><svg><use href="#ic-wave"/></svg><span class="cat-tag">Analog</span></div>
-        <div class="proj-body"><h3>Audio Amplifier Using Discrete Components</h3><p>Designed a pre-amplifier and power amplifier using discrete transistors for high-quality sound output.</p></div>
+        <div class="proj-body"><h3>Audio Amplifier Using Discrete Components</h3><p>Designed a pre-amplifier and power amplifier using discrete transistors for high-quality sound output.</p><span class="proj-link">View Project <svg><use href="#ic-arrow"/></svg></span></div>
       </a>
 
-      <a class="card project-card" href="projects/project3.html">
+      <a class="card project-card" href="projects/project3.html" data-cat="rf pcb">
         <div class="proj-art" style="--c:#e040fb;"><svg><use href="#ic-antenna"/></svg><span class="cat-tag">RF-PCB</span></div>
-        <div class="proj-body"><h3>Power Divider Microstrip Line Tee</h3><p>Designed a 5GHz microstrip tee power divider using Ansys HFSS and fabricated PCB.</p></div>
+        <div class="proj-body"><h3>Power Divider Microstrip Line Tee</h3><p>Designed a 5GHz microstrip tee power divider using Ansys HFSS and fabricated PCB.</p><span class="proj-link">View Project <svg><use href="#ic-arrow"/></svg></span></div>
       </a>
 
-      <a class="card project-card" href="projects/project4.html">
+      <a class="card project-card" href="projects/project4.html" data-cat="biomedical">
         <div class="proj-art" style="--c:#69f0ae;"><svg><use href="#ic-pulse"/></svg><span class="cat-tag">Biomedical</span></div>
-        <div class="proj-body"><h3>EEG Real-Time Visualization and Analysis</h3><p>Developed a MATLAB-based system for real-time EEG signal analysis and visualization.</p></div>
+        <div class="proj-body"><h3>EEG Real-Time Visualization and Analysis</h3><p>Developed a MATLAB-based system for real-time EEG signal analysis and visualization.</p><span class="proj-link">View Project <svg><use href="#ic-arrow"/></svg></span></div>
       </a>
 
-      <a class="card project-card" href="projects/project5.html">
+      <a class="card project-card" href="projects/project5.html" data-cat="rf">
         <div class="proj-art" style="--c:#e040fb;"><svg><use href="#ic-antenna"/></svg><span class="cat-tag">RF</span></div>
-        <div class="proj-body"><h3>FM Receiver – MATLAB &amp; Hardware</h3><p>Simulated and implemented an FM receiver both in MATLAB and hardware prototype.</p></div>
+        <div class="proj-body"><h3>FM Receiver – MATLAB &amp; Hardware</h3><p>Simulated and implemented an FM receiver both in MATLAB and hardware prototype.</p><span class="proj-link">View Project <svg><use href="#ic-arrow"/></svg></span></div>
       </a>
 
-      <a class="card project-card" href="projects/project6.html">
+      <a class="card project-card" href="projects/project6.html" data-cat="analog">
         <div class="proj-art" style="--c:#00bcd4;"><svg><use href="#ic-wave"/></svg><span class="cat-tag">Analog</span></div>
-        <div class="proj-body"><h3>Low-Pass Active Filter Design</h3><p>Designed a second-order Sallen-Key low-pass active filter with 700Hz cutoff frequency.</p></div>
+        <div class="proj-body"><h3>Low-Pass Active Filter Design</h3><p>Designed a second-order Sallen-Key low-pass active filter with 700Hz cutoff frequency.</p><span class="proj-link">View Project <svg><use href="#ic-arrow"/></svg></span></div>
       </a>
 
-      <a class="card project-card" href="projects/project7.html">
+      <a class="card project-card" href="projects/project7.html" data-cat="digital">
         <div class="proj-art" style="--c:#f48fb1;"><svg><use href="#ic-logic"/></svg><span class="cat-tag">Digital Logic</span></div>
-        <div class="proj-body"><h3>4-Bit ALU</h3><p>Implemented a 4-bit arithmetic logic unit capable of multiple operations using discrete ICs.</p></div>
+        <div class="proj-body"><h3>4-Bit ALU</h3><p>Implemented a 4-bit arithmetic logic unit capable of multiple operations using discrete ICs.</p><span class="proj-link">View Project <svg><use href="#ic-arrow"/></svg></span></div>
       </a>
 
-      <a class="card project-card" href="projects/project8.html">
+      <a class="card project-card" href="projects/project8.html" data-cat="embedded">
         <div class="proj-art" style="--c:#ff4081;"><svg><use href="#ic-chip"/></svg><span class="cat-tag">Embedded</span></div>
-        <div class="proj-body"><h3>Digital Ammeter Design</h3><p>Built a digital ammeter using ESP32 and ACS712 current sensor with OLED display.</p></div>
+        <div class="proj-body"><h3>Digital Ammeter Design</h3><p>Built a digital ammeter using ESP32 and ACS712 current sensor with OLED display.</p><span class="proj-link">View Project <svg><use href="#ic-arrow"/></svg></span></div>
       </a>
 
-      <a class="card project-card" href="projects/project9.html">
+      <a class="card project-card" href="projects/project9.html" data-cat="biomedical">
         <div class="proj-art" style="--c:#69f0ae;"><svg><use href="#ic-pulse"/></svg><span class="cat-tag">Biomedical</span></div>
-        <div class="proj-body"><h3>Heart Rate Calculation from ECG Signals</h3><p>Processed ECG data to detect R-peaks and calculate heart rate using Python.</p></div>
+        <div class="proj-body"><h3>Heart Rate Calculation from ECG Signals</h3><p>Processed ECG data to detect R-peaks and calculate heart rate using Python.</p><span class="proj-link">View Project <svg><use href="#ic-arrow"/></svg></span></div>
       </a>
 
-      <a class="card project-card" href="projects/project10.html">
+      <a class="card project-card" href="projects/project10.html" data-cat="power">
         <div class="proj-art" style="--c:#ffd740;"><svg><use href="#ic-bolt"/></svg><span class="cat-tag">Power</span></div>
-        <div class="proj-body"><h3>Single-Phase Transformer with Multi-Tap Output</h3><p>Designed a 12V–24V transformer with additional 8V and 16V taps for flexible use.</p></div>
+        <div class="proj-body"><h3>Single-Phase Transformer with Multi-Tap Output</h3><p>Designed a 12V–24V transformer with additional 8V and 16V taps for flexible use.</p><span class="proj-link">View Project <svg><use href="#ic-arrow"/></svg></span></div>
       </a>
 
-      <a class="card project-card" href="projects/project11.html">
+      <a class="card project-card" href="projects/project11.html" data-cat="power pcb">
         <div class="proj-art" style="--c:#ffd740;"><svg><use href="#ic-bolt"/></svg><span class="cat-tag">Power-PCB</span></div>
-        <div class="proj-body"><h3>Three-Channel Power Supply</h3><p>Designed fixed ±12V and 5V, plus variable 1.5–24V regulated outputs with current control.</p></div>
+        <div class="proj-body"><h3>Three-Channel Power Supply</h3><p>Designed fixed ±12V and 5V, plus variable 1.5–24V regulated outputs with current control.</p><span class="proj-link">View Project <svg><use href="#ic-arrow"/></svg></span></div>
       </a>
 
-      <a class="card project-card" href="projects/project12.html">
+      <a class="card project-card" href="projects/project12.html" data-cat="iot">
         <div class="proj-art" style="--c:#ff6d00;"><svg><use href="#ic-radar"/></svg><span class="cat-tag">IoT</span></div>
-        <div class="proj-body"><h3>Ultrasonic Distance Measurement &amp; Barrier Control</h3><p>ATmega32A based system to measure distance and control a servo barrier automatically.</p></div>
+        <div class="proj-body"><h3>Ultrasonic Distance Measurement &amp; Barrier Control</h3><p>ATmega32A based system to measure distance and control a servo barrier automatically.</p><span class="proj-link">View Project <svg><use href="#ic-arrow"/></svg></span></div>
       </a>
 
-      <a class="card project-card" href="projects/project13.html">
+      <a class="card project-card" href="projects/project13.html" data-cat="pcb">
         <div class="proj-art" style="--c:#00e5ff;"><svg><use href="#ic-pcb"/></svg><span class="cat-tag">PCB</span></div>
-        <div class="proj-body"><h3>ESP32‑S3 Custom PCB Layout</h3><p>Designed ESP32-S3 PCB with Type‑C impedance matching for high-speed USB reliability.</p></div>
+        <div class="proj-body"><h3>ESP32‑S3 Custom PCB Layout</h3><p>Designed ESP32-S3 PCB with Type‑C impedance matching for high-speed USB reliability.</p><span class="proj-link">View Project <svg><use href="#ic-arrow"/></svg></span></div>
       </a>
 
-      <a class="card project-card" href="projects/project14.html">
+      <a class="card project-card" href="projects/project14.html" data-cat="iot">
         <div class="proj-art" style="--c:#ff6d00;"><svg><use href="#ic-radar"/></svg><span class="cat-tag">IoT</span></div>
-        <div class="proj-body"><h3>ESP32 Toxic Gas Detection</h3><p>MQ-7 and MQ-135 gas sensors with relay-controlled fan for air quality management.</p></div>
+        <div class="proj-body"><h3>ESP32 Toxic Gas Detection</h3><p>MQ-7 and MQ-135 gas sensors with relay-controlled fan for air quality management.</p><span class="proj-link">View Project <svg><use href="#ic-arrow"/></svg></span></div>
       </a>
 
-      <a class="card project-card" href="projects/project15.html">
+      <a class="card project-card" href="projects/project15.html" data-cat="iot">
         <div class="proj-art" style="--c:#ff6d00;"><svg><use href="#ic-radar"/></svg><span class="cat-tag">IoT</span></div>
-        <div class="proj-body"><h3>ESP32 PIR Motion Sensor with LED Array</h3><p>Motion-activated LED array and relay control with manual off button.</p></div>
+        <div class="proj-body"><h3>ESP32 PIR Motion Sensor with LED Array</h3><p>Motion-activated LED array and relay control with manual off button.</p><span class="proj-link">View Project <svg><use href="#ic-arrow"/></svg></span></div>
       </a>
 
-      <a class="card project-card" href="projects/project16.html">
+      <a class="card project-card" href="projects/project16.html" data-cat="iot">
         <div class="proj-art" style="--c:#ff6d00;"><svg><use href="#ic-radar"/></svg><span class="cat-tag">IoT</span></div>
-        <div class="proj-body"><h3>ESP32 Curtain Mover with Rain Sensor</h3><p>Automated curtain control using L298N motor driver and rain detection.</p></div>
+        <div class="proj-body"><h3>ESP32 Curtain Mover with Rain Sensor</h3><p>Automated curtain control using L298N motor driver and rain detection.</p><span class="proj-link">View Project <svg><use href="#ic-arrow"/></svg></span></div>
       </a>
 
-      <a class="card project-card" href="projects/project17.html">
+      <a class="card project-card" href="projects/project17.html" data-cat="pcb">
         <div class="proj-art" style="--c:#00e5ff;"><svg><use href="#ic-pcb"/></svg><span class="cat-tag">PCB</span></div>
-        <div class="proj-body"><h3>Torch Light Custom PCB Layout</h3><p>Compact PCB design for a rechargeable torch light with LED control.</p></div>
+        <div class="proj-body"><h3>Torch Light Custom PCB Layout</h3><p>Compact PCB design for a rechargeable torch light with LED control.</p><span class="proj-link">View Project <svg><use href="#ic-arrow"/></svg></span></div>
       </a>
 
-      <a class="card project-card" href="projects/project18.html">
+      <a class="card project-card" href="projects/project18.html" data-cat="pcb">
         <div class="proj-art" style="--c:#00e5ff;"><svg><use href="#ic-pcb"/></svg><span class="cat-tag">PCB</span></div>
-        <div class="proj-body"><h3>ATmega328P-based Data Logger PCB Design</h3><p>Custom PCB for logging sensor data to SD card using ATmega328P.</p></div>
+        <div class="proj-body"><h3>ATmega328P-based Data Logger PCB Design</h3><p>Custom PCB for logging sensor data to SD card using ATmega328P.</p><span class="proj-link">View Project <svg><use href="#ic-arrow"/></svg></span></div>
       </a>
 
-      <a class="card project-card" href="projects/project19.html">
+      <a class="card project-card" href="projects/project19.html" data-cat="pcb">
         <div class="proj-art" style="--c:#00e5ff;"><svg><use href="#ic-robot"/></svg><span class="cat-tag">PCB · Robotics</span></div>
-        <div class="proj-body"><h3>Tweenbot Custom PCB Layout</h3><p>PCB design for an autonomous Tweenbot robot platform.</p></div>
+        <div class="proj-body"><h3>Tweenbot Custom PCB Layout</h3><p>PCB design for an autonomous Tweenbot robot platform.</p><span class="proj-link">View Project <svg><use href="#ic-arrow"/></svg></span></div>
       </a>
 
-      <a class="card project-card" href="projects/project20.html">
+      <a class="card project-card" href="projects/project20.html" data-cat="power pcb">
         <div class="proj-art" style="--c:#ffd740;"><svg><use href="#ic-bolt"/></svg><span class="cat-tag">Power-PCB</span></div>
-        <div class="proj-body"><h3>DC-to-DC Buck Converter PCB Layout</h3><p>Designed a step-down power converter PCB for efficient voltage regulation.</p></div>
+        <div class="proj-body"><h3>DC-to-DC Buck Converter PCB Layout</h3><p>Designed a step-down power converter PCB for efficient voltage regulation.</p><span class="proj-link">View Project <svg><use href="#ic-arrow"/></svg></span></div>
       </a>
 
-      <a class="card project-card" href="projects/project21.html">
+      <a class="card project-card" href="projects/project21.html" data-cat="power pcb">
         <div class="proj-art" style="--c:#ffd740;"><svg><use href="#ic-bolt"/></svg><span class="cat-tag">Power-PCB</span></div>
-        <div class="proj-body"><h3>Breadboard Power Supply PCB Layout</h3><p>Custom PCB for powering breadboard circuits with selectable voltage outputs.</p></div>
+        <div class="proj-body"><h3>Breadboard Power Supply PCB Layout</h3><p>Custom PCB for powering breadboard circuits with selectable voltage outputs.</p><span class="proj-link">View Project <svg><use href="#ic-arrow"/></svg></span></div>
       </a>
 
-      <a class="card project-card" href="projects/project22.html">
+      <a class="card project-card" href="projects/project22.html" data-cat="power">
         <div class="proj-art" style="--c:#ffd740;"><svg><use href="#ic-bolt"/></svg><span class="cat-tag">Power</span></div>
-        <div class="proj-body"><h3>DC-DC Closed Loop Buck Converter 50-100W</h3><p>DC-DC voltage controlled closed loop buck converter for 50-100W.</p></div>
+        <div class="proj-body"><h3>DC-DC Closed Loop Buck Converter 50-100W</h3><p>DC-DC voltage controlled closed loop buck converter for 50-100W.</p><span class="proj-link">View Project <svg><use href="#ic-arrow"/></svg></span></div>
       </a>
 
-      <a class="card project-card" href="projects/project23.html">
+      <a class="card project-card" href="projects/project23.html" data-cat="embedded">
         <div class="proj-art" style="--c:#ff4081;"><svg><use href="#ic-chip"/></svg><span class="cat-tag">Embedded</span></div>
-        <div class="proj-body"><h3>16-bit RISC Microcontroller</h3><p>A fully synthesizable single-cycle 16-bit RISC microcontroller written in Verilog HDL.</p></div>
+        <div class="proj-body"><h3>16-bit RISC Microcontroller</h3><p>A fully synthesizable single-cycle 16-bit RISC microcontroller written in Verilog HDL.</p><span class="proj-link">View Project <svg><use href="#ic-arrow"/></svg></span></div>
       </a>
 
-      <a class="card project-card" href="projects/project24.html">
+      <a class="card project-card" href="projects/project24.html" data-cat="pcb">
         <div class="proj-art" style="--c:#00e5ff;"><svg><use href="#ic-pcb"/></svg><span class="cat-tag">PCB</span></div>
-        <div class="proj-body"><h3>ESP32-S3 Custom BMS & MPU-6050 Module</h3><p>ESP32-S3 with Custom BMS and compact dimensioned MPU-6050 Module.</p></div>
+        <div class="proj-body"><h3>ESP32-S3 Custom BMS & MPU-6050 Module</h3><p>ESP32-S3 with Custom BMS and compact dimensioned MPU-6050 Module.</p><span class="proj-link">View Project <svg><use href="#ic-arrow"/></svg></span></div>
       </a>
     </div>
+
+    <p class="empty-state" id="emptyState">No projects in this category yet — check back soon.</p>
   </section>
 
   <!-- FOOTER -->
@@ -238,11 +302,13 @@
         <h4>Site</h4>
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
+        <a href="experience.html">Experience</a>
         <a href="projects.html">Projects</a>
-        <a href="skills.html">Skills</a>
       </div>
       <div class="footer-col">
         <h4>More</h4>
+        <a href="skills.html">Skills</a>
+        <a href="certifications.html">Certifications</a>
         <a href="materials.html">Study Material</a>
         <a href="blog.html">Blog</a>
         <a href="contact.html">Contact</a>
@@ -262,5 +328,46 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script>
+    // Category filter for the project grid. A project can carry more
+    // than one category slug in data-cat (space-separated) and will
+    // show up under every matching filter — see the comment above the
+    // .filter-bar markup for how to add new categories or projects.
+    document.addEventListener('DOMContentLoaded', () => {
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const cards = document.querySelectorAll('.project-card');
+      const countEl = document.getElementById('projCount');
+      const emptyEl = document.getElementById('emptyState');
+      const totalCount = cards.length;
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
+          btn.classList.add('active');
+          btn.setAttribute('aria-pressed', 'true');
+
+          const filter = btn.dataset.filter;
+          let visible = 0;
+
+          cards.forEach(card => {
+            const cats = (card.dataset.cat || '').split(' ');
+            const match = filter === 'all' || cats.includes(filter);
+            if (match) {
+              card.classList.remove('is-hidden');
+              card.classList.remove('pop');
+              void card.offsetWidth; // restart the pop-in animation
+              card.classList.add('pop');
+              visible++;
+            } else {
+              card.classList.add('is-hidden');
+            }
+          });
+
+          if (countEl) countEl.textContent = filter === 'all' ? totalCount : visible;
+          if (emptyEl) emptyEl.classList.toggle('show', visible === 0);
+        });
+      });
+    });
+  </script>
 </body>
 </html>
