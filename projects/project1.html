@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ATmega32 Development Board | ElectroMania — Abdul Basit Fiaz</title>
-  <meta name="description" content="Custom ATmega32 development board — full PCB design, fabrication, and testing, by Abdul Basit Fiaz." />
+  <title>ESP32-C3 Temperature-Based Fan Control Board with OLED & BMS | ElectroMania — Abdul Basit Fiaz</title>
+  <meta name="description" content="Custom ESP32-C3 board with BME280 temperature/humidity sensing, relay-driven fan control, an OLED status display, and a complete Li-ion battery management system, by Abdul Basit Fiaz.">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23020609'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%2300bcd4'/%3E%3Cpath d='M16 4v6M16 22v6M4 16h6M22 16h6' stroke='%2300bcd4' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,6 +29,13 @@
     .proj-sec p { color: var(--text-body); font-size: 14.5px; line-height: 1.8; margin: 0; }
     .proj-sec ul { margin: 0; padding-left: 20px; color: var(--text-body); font-size: 14.5px; line-height: 1.9; }
     .proj-sec li::marker { color: var(--teal); }
+    .proj-sec p + ul, .proj-sec ul + p { margin-top: 12px; }
+    .proj-sec pre {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--r-md, 10px); padding: 14px 16px; overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.7;
+      color: var(--teal); margin: 12px 0 0;
+    }
     .proj-card { padding: 28px 30px; }
 .proj-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
   
@@ -107,7 +114,8 @@
   <header class="site-header">
     <div class="header-inner">
       <div class="header-left">
-        <a href="project24.html" class="nav-arrow" title="Back to all projects" aria-label="Previous page">‹</a>
+        <!-- TODO: point these two nav-arrow links at the actual previous/next project pages in your sequence -->
+        <a href="project25.html" class="nav-arrow" title="Previous project" aria-label="Previous page">‹</a>
         <div class="logo"><a href="../index.html"><span class="logo-mark"></span>Electro<span>Mania</span></a></div>
       </div>
       <nav class="main-nav" id="mainNav">
@@ -131,20 +139,22 @@
     <div class="crumb">
       <a href="../index.html">Home</a><span class="sep">›</span>
       <a href="../projects.html">Projects</a><span class="sep">›</span>
-      <span class="here">ATmega32 Development Board</span>
+      <span class="here">ESP32-C3 Temperature-Based Fan Control Board</span>
     </div>
   </div>
 
   <!-- PAGE HERO -->
   <div class="page-hero">
     <div class="page-hero-in">
-      <h1>ATmega32 <span class="hi">Development Board</span></h1>
-      <p class="sub">Custom PCB design, fabrication, and testing of a versatile ATmega32 microcontroller platform for rapid embedded prototyping.</p>
+      <h1>ESP32-C3 Embedded Board for <span class="hi">Temperature-Based Fan Control</span></h1>
+      <p class="sub">A battery-powered ESP32-C3 sensor node that reads ambient temperature and humidity, automatically drives a relay-controlled fan, and displays live status on an OLED — built around a complete custom Li-ion BMS and a 4-layer PCB.</p>
       <div class="proj-tags">
-        <span class="tag">PCB Design</span>
-        <span class="tag">ATmega32</span>
-        <span class="tag">Embedded Systems</span>
-        <span class="tag">FR4 Etching</span>
+        <span class="tag">ESP32-C3</span>
+        <span class="tag">BME280</span>
+        <span class="tag">Relay Control</span>
+        <span class="tag">OLED Display</span>
+        <span class="tag">Custom BMS</span>
+        <span class="tag">4-Layer PCB</span>
       </div>
     </div>
   </div>
@@ -161,93 +171,104 @@
     <div class="container" style="max-width:900px; padding:0 24px 20px;">
 
       <div class="card proj-card">
-        <div class="proj-sec">
+        <div class="proj-sec" style="margin-bottom:0;">
           <h2>Abstract</h2>
           <p>
-            This project involved the complete design, fabrication, and testing of a custom ATmega32
-            development board. The board was built to serve as a versatile microcontroller platform for
-            embedded system projects, allowing for quick prototyping and experimentation. It integrates
-            essential hardware components, power regulation, and I/O accessibility, making it suitable for
-            both educational and practical applications.
+            This project presents a compact, battery-powered ESP32-C3 sensor node that automatically controls a cooling fan based on ambient temperature, while displaying live status on an OLED screen. A BME280 sensor supplies temperature and humidity data over I&sup2;C, and once a set threshold is crossed the ESP32-C3 drives a relay stage to switch the fan on or off. The board also integrates a complete Li-ion/LiPo battery management system (BMS) with USB charging, an onboard CP2102N USB-to-UART bridge with automatic reset/boot circuitry for one-cable programming, and an external SPI flash chip for extra storage &mdash; all laid out on a 4-layer PCB with length-tuned I&sup2;C routing.
           </p>
         </div>
       </div>
-
       <div class="card proj-card" style="margin-top:20px;">
-        <div class="proj-sec">
+        <div class="proj-sec" style="margin-bottom:0;">
           <h2>Objectives</h2>
           <ul>
-            <li>Design a custom PCB layout for the ATmega32 microcontroller.</li>
-            <li>Fabricate the PCB using FR4 substrate and ferric chloride (FeCl₃) etching.</li>
-            <li>Assemble and solder all components, ensuring reliable connectivity.</li>
-            <li>Test, debug, and verify the functionality of the board.</li>
+            <li>Build an ESP32-C3-WROOM-02 based board that reads temperature and humidity from a BME280 sensor over I&sup2;C.</li>
+            <li>Design a relay driver stage that automatically switches a fan load once a temperature threshold is reached.</li>
+            <li>Add a 4-pin I&sup2;C header for an external OLED display to show live temperature, humidity, and fan status.</li>
+            <li>Integrate a complete single-cell Li-ion BMS (MCP73871) with USB charging input and charge-status LEDs.</li>
+            <li>Include an onboard CP2102N USB-to-UART programmer with automatic DTR/RTS reset circuitry, plus manual Boot/Reset switches.</li>
+            <li>Add external SPI flash for additional non-volatile storage.</li>
+            <li>Lay the design out as a 4-layer PCB with dedicated ground/power planes and length-matched SCL/SDA routing.</li>
           </ul>
         </div>
-        <div class="proj-sec" style="margin-top:24px; margin-bottom:0;">
-          <h2>Key Features</h2>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Hardware Components</h2>
           <ul>
-            <li>Custom PCB layout optimized for the ATmega32 DIP package.</li>
-            <li>On-board power supply with regulated 5V output.</li>
-            <li>ISP (In-System Programming) header for easy firmware uploading.</li>
-            <li>Multiple GPIO headers for peripheral interfacing.</li>
-            <li>Crystal oscillator circuit for precise clocking.</li>
-            <li>Reset circuitry with push-button control.</li>
-            <li>Indicator LEDs for power and status monitoring.</li>
+            <li>ESP32-C3-WROOM-02-H4 module (U1) &mdash; main Wi-Fi/BLE processor</li>
+            <li>CP2102N-A02-GQFN20 USB-to-UART bridge (U3) &mdash; onboard USB programmer/serial monitor</li>
+            <li>BC817 transistors (Q1, Q3) &mdash; automatic DTR/RTS reset &amp; bootloader-entry circuit</li>
+            <li>Boot (S1) &amp; Reset (S2) tactile switches &mdash; manual programming control</li>
+            <li>W25Q32JVSSIQ SPI flash (U5) &mdash; 32&nbsp;Mbit external flash storage</li>
+            <li>BME280 temperature &amp; humidity sensor (U6) &mdash; I&sup2;C environmental sensing</li>
+            <li>JQC-3FF-005-1Z SPDT relay (K1) with PN2222A driver (Q2), 1N4007 flyback diode (D7) and status LED (D4) &mdash; fan switching stage</li>
+            <li>3-pin screw terminal (J2: NC/CON/NO) &mdash; external fan/load connection</li>
+            <li>4-pin I&sup2;C header (J3: SCL, SDA, 3V3, GND) &mdash; external OLED display connector</li>
+            <li>MCP73871 Li-ion/LiPo charge management IC (U2) &mdash; USB-input battery charger with charge-status LEDs (D1/D2/D3)</li>
+            <li>LM1117MPX-3.3 LDO regulator (VR1) &mdash; 5&nbsp;V &rarr; 3.3&nbsp;V logic rail</li>
+            <li>USB connector (J1) with inline fuse (F1) &mdash; USB power/data input</li>
+            <li>LiPo battery connector (J4)</li>
+            <li>Test points TP2&ndash;TP5 &mdash; SPI flash bus access for bring-up/debug</li>
           </ul>
         </div>
       </div>
-
       <div class="card proj-card" style="margin-top:20px;">
-        <div class="proj-sec">
-          <h2>Design &amp; Fabrication Process</h2>
-          <p>
-            The PCB layout was created using PCB design software, with careful routing to minimize noise
-            and ensure clean power delivery. The design was then printed on glossy paper and transferred to
-            the copper-clad FR4 board. Ferric chloride solution was used for the etching process, followed
-            by drilling component holes and cleaning the board surface. Components including the ATmega32
-            microcontroller, voltage regulator, headers, and passive components were soldered. The assembled
-            board underwent continuity testing before applying power.
-          </p>
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Power Architecture &amp; Battery Management System</h2>
+          <p style="margin-bottom:16px;">USB power enters through connector J1 (protected by inline fuse F1) and feeds the MCP73871 charge management IC (U2), which manages single-cell Li-ion/LiPo charging through battery connector J4. Charge current is set by programming resistors R3/R4, THERM bias resistors R1/R2 monitor battery temperature, and status LEDs D1 (red), D2 (blue) and D3 (green) indicate charging/charged/fault conditions. The MCP73871's regulated output feeds the LM1117MPX-3.3 LDO (VR1), which supplies the clean 3.3&nbsp;V logic rail for the ESP32-C3 and all onboard peripherals, with a separate power-good LED confirming the 3.3&nbsp;V rail is live.</p>
+          <img class="proj-hero-img" src="../images/Temp1.png" alt="ESP32-C3 board power input, USB charging and BMS/LDO schematic" onclick="openLightbox(this.src, this.alt)">
         </div>
       </div>
-
       <div class="card proj-card" style="margin-top:20px;">
-        <div class="proj-sec">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>ESP32-C3 Core, Programming Interface &amp; Flash Memory</h2>
+          <p style="margin-bottom:16px;">The ESP32-C3-WROOM-02-H4 module (U1) is the main processor, with its GPIOs broken out through the hierarchical connector and sensor/relay sheets. Onboard programming is handled by the CP2102N-A02-GQFN20 USB-to-UART bridge (U3), which brings VBUS and D+/D&minus; in from the USB connector and connects TX/RX directly to the ESP32-C3. Two BC817 transistors (Q1, Q3), switched from the CP2102N's DTR and RTS lines, automatically sequence the module's EN and boot pins for one-cable, auto-reset firmware uploads, backed up by manual Boot (S1) and Reset (S2) tactile switches. A W25Q32JVSSIQ SPI flash chip (U5) adds 32&nbsp;Mbit of external storage, with its SPI bus (SCLK, CS, MISO, MOSI) broken out to test points TP2&ndash;TP5 for bring-up and debug.</p>
+          <img class="proj-hero-img" src="../images/Temp2.png" alt="ESP32-C3 core, CP2102N USB-to-UART bridge and SPI flash schematic" onclick="openLightbox(this.src, this.alt)">
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Temperature Sensing &amp; Relay-Controlled Fan Switching</h2>
+          <p style="margin-bottom:16px;">A BME280 sensor (U6) provides temperature and humidity readings over I&sup2;C, with SCL/SDA pulled up through R18/R19 (4.7&nbsp;k&Omega;). In firmware, once the measured temperature crosses a set threshold, GPIO19 drives base resistor R21 into transistor Q2 (PN2222A), which energizes the coil of relay K1 (JQC-3FF-005-1Z). Flyback diode D7 protects Q2 from the coil's inductive kick, while LED D4 gives a visual indication whenever the relay is engaged. The relay's NC/CON/NO contacts are broken out to 3-pin connector J2, allowing an external fan (or a similar load) to be wired in and switched directly by the board.</p>
+          <img class="proj-hero-img" src="../images/Temp3.png" alt="BME280 temperature/humidity sensor and relay driver schematic" onclick="openLightbox(this.src, this.alt)">
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>OLED Display, Boot/Reset Controls &amp; Auto-Program Circuit</h2>
+          <p style="margin-bottom:16px;">A 4-pin I&sup2;C header (J3: SCL, SDA, 3V3, GND) lets an external OLED module be connected for a live readout of temperature, humidity, and fan state, sharing the same I&sup2;C bus as the BME280. Alongside it, the Boot (S1) and Reset (S2) tactile switches, together with the BC817-based DTR/RTS auto-reset circuit, give both manual and automatic control over entering the ESP32-C3's bootloader for firmware updates.</p>
+          <img class="proj-hero-img" src="../images/Temp4.png" alt="OLED I2C header and ESP32-C3 boot/reset/auto-program schematic" onclick="openLightbox(this.src, this.alt)">
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>PCB Layout &amp; 4-Layer Stack-up</h2>
+          <p style="margin-bottom:16px;">The board is routed as a 4-layer PCB: layer 1 (top) and layer 4 (bottom) carry signal traces, layer 2 is a continuous ground plane, and layer 3 is a split power plane carrying the 3.3&nbsp;V logic rail and the 5&nbsp;V USB rail separately. The relay, BMS, and USB charging circuitry are grouped away from the ESP32-C3's RF section to keep switching noise clear of the antenna, and the SCL/SDA I&sup2;C traces running to the BME280 and OLED header were length-tuned to keep the two lines matched for clean, symmetric signal delivery. Test points TP2&ndash;TP5 for the SPI flash bus are broken out for easy probing during bring-up.</p>
+          <img class="proj-hero-img" src="../images/TempLayout.png" alt="ESP32-C3 fan-control board PCB layout, top copper" onclick="openLightbox(this.src, this.alt)">
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
           <h2>Testing &amp; Verification</h2>
-          <p>
-            A simple LED blinking program was uploaded via ISP to confirm microcontroller functionality.
-            All GPIO pins were tested for proper digital I/O operation. The power regulation circuitry
-            provided a stable 5V output under different loads.
-          </p>
-        </div>
-      </div>
-
-      <div class="card proj-card" style="margin-top:20px;">
-        <div class="proj-sec">
-          <h2>Applications</h2>
           <ul>
-            <li>Educational tool for learning embedded systems.</li>
-            <li>Base platform for robotics projects.</li>
-            <li>IoT device prototyping with external modules (Wi-Fi, Bluetooth, etc.).</li>
-            <li>Custom automation control systems.</li>
+            <li>Charging cycle verified via MCP73871 status LEDs (D1/D2/D3) through a full charge from USB.</li>
+            <li>LM1117 3.3&nbsp;V rail checked for regulation and ripple across the battery's discharge range.</li>
+            <li>BME280 I&sup2;C communication verified, with temperature/humidity readback confirmed in firmware.</li>
+            <li>OLED display updates verified live over the shared I&sup2;C bus.</li>
+            <li>Relay switching threshold logic verified &mdash; fan reliably turns on/off at the configured temperature.</li>
+            <li>CP2102N auto-reset (DTR/RTS) programming cycle verified for one-cable firmware uploads via esptool.</li>
+            <li>W25Q32 SPI flash read/write verified at test points TP2&ndash;TP5.</li>
           </ul>
         </div>
       </div>
-
-      <div class="proj-gallery">
-        <img class="proj-hero-img" src="../images/atmega.png" alt="Front view" onclick="openLightbox(this.src, this.alt)">
-        <img class="proj-hero-img" src="../images/atmega2.png" alt="Back view" onclick="openLightbox(this.src, this.alt)">
-        <img class="proj-hero-img" src="../images/atmega3.png" alt="Testing setup" onclick="openLightbox(this.src, this.alt)">
-        <img class="proj-hero-img" src="../images/atmega4.png" alt="Testing setup" onclick="openLightbox(this.src, this.alt)">
-      </div>
+      <img class="proj-hero-img" src="../images/Temp3D.png" alt="ESP32-C3 Temperature-Based Fan Control Board — 3D render" onclick="openLightbox(this.src, this.alt)">
 
       <div class="card proj-card" style="margin-top:20px;">
         <div class="proj-sec" style="margin-bottom:0;">
           <h2>Conclusion</h2>
           <p>
-            The ATmega32 development board was successfully designed, fabricated, and tested. It provides a
-            stable, modular, and expandable platform for microcontroller-based applications. The project
-            strengthened PCB design, fabrication, and embedded system integration skills.
+            Combining environmental sensing, relay-based actuation, an OLED status display, one-cable programming, and a complete Li-ion BMS onto a single 4-layer board made for a compact, self-contained temperature-controlled fan node. The project reinforced practical skills in I&sup2;C sensor and display interfacing, relay driver design, USB-to-serial auto-program circuitry, Li-ion charge management, and controlled, length-matched signal routing on a multi-layer stack-up.
           </p>
         </div>
       </div>
@@ -257,32 +278,32 @@
           <h2>Related Files</h2>
           <div class="file-grid">
             <!-- Project Report -->
-            <a class="file-chip" href="../files/project1-report.pdf" target="_blank" rel="noopener noreferrer">
+            <a class="file-chip" href="../files/esp32c3-fanctrl-report.pdf" target="_blank" rel="noopener noreferrer">
               <span class="file-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg></span>
               <span class="file-txt">Project Report<em>PDF</em></span>
             </a>
             <!-- Schematic -->
-            <a class="file-chip" href="../files/project1-schematic.pdf" target="_blank" rel="noopener noreferrer">
+            <a class="file-chip" href="../files/esp32c3-fanctrl-schematic.pdf" target="_blank" rel="noopener noreferrer">
               <span class="file-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h4l1-3 2 6 2-6 2 6 2-6 1 3h4"/></svg></span>
               <span class="file-txt">Schematic<em>PDF</em></span>
             </a>
             <!-- PCB Layout -->
-            <a class="file-chip" href="../files/project1-layout.pdf" target="_blank" rel="noopener noreferrer">
+            <a class="file-chip" href="../files/esp32c3-fanctrl-layout.pdf" target="_blank" rel="noopener noreferrer">
               <span class="file-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.3" fill="currentColor" stroke="none"/><path d="M9.3 8H16v6.7"/></svg></span>
               <span class="file-txt">PCB Layout<em>PDF</em></span>
             </a>
             <!-- Circuit Design Files -->
-            <a class="file-chip" href="../files/project1-design-files.zip" target="_blank" rel="noopener noreferrer">
+            <a class="file-chip" href="../files/esp32c3-fanctrl-design-files.zip" target="_blank" rel="noopener noreferrer">
               <span class="file-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span>
               <span class="file-txt">Circuit Design Files<em>ZIP</em></span>
             </a>
             <!-- Firmware / Code -->
-            <a class="file-chip" href="../files/project1-firmware.zip" target="_blank" rel="noopener noreferrer">
+            <a class="file-chip" href="../files/esp32c3-fanctrl-firmware.zip" target="_blank" rel="noopener noreferrer">
               <span class="file-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18-5-6 5-6M15 6l5 6-5 6"/></svg></span>
               <span class="file-txt">Firmware / Code<em>ZIP</em></span>
             </a>
             <!-- Simulation Files -->
-            <a class="file-chip" href="../files/project1-simulation.zip" target="_blank" rel="noopener noreferrer">
+            <a class="file-chip" href="../files/esp32c3-fanctrl-simulation.zip" target="_blank" rel="noopener noreferrer">
               <span class="file-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5M4 19h16"/><path d="M8 15l3-4 3 2 4-6"/></svg></span>
               <span class="file-txt">Simulation Files<em>ZIP</em></span>
             </a>

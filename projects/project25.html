@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ESP32-S3 Custom BMS & Compact MPU-6050 Module | ElectroMania — Abdul Basit Fiaz</title>
-  <meta name="description" content="Custom ESP32-S3 board with integrated battery management system and a miniaturized MPU-6050 IMU breakout module, by Abdul Basit Fiaz." />
+  <title>EEG Real-Time Visualization and Analysis | ElectroMania — Abdul Basit Fiaz</title>
+  <meta name="description" content="Real-time EEG signal visualization and analysis system built in MATLAB, by Abdul Basit Fiaz." />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23020609'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%2300bcd4'/%3E%3Cpath d='M16 4v6M16 22v6M4 16h6M22 16h6' stroke='%2300bcd4' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -114,7 +114,7 @@
   <header class="site-header">
     <div class="header-inner">
       <div class="header-left">
-        <a href="project1.html" class="nav-arrow" title="Previous project" aria-label="Previous page">‹</a>
+        <a href="project24.html" class="nav-arrow" title="Previous project" aria-label="Previous page">‹</a>
         <div class="logo"><a href="../index.html"><span class="logo-mark"></span>Electro<span>Mania</span></a></div>
       </div>
       <nav class="main-nav" id="mainNav">
@@ -129,7 +129,7 @@
         <a href="../contact.html">Contact</a>
       </nav>
       <div class="header-right">
-        <a href="project3.html" class="nav-arrow" title="Next project" aria-label="Next page">›</a>
+        <a href="project1.html" class="nav-arrow" title="Next project" aria-label="Next page">›</a>
         <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
       </div>
     </div>
@@ -138,22 +138,20 @@
     <div class="crumb">
       <a href="../index.html">Home</a><span class="sep">›</span>
       <a href="../projects.html">Projects</a><span class="sep">›</span>
-      <span class="here">ESP32-S3 Custom BMS, MPU-6050 Module, & Custom I2C Multiplexer Board</span>
+      <span class="here">EEG Real-Time Visualization</span>
     </div>
   </div>
 
   <!-- PAGE HERO -->
   <div class="page-hero">
     <div class="page-hero-in">
-      <h1>ESP32-S3 Custom BMS with <span class="hi">Compact MPU-6050 &amp; TCA9548 Module</span></h1>
-      <p class="sub">A battery-powered ESP32-S3 sensor node with a fully custom Li-ion BMS and a purpose-built, reduced-footprint MPU-6050 IMU breakout module and I2C-MUX board.</p>
+      <h1>EEG Signal <span class="hi">Visualization &amp; Analysis</span></h1>
+      <p class="sub">A real-time EEG signal visualization and analysis system in MATLAB, extracting brainwave bands and simulating live signal streaming.</p>
       <div class="proj-tags">
-        <span class="tag">ESP32-S3</span>
-        <span class="tag">Custom BMS</span>
-        <span class="tag">MPU-6050</span>
-        <span class="tag">TCA-9548</span>
-        <span class="tag">PCB Design</span>
-        <span class="tag">Li-ion Charging</span>
+        <span class="tag">MATLAB</span>
+        <span class="tag">DSP</span>
+        <span class="tag">Biomedical Signals</span>
+        <span class="tag">EEG</span>
       </div>
     </div>
   </div>
@@ -173,7 +171,7 @@
         <div class="proj-sec" style="margin-bottom:0;">
           <h2>Abstract</h2>
           <p>
-            This project presents a compact, battery-powered ESP32-S3 sensor node built around a fully custom Battery Management System (BMS) and a purpose-built, miniaturized MPU-6050 IMU breakout module and I2C Multiplexer board with connectors for MPU sensors. Rather than using an off-the-shelf GY-521 breakout, the MPU-6050 was laid out on its own reduced-footprint PCB with only the essential support components, allowing it to be mounted remotely and connected back to the main board over a simple 4-pin I&sup2;C header. The main board integrates USB-C charging, battery protection, boost-regulated 5&nbsp;V, and LDO-regulated 3.3&nbsp;V logic supply around the ESP32-S3-MINI-1 module.
+            This project implements a real-time EEG signal visualization and analysis system using MATLAB. It processes multichannel EEG data, removes power-line interference, extracts standard brainwave frequency bands, and simulates live signal streaming for neurophysiological analysis.
           </p>
         </div>
       </div>
@@ -181,92 +179,72 @@
         <div class="proj-sec" style="margin-bottom:0;">
           <h2>Objectives</h2>
           <ul>
-            <li>Design a single-cell Li-ion powered ESP32-S3 board with integrated USB-C charging and protection.</li>
-            <li>Build a custom BMS combining a linear Li-ion charger, a boost converter, and dedicated over-current/over-discharge protection.</li>
-            <li>Design a physically miniaturized MPU-6050 breakout module for flexible, remote mounting.</li>
-            <li>Design a customized I2C MUX (TCA9548) module with connectors for strong and detachable connections of 6 MPU sensors.</li>
-            <li>Verify stable power delivery and I&sup2;C communication between the three custom boards.</li>
+            <li>Load and visualize multichannel EEG data.</li>
+            <li>Remove 50&nbsp;Hz noise using a notch filter.</li>
+            <li>Extract Delta, Theta, Alpha, Sigma, and Beta bands using bandpass filters.</li>
+            <li>Simulate real-time streaming for the alpha band.</li>
           </ul>
         </div>
       </div>
       <div class="card proj-card" style="margin-top:20px;">
         <div class="proj-sec" style="margin-bottom:0;">
-          <h2>Main Board &mdash; Hardware Components</h2>
+          <h2>Background</h2>
           <ul>
-            <li>ESP32-S3-MINI-1-N8 module (U1) &mdash; main processor</li>
-            <li>TLV75801PDBV LDO regulator (U3) &mdash; 5&nbsp;V<sub>USB</sub> &rarr; 3.3&nbsp;V logic rail</li>
-            <li>TP4056 linear Li-ion charge controller, ESOP8 package (U5)</li>
-            <li>D3V3XK4B10LP USB D+/D&minus; ESD protection array (U4)</li>
-            <li>MT3608 boost converter (U6) &mdash; battery &rarr; regulated 5&nbsp;V rail</li>
-            <li>FS312F-G battery protection IC (IC1) with FS8205 dual N-MOSFET (Q1) &mdash; over-charge/over-discharge/over-current protection</li>
-            <li>USB Type-C receptacle (J2), CC1/CC2 configured via 5.1&nbsp;k&Omega; resistor (R14)</li>
-            <li>Reset1 &amp; Boot1 tactile switches, SW3 toggle power switch</li>
-            <li>Status LEDs: CHRG / STDBY (D3, D4) on the charger, power-good LED (D1) on the LDO</li>
-            <li>JST Connectors J1 for battery connections Bat+, Bat&minus;, &amp; J2 for connection between ESP32 and MUX with 3V3, SCL, SDA, and GND</li>
+            <li>EEG signals: brain activity measured via scalp electrodes, recorded in microvolts.</li>
+            <li>Noise sources: power-line interference, muscle artifacts (EMG), eye blinks (EOG), electrode movement.</li>
+            <li>Brainwave bands &mdash; Delta: 0.5&ndash;4&nbsp;Hz (deep sleep), Theta: 4&ndash;7&nbsp;Hz (meditation), Alpha: 8&ndash;12&nbsp;Hz (relaxation), Sigma: 12&ndash;16&nbsp;Hz (sleep spindles), Beta: 13&ndash;30&nbsp;Hz (active thinking).</li>
           </ul>
         </div>
       </div>
       <div class="card proj-card" style="margin-top:20px;">
         <div class="proj-sec" style="margin-bottom:0;">
-          <h2>Power Architecture &amp; System Design</h2>
-          <p style="margin-bottom:16px;">USB-C power enters through J2 and is protected on the data lines by the ESD diode array (U4) before reaching the TP4056 (U5), which charges the single-cell Li-ion battery and drives the CHRG/STDBY status LEDs. The battery is guarded by the FS312F-G protection IC (IC1) switching a pair of back-to-back FS8205 MOSFETs (Q1) against over-charge, over-discharge, and short-circuit conditions. From the protected battery rail, the MT3608 boost converter (U6) generates a stable 5&nbsp;V USB rail, which the TLV75801 LDO (U3) then steps down to the 3.3&nbsp;V logic supply for the ESP32-S3. The ESP32-S3 talks to the remote IMU module over I&sup2;C (SDA/SCL, with 10&nbsp;k&Omega; pull-ups on the main board) through a 4-pin header.</p>
-          <div class="proj-gallery">
-            <img class="proj-hero-img" src="../images/espbms.png" alt="ESP32-S3 main board schematic" onclick="openLightbox(this.src, this.alt)">
-            <img class="proj-hero-img" src="../images/bms.png" alt="Custom BMS: charging, boost converter and protection schematic" onclick="openLightbox(this.src, this.alt)">
-          </div>
+          <h2>Filter Design</h2>
+          <p>
+            A notch filter removes 50&nbsp;Hz power-line interference, while bandpass filters isolate specific EEG frequency bands.
+          </p>
+          <pre>designfilt('bandstopiir', ...)               % 50 Hz notch filter
+bandpass(signal, [f_low f_high], fs)         % isolate EEG band</pre>
         </div>
       </div>
       <div class="card proj-card" style="margin-top:20px;">
         <div class="proj-sec" style="margin-bottom:0;">
-          <h2>Custom MPU-6050 Module &mdash; Reduced Footprint</h2>
-          <p style="margin-bottom:16px;">To keep the IMU small enough for remote/flexible mounting, the MPU-6050 was broken out onto its own minimal PCB rather than reusing a bulky commercial module. The schematic keeps only what the sensor strictly needs: 4.7&nbsp;k&Omega; pull-ups on SDA/SCL (R2, R3) and on AD0 (R4, tied low to fix the I&sup2;C address), 0.1&nbsp;&micro;F decoupling on V<sub>DD</sub>/V<sub>LOGIC</sub> (C7), CLKIN/FSYNC grounded through C4 (0.01&nbsp;&micro;F) and C5 (0.1&nbsp;&micro;F), and REGOUT decoupled with a 2200&nbsp;pF capacitor (C6). Everything connects out through a single 4-pin header (SCL, SDA, 3.3V, GND). On the PCB, the layout follows InvenSense&rsquo;s guidance of keeping copper out from directly beneath the MPU-6050 package, and the component count is trimmed to the bare minimum &mdash; shrinking the module well below the footprint of a standard breakout board.</p>
-          <div class="proj-gallery">
-            <img class="proj-hero-img" src="../images/MPUs.png" alt="Custom MPU-6050 IMU module schematic" onclick="openLightbox(this.src, this.alt)">
-            <img class="proj-hero-img" src="../images/MPUl.png" alt="Custom MPU-6050 IMU module PCB layout, reduced footprint" onclick="openLightbox(this.src, this.alt)">
-          </div>
-        </div>
-      </div>
-
-      <div class="card proj-card" style="margin-top:20px;">
-        <div class="proj-sec" style="margin-bottom:0;">
-          <h2>Custom TCA9548 I2C-MUX &amp; Connectors for MPU sensors</h2>
-          <p style="margin-bottom:16px;">Since this board is developed for placing back of the hand onto the glove, its size again was crucial. To keep the customized board as small as possible &amp; providing the connectors for 6 MPU6050 sensors closely placed. Each connector comes with the filtering capacitor across 3V3 and GND.</p>
-          <div class="proj-gallery">
-            <img class="proj-hero-img" src="../images/I2CMUX1.png" alt="Custom TCA-9548 module schematic" onclick="openLightbox(this.src, this.alt)">
-            <img class="proj-hero-img" src="../images/I2CMUX2.png" alt="JST Connectors" onclick="openLightbox(this.src, this.alt)">
-            <img class="proj-hero-img" src="../images/I2CMUX.png" alt="Custom TCA-9548 module PCB layout, reduced footprint" onclick="openLightbox(this.src, this.alt)">
-            <img class="proj-hero-img" src="../images/I2CMUX3D.png" alt="3D View" onclick="openLightbox(this.src, this.alt)">
-          </div>
-        </div>
-      </div>
-
-      <div class="card proj-card" style="margin-top:20px;">
-        <div class="proj-sec" style="margin-bottom:0;">
-          <h2>Main Board PCB Layout</h2>
-          <p style="margin-bottom:16px;">The ESP32-S3-MINI module sits top-left with clean fan-out routing for its castellated pins. The charging, boost, and protection circuitry is grouped toward the bottom-right of the board, physically separating the switching power section from the RF and digital logic to reduce EMI coupling. A continuous ground pour runs beneath both sections, and the four test points (Bat+, Bat&minus;, 3V3, GND) are broken out along the left edge for easy multimeter access during bring-up. The USB-C receptacle sits at the board edge alongside its adjacent ESD and CC configuration network.</p>
-          <div class="proj-gallery">
-            <img class="proj-hero-img" src="../images/espbms2.png" alt="ESP32-S3 + custom BMS PCB layout" onclick="openLightbox(this.src, this.alt)">
-          </div>
-        </div>
-      </div>
-      <div class="card proj-card" style="margin-top:20px;">
-        <div class="proj-sec" style="margin-bottom:0;">
-          <h2>Testing &amp; Verification</h2>
+          <h2>Implementation</h2>
           <ul>
-            <li>Charge cycle verified: CHRG LED (D3) active while charging, STDBY LED (D4) lit on completion.</li>
-            <li>5&nbsp;V boost rail (MT3608) remained stable under ESP32-S3 Wi-Fi transmit current spikes.</li>
-            <li>3.3&nbsp;V LDO output (TLV75801) checked for regulation and ripple across the battery voltage range.</li>
-            <li>I&sup2;C link between the ESP32-S3 and the remote MPU-6050 module verified at address 0x68 (AD0 grounded), with accelerometer and gyroscope data read back successfully over the 4-wire header.</li>
+            <li>Load and plot raw EEG signals from a .mat dataset (5 channels, 500&nbsp;Hz).</li>
+            <li>Apply an IIR notch filter to remove 50&nbsp;Hz interference.</li>
+            <li>Design FIR/IIR bandpass filters for each EEG band.</li>
+            <li>Simulate real-time streaming using a sliding 1&ndash;2 second window for alpha band extraction.</li>
+            <li>Develop a MATLAB App Designer GUI for live EEG channel &amp; band selection with PSD plotting.</li>
           </ul>
         </div>
       </div>
-      <img class="proj-hero-img" src="../images/esp3d.png" alt="ESP32-S3 Custom BMS PCB Layout" onclick="openLightbox(this.src, this.alt)">
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Results</h2>
+          <ul>
+            <li>Significant reduction of 50&nbsp;Hz interference confirmed in filtered data.</li>
+            <li>Distinct waveform morphology observed in each EEG band.</li>
+            <li>Real-time alpha band streaming prototype successfully demonstrated.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card proj-card" style="margin-top:20px;">
+        <div class="proj-sec" style="margin-bottom:0;">
+          <h2>Applications</h2>
+          <ul>
+            <li>Sleep analysis and monitoring.</li>
+            <li>Brain-computer interfaces (BCI).</li>
+            <li>Clinical neurofeedback systems.</li>
+          </ul>
+        </div>
+      </div>
+      <img class="proj-hero-img" src="../images/eeg.jpg" alt="EEG Real-Time Visualization Project" onclick="openLightbox(this.src, this.alt)">
 
       <div class="card proj-card" style="margin-top:20px;">
         <div class="proj-sec" style="margin-bottom:0;">
           <h2>Conclusion</h2>
           <p>
-            Splitting the design into two purpose-built boards &mdash; a compact power/processing board with an integrated custom BMS, and a minimal, remotely-mountable MPU-6050 module &mdash; delivered a smaller, more flexible sensor node than would be possible with off-the-shelf breakout boards. The project reinforced practical skills across Li-ion charging and protection circuit design, switching regulator layout, and careful component selection for miniaturized sensor PCBs.
+            This project demonstrates an effective approach for EEG preprocessing, band extraction, and real-time visualization using MATLAB. The developed framework serves as a foundation for advanced EEG-based monitoring and BCI systems.
           </p>
         </div>
       </div>
@@ -276,32 +254,32 @@
           <h2>Related Files</h2>
           <div class="file-grid">
             <!-- Project Report -->
-            <a class="file-chip" href="../files/project2-report.pdf" target="_blank" rel="noopener noreferrer">
+            <a class="file-chip" href="../files/project4-report.pdf" target="_blank" rel="noopener noreferrer">
               <span class="file-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg></span>
               <span class="file-txt">Project Report<em>PDF</em></span>
             </a>
             <!-- Schematic -->
-            <a class="file-chip" href="../files/project2-schematic.pdf" target="_blank" rel="noopener noreferrer">
+            <a class="file-chip" href="../files/project4-schematic.pdf" target="_blank" rel="noopener noreferrer">
               <span class="file-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h4l1-3 2 6 2-6 2 6 2-6 1 3h4"/></svg></span>
-              <span class="file-txt">Schematic<em>KiCAD</em></span>
+              <span class="file-txt">Schematic<em>PDF</em></span>
             </a>
             <!-- PCB Layout -->
-            <a class="file-chip" href="../files/project2-layout.pdf" target="_blank" rel="noopener noreferrer">
+            <a class="file-chip" href="../files/project4-layout.pdf" target="_blank" rel="noopener noreferrer">
               <span class="file-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.3" fill="currentColor" stroke="none"/><path d="M9.3 8H16v6.7"/></svg></span>
-              <span class="file-txt">PCB Layout<em>KiCAD</em></span>
+              <span class="file-txt">PCB Layout<em>PDF</em></span>
             </a>
             <!-- Circuit Design Files -->
-            <a class="file-chip" href="../files/-design-files.zip" target="_blank" rel="noopener noreferrer">
+            <a class="file-chip" href="../files/project4-design-files.zip" target="_blank" rel="noopener noreferrer">
               <span class="file-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span>
               <span class="file-txt">Circuit Design Files<em>ZIP</em></span>
             </a>
             <!-- Firmware / Code -->
-            <a class="file-chip" href="../files/project24-firmware.zip" target="_blank" rel="noopener noreferrer">
+            <a class="file-chip" href="../files/project4-firmware.zip" target="_blank" rel="noopener noreferrer">
               <span class="file-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18-5-6 5-6M15 6l5 6-5 6"/></svg></span>
               <span class="file-txt">Firmware / Code<em>ZIP</em></span>
             </a>
             <!-- Simulation Files -->
-            <a class="file-chip" href="../files/project24-simulation.zip" target="_blank" rel="noopener noreferrer">
+            <a class="file-chip" href="../files/project4-simulation.zip" target="_blank" rel="noopener noreferrer">
               <span class="file-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5M4 19h16"/><path d="M8 15l3-4 3 2 4-6"/></svg></span>
               <span class="file-txt">Simulation Files<em>ZIP</em></span>
             </a>
